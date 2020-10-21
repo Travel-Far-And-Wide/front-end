@@ -2,9 +2,9 @@
 ## Expected Tech Stack for Front End: 
 ### - React
 ### - Redux
-### - Component Library (Material UI?)
+### - Component Library (Material UI)
 ### - SASS
-
+### - React Router
 
 ## User Experience
 - A `user` can visit site and see `photos` laid out in a grid
