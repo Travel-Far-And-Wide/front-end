@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     backgroundColor: "#21b6ae",
     padding: "5px 10px",
+    '&:hover': {
+        backgroundColor:"#1D938C",
+      
+    }
   },
 }));
 export default function NavBar(props) {
@@ -27,61 +31,59 @@ export default function NavBar(props) {
         container
         direction="row"
         justify="space-between"
-        alignItems="center"
       >
         <Box>
-          <Button className={classes.navlink}>
+          <Button color="primary"  className={classes.navlink}>
             <PublicIcon />
             <Typography>Travel Far & Wide</Typography>
           </Button>
         </Box>
+        <Grid  style={{ width: 400, backgroundColor: "#21b6ae", borderRadius: 5}}container justify="space-between" >
         <Box>
-          {/* <Link style={{ textDecoration: "none" }} to={""}>
-          {" "} */}
-
-          <Button className={classes.navlink}>
+          <Link style={{ textDecoration: "none" }} to={"/"}>
             {" "}
-            <HomeIcon />
-            <Typography>Home</Typography>
-          </Button>
-
-          {/* </Link> */}
+            <Button color="primary" className={classes.navlink}>
+              {" "}
+              <HomeIcon />
+              <Typography>Home</Typography>
+            </Button>
+          </Link>
         </Box>
         <Box>
-          {/* <Link style={{ textDecoration: "none" }} to={""}>
-          {" "} */}
-          <Button className={classes.navlink}>
+          <Link style={{ textDecoration: "none" }} to={"/demo"}>
+          {" "}
+          <Button color="primary"  className={classes.navlink}>
             {" "}
             <PlayCircleOutlineIcon />
             <Typography>Demo</Typography>
           </Button>
 
-          {/* </Link> */}
+          </Link>
         </Box>
         <Box>
-          {/* <Link style={{ textDecoration: "none" }} to={""}>
-          {" "} */}
-          <Button className={classes.navlink}>
+          <Link style={{ textDecoration: "none" }} to={"/login"}>
+          {" "}
+          <Button color="primary" className={classes.navlink}>
             {" "}
             <VpnKeyIcon />
             <Typography>Login</Typography>
           </Button>
 
-          {/* </Link> */}
+          </Link>
         </Box>
         <Box>
-          {/* <Link style={{ textDecoration: "none" }} to={""}>
-          {" "} */}
-          <Button className={classes.navlink}>
+          <Link style={{ textDecoration: "none" }} to={"/signup"}>
+          {" "}
+          <Button color="primary"  className={classes.navlink}>
             {" "}
             <CreateIcon />
             <Typography>Sign Up</Typography>
           </Button>
 
-          {/* </Link> */}
+          </Link>
         </Box>
+        </Grid>
       </Grid>
-
     </React.Fragment>
   );
 }
