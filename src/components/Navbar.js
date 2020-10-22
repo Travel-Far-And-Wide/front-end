@@ -14,12 +14,12 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
   navlink: {
     borderRadius: 5,
-    backgroundColor: "#21b6ae",
     padding: "5px 10px",
-    '&:hover': {
-        backgroundColor:"#1D938C",
+    // backgroundColor: "#21b6ae",
+    // '&:hover': {
+    //     backgroundColor:"#1D938C",
       
-    }
+    // }
   },
 }));
 export default function NavBar(props) {
@@ -33,7 +33,7 @@ export default function NavBar(props) {
         justify="space-between"
       >
         <Box>
-          <Button color="primary"  className={classes.navlink}>
+          <Button  className={classes.navlink}>
             <PublicIcon />
             <Typography>Travel Far & Wide</Typography>
           </Button>
@@ -42,7 +42,7 @@ export default function NavBar(props) {
         <Box>
           <Link style={{ textDecoration: "none" }} to={"/"}>
             {" "}
-            <Button color="primary" className={classes.navlink}>
+            <Button className={classes.navlink}>
               {" "}
               <HomeIcon />
               <Typography>Home</Typography>
@@ -52,7 +52,7 @@ export default function NavBar(props) {
         <Box>
           <Link style={{ textDecoration: "none" }} to={"/demo"}>
           {" "}
-          <Button color="primary"  className={classes.navlink}>
+          <Button  className={classes.navlink}>
             {" "}
             <PlayCircleOutlineIcon />
             <Typography>Demo</Typography>
@@ -63,7 +63,7 @@ export default function NavBar(props) {
         <Box>
           <Link style={{ textDecoration: "none" }} to={"/login"}>
           {" "}
-          <Button color="primary" className={classes.navlink}>
+          <Button className={classes.navlink}>
             {" "}
             <VpnKeyIcon />
             <Typography>Login</Typography>
@@ -74,7 +74,7 @@ export default function NavBar(props) {
         <Box>
           <Link style={{ textDecoration: "none" }} to={"/signup"}>
           {" "}
-          <Button color="primary"  className={classes.navlink}>
+          <Button  className={classes.navlink}>
             {" "}
             <CreateIcon />
             <Typography>Sign Up</Typography>

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "5px 10px",
   },
 }));
-export default function NavBar(props) {
+export default function Demo (props) {
   const classes = useStyles();
 
   return (

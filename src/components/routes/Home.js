@@ -7,13 +7,13 @@ import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
+import { Link } from "react-router-dom";
 import Filler1 from "../../assets/filler1.jpg";
 import Filler2 from "../../assets/filler2.jpg";
 import banner from "../../assets/home.jpg";
 const useStyles = makeStyles((theme) => ({
-  button: {
+  demo: {
     borderRadius: 5,
-    backgroundColor: "#21b6ae",
     padding: "5px 10px",
     marginTop: 50,
   },
@@ -62,7 +62,7 @@ export default function NavBar(props) {
         </div>
       </Paper>
       <Grid container justify="center" style={{ marginTop: 50 }}>
-        <Typography variant="h5" >
+        <Typography variant="h5">
           Travel Far and Wide aims to give you the definitive tool to keep track
           of where you've been, and where you're going.
         </Typography>
@@ -72,9 +72,9 @@ export default function NavBar(props) {
         justify="center"
         style={{ marginTop: 25, marginBottom: 50 }}
       >
-        <Button className={classes.button} color="primary">
-          Watch a demo!
-        </Button>
+        <Link style={{ textDecoration: "None" }} to={"/demo"}>
+          <Button className={classes.demo}>Watch a demo!</Button>
+        </Link>
       </Grid>
       <Grid container justify="space-around" style={{ marginTop: 25 }}>
         <Card>
@@ -97,16 +97,14 @@ export default function NavBar(props) {
               Upload It
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-            Testing filler text
+              Testing filler text
             </Typography>
           </CardContent>
         </Card>
       </Grid>
       <Grid container style={{ marginTop: 50 }}>
-        <Typography variant="h4" >
-          Integrating data and travel
-        </Typography>
-        <Typography variant="h5" >
+        <Typography variant="h4">Integrating data and travel</Typography>
+        <Typography variant="h5">
           You can now keep track of the little things through our "Year in
           Summary" feature - giving you a new perspective on how you travel.
         </Typography>
