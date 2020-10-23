@@ -19,16 +19,17 @@ function Login(props) {
     setUser({ ...user, [e.target.name]: e.target.value });
     console.log(user);
   };
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    props.loginUser(user);
+    await props.loginUser(user);
+    props.history.push("/user/")
     // axiosAuth()
     //   .post("/auth/login", user)
     //   .then((res) => console.log([res.data.user, res])
     //   // res.status == 200 ? props.history.push("/user/") : ""
     //   )
     //   .catch((err) => err)
-  };
+  }
   return (
     <React.Fragment>
       <Grid className="fade" align="center" style={{ marginTop: 200 }}>

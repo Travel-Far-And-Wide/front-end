@@ -8,13 +8,14 @@ import SignUp from "./components/routes/SignUp";
 import Dashboard from "./components/private/Dashboard";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
+import { connect } from "react-redux";
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <header className="App-header">
         <Router>
-          <Nav />
+          {props.isLoggedIn ? "" : <Nav />}
           <Route exact path="/" component={Home} />
           <Route exact path="/demo" component={Demo} />
           <Route exact path="/login" component={Login} />
@@ -28,4 +29,10 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    data: state.data,
+    isLoggedIn: state.isLoggedIn,
+  };
+};
+export default connect(mapStateToProps, {})(App);
