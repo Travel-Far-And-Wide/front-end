@@ -7,15 +7,22 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import PasswordInput from "../PasswordInput";
+import {axiosAuth} from "../../utils/axiosAuth";
 
 const useStyles = makeStyles((theme) => ({}));
 export default function Login(props) {
   const classes = useStyles();
-  const [user, setUser] = useState({username: "", password: ""})
-  const handleChanges = e => {
-    setUser({...user, [e.target.name]: e.target.value})
-    console.log(user)
-  }
+  const [user, setUser] = useState({ username: "", password: "" });
+  const handleChanges = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+    console.log(user);
+  };
+  const handleSubmit = (e) => {
+    axiosAuth()
+      .post("/auth/login", user)
+      .then((res) => console.log(res))
+      .catch((err) => err);
+  };
   return (
     <React.Fragment>
       <Grid className="fade" align="center" style={{ marginTop: 200 }}>
@@ -39,7 +46,7 @@ export default function Login(props) {
               />
             </form>
           </CardContent>
-          <Button>
+          <Button onClick={handleSubmit}>
             {" "}
             <Typography>Sign In</Typography>
           </Button>
