@@ -27,7 +27,7 @@ export default function NavBar(props) {
 
   return (
     <React.Fragment>
-      <Grid
+      <Grid className="fade"
         container
         direction="row"
         justify="space-between"

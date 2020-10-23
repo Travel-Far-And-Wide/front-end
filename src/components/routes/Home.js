@@ -48,6 +48,7 @@ export default function NavBar(props) {
 
   return (
     <React.Fragment>
+      <div className="fade">
       <Paper
         className={classes.mainFeaturedPost}
         style={{
@@ -109,6 +110,7 @@ export default function NavBar(props) {
           Summary" feature - giving you a new perspective on how you travel.
         </Typography>
       </Grid>
+      </div>
     </React.Fragment>
   );
 }

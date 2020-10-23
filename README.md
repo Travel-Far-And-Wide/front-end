@@ -5,6 +5,7 @@
 ### - Component Library (Material UI)
 ### - SASS
 ### - React Router
+### - axios
 
 ## User Experience
 - A `user` can visit site and see `photos` laid out in a grid

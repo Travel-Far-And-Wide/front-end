@@ -31,7 +31,7 @@ export default class PasswordInput extends Component {
     const { passwordIsMasked } = this.state;
 
     return (
-      <TextField
+      <TextField className="fade"
         type={passwordIsMasked ? "password" : "text"}
         {...this.props}
         InputProps={{

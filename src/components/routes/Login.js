@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -11,22 +11,31 @@ import PasswordInput from "../PasswordInput";
 const useStyles = makeStyles((theme) => ({}));
 export default function Login(props) {
   const classes = useStyles();
-
+  const [user, setUser] = useState({username: "", password: ""})
+  const handleChanges = e => {
+    setUser({...user, [e.target.name]: e.target.value})
+    console.log(user)
+  }
   return (
     <React.Fragment>
-      <Grid align="center" style={{ marginTop: 200 }}>
+      <Grid className="fade" align="center" style={{ marginTop: 200 }}>
         <Card style={{ height: 300, width: 300 }}>
           <CardContent>
             <form>
               <TextField
                 style={{ margin: 20, width: 225 }}
                 color="secondary"
-                label="Username or Email"
+                name="username"
+                value={user.username}
+                label="Username"
+                onChange={handleChanges}
               />
               <PasswordInput
                 color="secondary"
                 label="Password"
                 name="password"
+                value={user.password}
+                onChange={handleChanges}
               />
             </form>
           </CardContent>
