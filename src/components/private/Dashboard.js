@@ -11,13 +11,14 @@ const useStyles = makeStyles((theme) => ({
     padding: "5px 10px",
   },
 }));
+const logout = () => {window.localStorage.removeItem("token")}
 export default function Dashboard (props) {
   const classes = useStyles();
-console.log(props, "These are your props")
   return (
     <React.Fragment>
       <Grid className = "fade" container justify="center" style={{marginTop: 100}}>
       <Typography>Welcome</Typography>
+      <Button onClick={logout}>Sign Out</Button>
       </Grid>
     </React.Fragment>
   );

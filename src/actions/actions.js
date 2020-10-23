@@ -25,9 +25,10 @@ export const LOGIN_FAIL = "LOGIN_FAIL";
 export const loginUser = (e) => (dispatch) => {
   dispatch({ type: LOGIN_USER });
   axiosAuth()
-    .post("http://localhost:4000/auth/login", e)
+    .post("/auth/login", e)
     .then((res) => {
       console.log(res.data);
+      window.localStorage.setItem("token", res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
     .catch((err) => dispatch({ type: LOGIN_FAIL, payload: err }));

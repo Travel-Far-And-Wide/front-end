@@ -21,7 +21,7 @@ function App(props) {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Switch>
-            <PrivateRoute exact path="/user/" component={Dashboard} />
+            <PrivateRoute exact path="/user" component={Dashboard} />
           </Switch>{" "}
         </Router>
       </header>

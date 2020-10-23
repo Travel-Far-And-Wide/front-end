@@ -9,6 +9,8 @@ import {
 const initialState = {
   data: [],
   isLoggedIn: false,
+  loggedInUser: {},
+  errors: {},
 };
 export const Reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -35,11 +37,13 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: true,
+        loggedInUser: action.payload,
       };
     case LOGIN_FAIL:
       return {
         ...state,
         isLoggedIn: false,
+        errors: action.payload,
       };
     default:
       return state;

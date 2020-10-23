@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -7,29 +7,33 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import PasswordInput from "../PasswordInput";
-import axiosAuth from "../../utils/axiosAuth";
 import { loginUser } from "../../actions/actions";
 import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({}));
 function Login(props) {
   const classes = useStyles();
+  const [loginSubmit, setLoginSubmit] = useState(false);
   const [user, setUser] = useState({ username: "", password: "" });
   const handleChanges = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
     console.log(user);
   };
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    await props.loginUser(user);
-    props.history.push("/user/")
-    // axiosAuth()
-    //   .post("/auth/login", user)
-    //   .then((res) => console.log([res.data.user, res])
-    //   // res.status == 200 ? props.history.push("/user/") : ""
-    //   )
-    //   .catch((err) => err)
+    setLoginSubmit(true);
   }
+  useEffect(() => {
+    if (loginSubmit == true) {
+      props.loginUser(user);
+    }
+  }, [loginSubmit]);
+  useEffect(() => {
+    setLoginSubmit(false);
+    if (props.loggedInUser.user != undefined) {
+      props.history.push("/user");
+    }
+  }, [props.loggedInUser.user]);
   return (
     <React.Fragment>
       <Grid className="fade" align="center" style={{ marginTop: 200 }}>
@@ -53,6 +57,7 @@ function Login(props) {
               />
             </form>
           </CardContent>
+
           <Button onClick={handleSubmit}>
             {" "}
             <Typography>Sign In</Typography>
@@ -69,6 +74,7 @@ const mapStateToProps = (state) => {
     data: state.data,
     isLoggedIn: state.isLoggedIn,
     errors: state.errors,
+    loggedInUser: state.loggedInUser,
   };
 };
 export default connect(mapStateToProps, { loginUser })(Login);
