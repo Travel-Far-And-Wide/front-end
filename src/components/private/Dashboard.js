@@ -13,11 +13,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Dashboard (props) {
   const classes = useStyles();
-
+console.log(props, "These are your props")
   return (
     <React.Fragment>
       <Grid className = "fade" container justify="center" style={{marginTop: 100}}>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/qrHIIYsnpMg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <Typography>Welcome</Typography>
       </Grid>
     </React.Fragment>
   );

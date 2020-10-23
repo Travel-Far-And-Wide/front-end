@@ -8,9 +8,11 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import PasswordInput from "../PasswordInput";
 import axiosAuth from "../../utils/axiosAuth";
+import { loginUser } from "../../actions/actions";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({}));
-export default function Login(props) {
+function Login(props) {
   const classes = useStyles();
   const [user, setUser] = useState({ username: "", password: "" });
   const handleChanges = (e) => {
@@ -18,10 +20,14 @@ export default function Login(props) {
     console.log(user);
   };
   const handleSubmit = (e) => {
-    axiosAuth()
-      .post("/auth/login", user)
-      .then((res) => res.status == 200 ? props.history.push("/demo") : "")
-      .catch((err) => err)
+    e.preventDefault();
+    props.loginUser(user);
+    // axiosAuth()
+    //   .post("/auth/login", user)
+    //   .then((res) => console.log([res.data.user, res])
+    //   // res.status == 200 ? props.history.push("/user/") : ""
+    //   )
+    //   .catch((err) => err)
   };
   return (
     <React.Fragment>
@@ -56,3 +62,12 @@ export default function Login(props) {
     </React.Fragment>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    data: state.data,
+    isLoggedIn: state.isLoggedIn,
+    errors: state.errors,
+  };
+};
+export default connect(mapStateToProps, { loginUser })(Login);

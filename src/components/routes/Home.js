@@ -48,6 +48,7 @@ export default function NavBar(props) {
 
   return (
     <React.Fragment>
+      
       <div className="fade">
       <Paper
         className={classes.mainFeaturedPost}
