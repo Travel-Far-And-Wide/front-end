@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const axiosAuth = () => {
+export default function axiosAuth () {
   const token = window.localStorage.getItem("token");
 
   return axios.create({

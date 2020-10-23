@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import PasswordInput from "../PasswordInput";
-import {axiosAuth} from "../../utils/axiosAuth";
+import axiosAuth from "../../utils/axiosAuth";
 
 const useStyles = makeStyles((theme) => ({}));
 export default function Login(props) {
@@ -20,8 +20,8 @@ export default function Login(props) {
   const handleSubmit = (e) => {
     axiosAuth()
       .post("/auth/login", user)
-      .then((res) => console.log(res))
-      .catch((err) => err);
+      .then((res) => res.status == 200 ? props.history.push("/demo") : "")
+      .catch((err) => err)
   };
   return (
     <React.Fragment>
