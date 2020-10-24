@@ -111,6 +111,7 @@ function Dashboard(props) {
           <Marker
             key={marker.time.toISOString()}
             position={{ lat: marker.lat, lng: marker.lng }}
+            icon={{ url: "/pin.svg", scaledSize: new window.google.maps.Size(40, 40), origin: new window.google.maps.Point(0,0), anchor: new window.google.maps.Point(35,35)}}
           />
         ))}
       </GoogleMap>
