@@ -5,6 +5,7 @@ import {
   LOGIN_USER,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT_USER
 } from "../actions/actions";
 const initialState = {
   data: [],
@@ -45,6 +46,13 @@ export const Reducer = (state = initialState, action) => {
         isLoggedIn: false,
         errors: action.payload,
       };
+      case LOGOUT_USER:
+        return{
+          ...state,
+          isLoggedIn: false,
+          loggedInUser: {},
+          
+        }
     default:
       return state;
   }

@@ -81,7 +81,6 @@ $secondary: #105db4;
   }
 }
 .App {
-  margin: 50px 100px;
 }
 body {
   background-color: #ffffffad;
@@ -92,3 +91,14 @@ body {
 .fade {
   @include fade;
 }
+
+//To position emoji logo onto map
+// h1{
+//   position: absolute;
+//   top: 1rem;
+//   left: 1rem;
+//   color: #281414;
+//   z-index: 10;
+//   margin: 0;
+//   padding: 0;
+// }

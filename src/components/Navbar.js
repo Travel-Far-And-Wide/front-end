@@ -13,12 +13,9 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   navlink: {
-    borderRadius: 5,
-    padding: "5px 10px",
     // backgroundColor: "#21b6ae",
     // '&:hover': {
     //     backgroundColor:"#1D938C",
-      
     // }
   },
 }));
@@ -27,63 +24,71 @@ export default function NavBar(props) {
 
   return (
     <React.Fragment>
-      <Grid className="fade"
+      <Box
+        style={{ backgroundColor: "#21b6ae" }}
+        height={60}
+        width="100%"
+        className="fade"
         container
         direction="row"
         justify="space-between"
       >
-        <Box>
-          <Button  className={classes.navlink}>
-            <PublicIcon />
-            <Typography>Travel Far & Wide</Typography>
-          </Button>
-        </Box>
-        <Grid  style={{ width: 400, backgroundColor: "#21b6ae", borderRadius: 5}}container justify="space-between" >
-        <Box>
-          <Link style={{ textDecoration: "none" }} to={"/"}>
-            {" "}
-            <Button className={classes.navlink}>
-              {" "}
-              <HomeIcon />
-              <Typography>Home</Typography>
+        {/* <Box width="50%">
+          <Link style={{ textDecoration: "none" }}  >
+            <Button>
+              <PublicIcon />
+              <Typography>Travel Far & Wide</Typography>
             </Button>
           </Link>
-        </Box>
-        <Box>
-          <Link style={{ textDecoration: "none" }} to={"/demo"}>
-          {" "}
-          <Button  className={classes.navlink}>
-            {" "}
-            <PlayCircleOutlineIcon />
-            <Typography>Demo</Typography>
-          </Button>
-
-          </Link>
-        </Box>
-        <Box>
-          <Link style={{ textDecoration: "none" }} to={"/login"}>
-          {" "}
-          <Button className={classes.navlink}>
-            {" "}
-            <VpnKeyIcon />
-            <Typography>Login</Typography>
-          </Button>
-
-          </Link>
-        </Box>
-        <Box>
-          <Link style={{ textDecoration: "none" }} to={"/signup"}>
-          {" "}
-          <Button  className={classes.navlink}>
-            {" "}
-            <CreateIcon />
-            <Typography>Sign Up</Typography>
-          </Button>
-
-          </Link>
-        </Box>
+        </Box> */}
+        <Grid
+          style={{ backgroundColor: "#21b6ae" }}
+          container
+          justify="flex-end"
+          height="100%"
+        >
+          <Box>
+            <Link style={{ textDecoration: "none" }} to={"/"}>
+              {" "}
+              <Button style={{ height: 60 }} className={classes.navlink}>
+                {" "}
+                <HomeIcon />
+                <Typography variant="h6">Home</Typography>
+              </Button>
+            </Link>
+          </Box>
+          <Box>
+            <Link style={{ textDecoration: "none" }} to={"/demo"}>
+              {" "}
+              <Button style={{ height: 60 }} className={classes.navlink}>
+                {" "}
+                <PlayCircleOutlineIcon />
+                <Typography variant="h6">Demo</Typography>
+              </Button>
+            </Link>
+          </Box>
+          <Box>
+            <Link style={{ textDecoration: "none" }} to={"/login"}>
+              {" "}
+              <Button style={{ height: 60 }} className={classes.navlink}>
+                {" "}
+                <VpnKeyIcon />
+                <Typography variant="h6">Login</Typography>
+              </Button>
+            </Link>
+          </Box>
+          <Box>
+            <Link style={{ textDecoration: "none" }} to={"/signup"}>
+              {" "}
+              <Button style={{ height: 60 }} className={classes.navlink}>
+                {" "}
+                <CreateIcon />
+                <Typography variant="h6">Sign Up</Typography>
+              </Button>
+            </Link>
+          </Box>
         </Grid>
-      </Grid>
+      </Box>
     </React.Fragment>
   );
 }

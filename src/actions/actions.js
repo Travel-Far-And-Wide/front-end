@@ -33,3 +33,16 @@ export const loginUser = (e) => (dispatch) => {
     })
     .catch((err) => dispatch({ type: LOGIN_FAIL, payload: err }));
 };
+
+export const LOGOUT_USER = "LOGOUT_USER";
+
+// export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+
+// export const LOGOUT_FAIL = "LOGOUT_FAIL";
+
+export const logoutUser = () => (dispatch) => {
+  dispatch({ type: LOGOUT_USER });
+  // dispatch({ type: LOGOUT_SUCCESS });
+  // dispatch({ type: LOGOUT_FAIL });
+
+};

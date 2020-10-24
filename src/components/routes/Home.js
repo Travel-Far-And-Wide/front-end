@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
   mainFeaturedPost: {
     position: "relative",
-    margin: "100px 0",
+    marginBottom: 100,
     height: 400,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -45,7 +45,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function NavBar(props) {
   const classes = useStyles();
-
   return (
     <React.Fragment>
       
@@ -104,13 +103,13 @@ export default function NavBar(props) {
           </CardContent>
         </Card>
       </Grid>
-      <Grid container style={{ marginTop: 50 }}>
+      <Grid container style={{ margin: "50px 0 0 20px" }}>
         <Typography variant="h4">Integrating data and travel</Typography>
-        <Typography variant="h5">
+      </Grid>
+      <Typography style={{ margin: "0 0 0 20px" }} variant="h5">
           You can now keep track of the little things through our "Year in
           Summary" feature - giving you a new perspective on how you travel.
         </Typography>
-      </Grid>
       </div>
     </React.Fragment>
   );
