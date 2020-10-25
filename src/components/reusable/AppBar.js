@@ -76,7 +76,7 @@ export default function NavBar(props) {
           <Box>
             <Link style={{ textDecoration: "none" }} to={`${props.url[3]}`}>
               {" "}
-              <Button style={{ height: 60 }} className={classes.navlink}>
+              <Button onClick={props.buttonFunction[0]} style={{ height: 60 }} className={classes.navlink}>
                 {" "}
                 <Icon>{props.icon[3]}</Icon>
                 <Typography variant="h6">{props.button[3]}</Typography>

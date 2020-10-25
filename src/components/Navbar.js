@@ -24,10 +24,11 @@ export default function NavBar(props) {
   const icon = ["home", "play_circle_filled", "vpn_key", "create"]
   const button = ["Home", "Demo", "Login", "Sign Up"]
   const url = ["/", "/demo", "/login", "/signup"]
+  const buttonFunction = [""]
   const classes = useStyles();
   return (
     <React.Fragment>
-      <AppBar icon={icon} button={button} url={url}></AppBar>
+      <AppBar icon={icon} button={button} url={url} buttonFunction={buttonFunction}></AppBar>
     </React.Fragment>
   );
 }

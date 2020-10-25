@@ -6,10 +6,7 @@ import {
   InfoWindow,
 } from "@react-google-maps/api";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Box from "@material-ui/core/Box";
-import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import AppBar from "../reusable/AppBar";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/actions";
@@ -40,55 +37,33 @@ const options = {
 };
 
 function Dashboard(props) {
+  const logout = () => {
+    props.logoutUser();
+    window.localStorage.removeItem("token");
+  };
+  const icon = ["push_pin", "account_circle", "addchart", "exit_to_app"];
+  const button = ["My Pins", "My Map", "Summary", "Sign Out"];
+  const url = ["/user/pins", "/user", "/user/summary", "/"];
+  const buttonFunction = [logout];
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
   const [markers, setMarkers] = useState([]);
   const classes = useStyles();
-  const logout = () => {
-    props.logoutUser();
-    props.history.push("/");
-    window.localStorage.removeItem("token");
-  };
+
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading Maps";
   return (
     <React.Fragment>
       {/* <h1><span role="img" aria-label="globe">🌎</span></h1> */}
-      <Box
-        style={{ backgroundColor: "#21b6ae" }}
-        height={60}
-        width="100%"
-        className="fade"
-        container
-        direction="row"
-        justify="space-between"
-      >
-        <Grid
-          style={{ backgroundColor: "#21b6ae" }}
-          container
-          justify="flex-end"
-          height="100%"
-        >
-          <Box>
-            {" "}
-            <Button
-              onClick={logout}
-              style={{ height: 60 }}
-              className={classes.navlink}
-            >
-              {" "}
-              <ExitToAppIcon />
-              <Typography variant="h6">Sign Out</Typography>
-            </Button>
-          </Box>
-        </Grid>
-      </Box>
-      {/* <Typography variant="h2">
-        Welcome back */}
-      {/* {props.loggedInUser.user.username} */}
-      {/* </Typography> */}
+
+      <AppBar
+        icon={icon}
+        button={button}
+        url={url}
+        buttonFunction={buttonFunction}
+      />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={center}
@@ -111,7 +86,12 @@ function Dashboard(props) {
           <Marker
             key={marker.time.toISOString()}
             position={{ lat: marker.lat, lng: marker.lng }}
-            icon={{ url: "/pin.svg", scaledSize: new window.google.maps.Size(40, 40), origin: new window.google.maps.Point(0,0), anchor: new window.google.maps.Point(35,35)}}
+            icon={{
+              url: "/pin.svg",
+              scaledSize: new window.google.maps.Size(40, 40),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(35, 35),
+            }}
           />
         ))}
       </GoogleMap>
