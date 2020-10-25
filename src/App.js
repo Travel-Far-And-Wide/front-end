@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 function App(props) {
   return (
     <div className="App">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       <header className="App-header">
         <Router>
           {props.isLoggedIn ? "" : <Nav />}

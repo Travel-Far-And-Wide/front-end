@@ -6,6 +6,8 @@
 ### - SASS
 ### - React Router
 ### - axios
+### - Cloudinary
+### - Google Maps JavaScript API + Places
 
 ## User Experience
 - A `user` can visit site and see `photos` laid out in a grid
