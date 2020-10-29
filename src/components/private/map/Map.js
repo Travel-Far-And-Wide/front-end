@@ -85,11 +85,10 @@ function Map(props) {
             }}
             onClick={() => {
               setSelected(marker);
-              console.log("You clicked your marker", selected);
             }}
           />
         ))}
-        {selected ? <Info selected={selected} setSelected={setSelected} /> : ""}
+        {selected ? <Info selected={selected} setSelected={setSelected} setMarkers={setMarkers} markers={markers}/> : ""}
       </GoogleMap>
     </React.Fragment>
   );
