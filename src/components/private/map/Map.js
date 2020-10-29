@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import mapStyles from "./mapStyles";
 import { formatRelative } from "date-fns";
 import Search from "./Search";
+import Locate from "./Locate"
 
 const useStyles = makeStyles((theme) => ({}));
 const libraries = ["places"];
@@ -62,6 +63,7 @@ function Map(props) {
     <React.Fragment>
       {/* <h1><span role="img" aria-label="globe">🌎</span></h1> */}
       <Search panTo={panTo} />
+      <Locate panTo={panTo}/>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={center}

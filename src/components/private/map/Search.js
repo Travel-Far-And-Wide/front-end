@@ -45,13 +45,15 @@ export default function Search(props) {
             setValue(e.target.value);
           }}
           disabled={!ready}
-          placeHolder="Enter an address"
+          placeholder="Enter an address"
         />
         <ComboboxPopover>
-          {status === "OK" &&
-            data.map(({ id, description }) => (
-              <ComboboxOption key={id} value={description} />
-            ))}
+          <ComboboxList>
+            {status === "OK" &&
+              data.map(({ id, description }) => (
+                <ComboboxOption key={id} value={description} />
+              ))}
+          </ComboboxList>
         </ComboboxPopover>
       </Combobox>
     </div>
