@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -8,9 +8,9 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import mapStyles from "./mapStyles";
-import { formatRelative } from "date-fns";
 import Search from "./Search";
-import Locate from "./Locate"
+import Locate from "./Locate";
+import Info from "./Info";
 
 const useStyles = makeStyles((theme) => ({}));
 const libraries = ["places"];
@@ -52,7 +52,7 @@ function Map(props) {
   const mapRef = React.useRef();
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(14);
+    mapRef.current.setZoom(20);
   }, []);
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
@@ -63,7 +63,7 @@ function Map(props) {
     <React.Fragment>
       {/* <h1><span role="img" aria-label="globe">🌎</span></h1> */}
       <Search panTo={panTo} />
-      <Locate panTo={panTo}/>
+      <Locate panTo={panTo} />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={center}
@@ -89,21 +89,7 @@ function Map(props) {
             }}
           />
         ))}
-        {selected ? (
-          <InfoWindow
-            position={{ lat: selected.lat, lng: selected.lng }}
-            onCloseClick={() => {
-              setSelected(null);
-            }}
-          >
-            <div>
-              <h2>Your destination</h2>
-              <p>Time pinned: {formatRelative(selected.time, new Date())}</p>
-            </div>
-          </InfoWindow>
-        ) : (
-          ""
-        )}
+        {selected ? <Info selected={selected} setSelected={setSelected} /> : ""}
       </GoogleMap>
     </React.Fragment>
   );
