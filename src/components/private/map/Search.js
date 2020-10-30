@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from "react";
+import Locate from "./Locate";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -27,7 +28,10 @@ export default function Search(props) {
   });
   return (
     <div className="search">
-        <Combobox className="cb"
+      <Box style={{width: 300, backgroundColor:"", borderRadius: 5}}>
+        <Locate panTo={props.panTo}/>
+        <Combobox
+          className="cb"
           onSelect={async (address) => {
             setValue(address, false);
             clearSuggestions();
@@ -40,7 +44,8 @@ export default function Search(props) {
             }
           }}
         >
-          <ComboboxInput className="cbinput"
+          <ComboboxInput
+            className="cbinput"
             value={value}
             onChange={(e) => {
               setValue(e.target.value);
@@ -57,6 +62,7 @@ export default function Search(props) {
             </ComboboxList>
           </ComboboxPopover>
         </Combobox>
+      </Box>
     </div>
   );
 }
