@@ -19,18 +19,38 @@ function Dashboard(props) {
     props.logoutUser();
     window.localStorage.removeItem("token");
   };
-  const icon = ["push_pin", "account_circle", "addchart", "exit_to_app"];
-  const button = ["My Pins", "My Map", "Summary", "Sign Out"];
-  const url = ["/user/pins", "/user", "/user/summary", "/"];
+  const dashboardData = [
+    {
+      icon: "push_pin",
+      button: "My Pins",
+      url: "/user/pins",
+      buttonFunction: "",
+    },
+    {
+      icon: "account_circle",
+      button: "My Map",
+      url: "/user",
+      buttonFunction: "",
+    },
+    {
+      icon: "addchart",
+      button: "Summary",
+      url: "/user/summary",
+      buttonFunction: "",
+    },
+    {
+      icon:"exit_to_app",
+      button: "Sign Out",
+      url: "/",
+      buttonFunction: logout,
+    }
+  ];
   const buttonFunction = [logout];
   const classes = useStyles();
   return (
     <React.Fragment>
       <AppBar
-        icon={icon}
-        button={button}
-        url={url}
-        buttonFunction={buttonFunction}
+dashboardData={dashboardData}
       />
       <Map />
     </React.Fragment>

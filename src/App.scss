@@ -102,7 +102,8 @@ body {
 
   input{
     width: 100%;
-    font-size: 1.5rem
+    font-size: 1.5rem;
+    border-radius: 25
   }
 }
 .locate{
@@ -119,6 +120,9 @@ body {
     width:50px;
     height:50px;
   }
+}
+.cb{
+  background-color: #e64141;
 }
 
 //To position emoji logo onto map

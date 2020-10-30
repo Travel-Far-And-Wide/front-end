@@ -1,9 +1,10 @@
 import React from "react";
-
+import Button from "@material-ui/core/Button"
+import ExploreIcon from '@material-ui/icons/Explore';
 export default function Locate(props) {
   return (
-    <button
-      className="locate"
+    <Button
+      // className="locate"
       onClick={() => {
         navigator.geolocation.getCurrentPosition(
           (position) => {
@@ -14,7 +15,8 @@ export default function Locate(props) {
         );
       }}
     >
-      <img src="compass.svg" alt="compass - locate myself" />
-    </button>
+      <ExploreIcon/>
+      {/* <img src="compass.svg" alt="compass - locate myself" /> */}
+    </Button>
   );
 }

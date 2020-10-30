@@ -15,9 +15,8 @@ const useStyles = makeStyles((theme) => ({
     // }
   },
 }));
-export default function NavBar(props) {
+export default function AppBar(props) {
   const classes = useStyles();
-
   return (
     <React.Fragment>
       <Box
@@ -43,46 +42,24 @@ export default function NavBar(props) {
           justify="flex-end"
           height="100%"
         >
-          <Box>
-            <Link style={{ textDecoration: "none" }} to={`${props.url[0]}`}>
-              {" "}
-              <Button style={{ height: 60 }} className={classes.navlink}>
-                {" "}
-                <Icon>{props.icon[0]}</Icon>
-                <Typography variant="h6">{props.button[0]}</Typography>
-              </Button>
-            </Link>
-          </Box>
-          <Box>
-            <Link style={{ textDecoration: "none" }} to={`${props.url[1]}`}>
-              {" "}
-              <Button style={{ height: 60 }} className={classes.navlink}>
-                {" "}
-                <Icon>{props.icon[1]}</Icon>
-                <Typography variant="h6">{props.button[1]}</Typography>
-              </Button>
-            </Link>
-          </Box>
-          <Box>
-            <Link style={{ textDecoration: "none" }} to={`${props.url[2]}`}>
-              {" "}
-              <Button style={{ height: 60 }} className={classes.navlink}>
-                {" "}
-                <Icon>{props.icon[2]}</Icon>
-                <Typography variant="h6">{props.button[2]}</Typography>
-              </Button>
-            </Link>
-          </Box>
-          <Box>
-            <Link style={{ textDecoration: "none" }} to={`${props.url[3]}`}>
-              {" "}
-              <Button onClick={props.buttonFunction[0]} style={{ height: 60 }} className={classes.navlink}>
-                {" "}
-                <Icon>{props.icon[3]}</Icon>
-                <Typography variant="h6">{props.button[3]}</Typography>
-              </Button>
-            </Link>
-          </Box>
+          {props.dashboardData
+            ? props.dashboardData.map((e) => (
+                <Box>
+                  <Link style={{ textDecoration: "none" }} to={`${e.url}`}>
+                    {" "}
+                    <Button
+                      onClick={e.buttonFunction}
+                      style={{ height: 60 }}
+                      className={classes.navlink}
+                    >
+                      {" "}
+                      <Icon>{e.icon}</Icon>
+                      <Typography variant="h6">{e.button}</Typography>
+                    </Button>
+                  </Link>
+                </Box>
+              ))
+            : ""}
         </Grid>
       </Box>
     </React.Fragment>

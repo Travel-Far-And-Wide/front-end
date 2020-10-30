@@ -21,14 +21,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function NavBar(props) {
-  const icon = ["home", "play_circle_filled", "vpn_key", "create"]
-  const button = ["Home", "Demo", "Login", "Sign Up"]
-  const url = ["/", "/demo", "/login", "/signup"]
-  const buttonFunction = [""]
+  const dashboardData = [
+    {
+      icon: "home",
+      button: "Home",
+      url: "/",
+      buttonFunction: "",
+    },
+    {
+      icon: "play_circle_filled",
+      button: "Demo",
+      url: "/demo",
+      buttonFunction: "",
+    },
+    {
+      icon: "vpn_key",
+      button: "Login",
+      url: "/login",
+      buttonFunction: "",
+    },
+    {
+      icon: "create",
+      button: "Sign Up",
+      url: "/signup",
+      buttonFunction: ""
+    },
+  ];
   const classes = useStyles();
   return (
     <React.Fragment>
-      <AppBar icon={icon} button={button} url={url} buttonFunction={buttonFunction}></AppBar>
+      <AppBar  dashboardData={dashboardData}></AppBar>
     </React.Fragment>
   );
 }

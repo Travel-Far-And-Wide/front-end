@@ -3,7 +3,6 @@ import {
   GoogleMap,
   useLoadScript,
   Marker,
-  InfoWindow,
 } from "@react-google-maps/api";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
@@ -63,7 +62,7 @@ function Map(props) {
     <React.Fragment>
       {/* <h1><span role="img" aria-label="globe">🌎</span></h1> */}
       <Search panTo={panTo} />
-      <Locate panTo={panTo} />
+      {/* <Locate panTo={panTo} /> */}
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         center={center}
