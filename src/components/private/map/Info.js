@@ -11,15 +11,19 @@ export default function Info(props) {
       }}
     >
       <div>
-        <h2>Your destination</h2>
+        {props.selected.placeId != undefined ? (
+          <h2>{props.selected.placeId}</h2>
+        ) : (
+          <h2>Your destination</h2>
+        )}
         <p>Time pinned: {formatRelative(props.selected.time, new Date())}</p>
-        <Button>Save</Button>
+        <Button onClick={() => console.log(props.selected)}>Save</Button>
         <Button
           onClick={() => {
             const remove = props.markers.indexOf(props.selected);
-            const clone = [...props.markers]
-            clone.splice(remove, 1)
-            props.setMarkers(clone)
+            const clone = [...props.markers];
+            clone.splice(remove, 1);
+            props.setMarkers(clone);
             props.setSelected(null);
           }}
         >

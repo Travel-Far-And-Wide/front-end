@@ -31,6 +31,7 @@ function Map(props) {
     libraries,
   });
   const [markers, setMarkers] = useState([]);
+  const [place, setPlace] = useState({})
   const [selected, setSelected] = useState(null);
   const classes = useStyles();
 
@@ -38,7 +39,7 @@ function Map(props) {
     console.log(e);
     setMarkers((current) => [
       ...current,
-      {
+      { placeId: e.placeId,
         lat: e.latLng.lat(),
         lng: e.latLng.lng(),
         time: new Date(),
