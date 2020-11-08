@@ -44,5 +44,8 @@ export const logoutUser = () => (dispatch) => {
   dispatch({ type: LOGOUT_USER });
   // dispatch({ type: LOGOUT_SUCCESS });
   // dispatch({ type: LOGOUT_FAIL });
-
 };
+
+export const SAVE_PLACE = "SAVE_PLACE";
+export const SAVE_PLACE_SUCCESS= "SAVE_PLACE_SUCCESS";
+export const SAVE_PLACE_FAIL = "SAVE_PLACE_FAIL";
