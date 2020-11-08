@@ -30,7 +30,7 @@ export default function Search(props) {
   return (
     <div className="search">
       <Grid className="searchContainer" container align="center">
-        {/* <Locate panTo={props.panTo} /> */}
+        <Locate panTo={props.panTo} />
         <div>
           <Combobox
             className="cb"

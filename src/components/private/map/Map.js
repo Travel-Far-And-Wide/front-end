@@ -13,7 +13,6 @@ import Info from "./Info";
 const useStyles = makeStyles((theme) => ({}));
 const libraries = ["places"];
 const mapContainerStyle = {
-  width: "100vw",
   height: "100vh",
 };
 const center = {
