@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
 import { InfoWindow } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 export default function Info(props) {
+  const [infoName, setInfoName] = useState("");
   useEffect(() => {
     axios
       .post(
-        `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`, 
+        `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
       )
-      .then((res) => console.log(res.data.result.name))
+      .then((res) => {
+        console.log(res.data.result.name);
+        setInfoName(res.data.result.name);
+      })
       .catch((err) => console.log(err));
   }, [props.selected]);
   return (
@@ -20,8 +24,8 @@ export default function Info(props) {
       }}
     >
       <div>
-        {props.selected.placeId != undefined ? (
-          <h2>{props.selected.placeId}</h2>
+        {props.selected.placeId ? (
+          <h2>{infoName}</h2>
         ) : (
           <h2>Your destination</h2>
         )}
