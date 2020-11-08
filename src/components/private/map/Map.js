@@ -31,7 +31,6 @@ function Map(props) {
     libraries,
   });
   const [markers, setMarkers] = useState([]);
-  const [place, setPlace] = useState({})
   const [selected, setSelected] = useState(null);
   const classes = useStyles();
 
