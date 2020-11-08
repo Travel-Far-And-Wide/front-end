@@ -6,15 +6,17 @@ import { formatRelative } from "date-fns";
 export default function Info(props) {
   const [infoName, setInfoName] = useState("");
   useEffect(() => {
-    axios
-      .post(
-        `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
-      )
-      .then((res) => {
-        console.log(res.data.result.name);
-        setInfoName(res.data.result.name);
-      })
-      .catch((err) => console.log(err));
+    if (props.selected.placeId != undefined) {
+      axios
+        .post(
+          `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
+        )
+        .then((res) => {
+          console.log(res.data.result.name);
+          setInfoName(res.data.result.name);
+        })
+        .catch((err) => console.log(err));
+    }
   }, [props.selected]);
   return (
     <InfoWindow
