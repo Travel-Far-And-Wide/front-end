@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import PasswordInput from "../PasswordInput";
 import { registerNewUser } from "../../actions/actions";
 import { connect } from "react-redux";
+import Map from "../../assets/signup_stock.jpg";
 
 const useStyles = makeStyles((theme) => ({
   inputField: { margin: 20, width: 225 },
@@ -45,8 +46,12 @@ function SignUp(props) {
   };
   return (
     <React.Fragment>
-      <Grid className="fade" align="center" style={{ marginTop: 200 }}>
-        <Card style={{ height: 400, width: 300 }}>
+      <Grid className="fade" container justify="center" style={{ marginTop: 200 }}>
+        <div>
+          <img style={{ height: 600, width: 350, borderRadius: 5, marginRight: 30}} src={Map} />
+        </div>
+<div>
+        <Card align="center" style={{ height: 400, width: 300, marginTop: 100}}>
           <CardContent>
             <form>
               <TextField
@@ -98,7 +103,7 @@ function SignUp(props) {
             <Typography>Sign Up</Typography>
           </Button>
         </Card>
-        <Typography></Typography>
+        </div>
       </Grid>
     </React.Fragment>
   );

@@ -7,7 +7,7 @@ import Map from "./map/Map";
 
 const useStyles = makeStyles((theme) => ({
   navlink: {
-    borderRadius: 5,
+    borderRadius: 5, 
     backgroundColor: "#21b6ae",
     padding: "5px 10px",
   },

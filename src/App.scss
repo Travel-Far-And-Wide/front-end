@@ -91,21 +91,7 @@ body {
 .fade {
   @include fade;
 }
-// .search {
-//   position: absolute;
-//   top: 7.5rem;
-//   left: 50%;
-//   transform: translateX(-50%);
-//   width: 100%;
-//   max-width: 400px;
-//   z-index: 10;
 
-//   input{
-//     width: 100%;
-//     font-size: 1.5rem;
-//     border-radius: 25
-//   }
-// }
 .locate{
   position: absolute;
   top: 7rem;
@@ -121,9 +107,30 @@ body {
     height:50px;
   }
 }
+.search {
+  position: absolute;
+  top: 7.5rem;
+  left: 30%;
+  transform: translateX(-50%);
+  z-index: 10;
+
+}
+.searchContainer{
+  background-color: white;
+  border-radius: 5px;
+  margin-Top: 20px;
+  height: 45px;
+  width: 500px;
+}
 .cb{
- width: 500px;
- border-radius: 20
+ border-radius: 20;
+}
+.cbinput{
+  width: 400px;
+  height: 45px;
+  font-size: medium;
+  border: 0;
+  border-radius: 5px
 }
 
 //To position emoji logo onto map
