@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import { InfoWindow } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 export default function Info(props) {
-  const [info, setInfo] = useState({name: "", address:""});
+  const [info, setInfo] = useState({ name: "", address: "" });
   useEffect(() => {
     if (props.selected.placeId != undefined) {
       axios
@@ -13,9 +13,14 @@ export default function Info(props) {
         )
         .then((res) => {
           console.log(res.data.result);
-          setInfo({ name: res.data.result.name, address:res.data.result.formatted_address});
+          setInfo({
+            name: res.data.result.name,
+            address: res.data.result.formatted_address,
+          });
         })
         .catch((err) => console.log(err));
+    } else {
+      console.log(props.selected);
     }
   }, [props.selected]);
   return (
@@ -28,11 +33,16 @@ export default function Info(props) {
       <div>
         {props.selected.placeId ? (
           <div>
-          <h2>{info.name}</h2>
-          <h3>{info.address}</h3>
+            <h2>{info.name}</h2>
+            <h3>{info.address}</h3>
           </div>
         ) : (
-          <h2>Your destination</h2>
+          <div>
+            {" "}
+            <h2>Your destination</h2>
+            <h4>Lat:{props.selected.lat}</h4>
+            <h4>Lng:{props.selected.lng}</h4>
+          </div>
         )}
         <p>Time pinned: {formatRelative(props.selected.time, new Date())}</p>
         <Button onClick={() => console.log(props.selected)}>Save</Button>
