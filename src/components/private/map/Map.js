@@ -49,7 +49,7 @@ function Map(props) {
   const mapRef = React.useRef();
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(15);
+    mapRef.current.setZoom(12);
   }, []);
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
@@ -81,6 +81,7 @@ function Map(props) {
             }}
             onClick={() => {
               setSelected(marker);
+              panTo({lat: marker.lat, lng:marker.lng})
             }}
           />
         ))}

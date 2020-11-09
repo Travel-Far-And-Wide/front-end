@@ -48,7 +48,7 @@ export default function Info(props) {
         )}
         <p>Time pinned: {formatRelative(props.selected.time, new Date())}</p>
         {toggleSave ? (
-          <Button onClick={() => {setToggleSave(false)}}>Cancel</Button>
+          <Button>Save to pins</Button>
         ) : (
           <Button
             onClick={() => {
@@ -60,17 +60,27 @@ export default function Info(props) {
           </Button>
         )}
 
-        <Button
-          onClick={() => {
-            const remove = props.markers.indexOf(props.selected);
-            const clone = [...props.markers];
-            clone.splice(remove, 1);
-            props.setMarkers(clone);
-            props.setSelected(null);
-          }}
-        >
-          Unpin
-        </Button>
+        {toggleSave ? (
+          <Button
+            onClick={() => {
+              setToggleSave(false);
+            }}
+          >
+            Cancel
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              const remove = props.markers.indexOf(props.selected);
+              const clone = [...props.markers];
+              clone.splice(remove, 1);
+              props.setMarkers(clone);
+              props.setSelected(null);
+            }}
+          >
+            Unpin
+          </Button>
+        )}
         {toggleSave ? <SaveFields /> : ""}
       </div>
     </InfoWindow>
