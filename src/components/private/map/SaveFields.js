@@ -26,10 +26,10 @@ const handleChanges = (e) => {
   return (
     <div>
       <Grid container>
-        <TextField fullWidth size="small" name="date" value={saveFields.date} variant="filled" label="Date" onChange={handleChanges} />
-        <TextField fullWidth size="small" name="title" value={saveFields.title}  variant="filled" label="Title"  onChange={handleChanges}/>
-        <TextField fullWidth size="small" name="description" value={saveFields.description}  variant="filled" label="Description"  onChange={handleChanges}/>
-        <TextField fullWidth size="small"  name="imageURL" value={saveFields.imageURL} variant="filled" label="Image URL"  onChange={handleChanges}/>
+        <TextField color="secondary" fullWidth size="small" name="date" value={saveFields.date} type="date" label="Date"  variant="filled" InputLabelProps={{shrink: true}} onChange={handleChanges} />
+        <TextField color="secondary" fullWidth size="small" name="title" value={saveFields.title}  variant="filled" label="Title"  onChange={handleChanges}/>
+        <TextField color="secondary" fullWidth size="small" name="description" value={saveFields.description}  variant="filled" label="Description"  onChange={handleChanges}/>
+        <TextField color="secondary" fullWidth size="small"  name="imageURL" value={saveFields.imageURL} variant="filled" label="Image URL"  onChange={handleChanges}/>
       </Grid>
     </div>
   );
