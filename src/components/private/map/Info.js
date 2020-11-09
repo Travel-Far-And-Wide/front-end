@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import { InfoWindow } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
 export default function Info(props) {
-  const [infoName, setInfoName] = useState("");
+  const [info, setInfo] = useState({name: "", address:""});
   useEffect(() => {
     if (props.selected.placeId != undefined) {
       axios
@@ -12,8 +12,8 @@ export default function Info(props) {
           `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
         )
         .then((res) => {
-          console.log(res.data.result.name);
-          setInfoName(res.data.result.name);
+          console.log(res.data.result);
+          setInfo({ name: res.data.result.name, address:res.data.result.formatted_address});
         })
         .catch((err) => console.log(err));
     }
@@ -27,7 +27,10 @@ export default function Info(props) {
     >
       <div>
         {props.selected.placeId ? (
-          <h2>{infoName}</h2>
+          <div>
+          <h2>{info.name}</h2>
+          <h3>{info.address}</h3>
+          </div>
         ) : (
           <h2>Your destination</h2>
         )}
