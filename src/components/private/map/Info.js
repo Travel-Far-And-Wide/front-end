@@ -3,8 +3,10 @@ import axios from "axios";
 import Button from "@material-ui/core/Button";
 import { InfoWindow } from "@react-google-maps/api";
 import { formatRelative } from "date-fns";
+import SaveFields from "./SaveFields";
 export default function Info(props) {
   const [info, setInfo] = useState({ name: "", address: "" });
+  const [toggleSave, setToggleSave] = useState(false);
   useEffect(() => {
     if (props.selected.placeId != undefined) {
       axios
@@ -30,7 +32,7 @@ export default function Info(props) {
         props.setSelected(null);
       }}
     >
-      <div>
+      <div style={{ width: 250 }}>
         {props.selected.placeId ? (
           <div>
             <h2>{info.name}</h2>
@@ -45,7 +47,19 @@ export default function Info(props) {
           </div>
         )}
         <p>Time pinned: {formatRelative(props.selected.time, new Date())}</p>
-        <Button onClick={() => console.log(props.selected)}>Save</Button>
+        {toggleSave ? (
+          <Button onClick={() => {setToggleSave(false)}}>Cancel</Button>
+        ) : (
+          <Button
+            onClick={() => {
+              console.log(props.selected);
+              setToggleSave(true);
+            }}
+          >
+            Save
+          </Button>
+        )}
+
         <Button
           onClick={() => {
             const remove = props.markers.indexOf(props.selected);
@@ -57,6 +71,7 @@ export default function Info(props) {
         >
           Unpin
         </Button>
+        {toggleSave ? <SaveFields /> : ""}
       </div>
     </InfoWindow>
   );
