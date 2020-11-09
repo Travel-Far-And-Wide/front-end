@@ -31,6 +31,7 @@ function Map(props) {
     libraries,
   });
   const [markers, setMarkers] = useState([]);
+  const [toggleSave, setToggleSave] = useState(false);
   const [selected, setSelected] = useState(null);
   const classes = useStyles();
 
@@ -80,12 +81,13 @@ function Map(props) {
               anchor: new window.google.maps.Point(35, 35),
             }}
             onClick={() => {
+              setToggleSave(false)
               setSelected(marker);
               panTo({lat: marker.lat, lng:marker.lng})
             }}
           />
         ))}
-        {selected ? <Info selected={selected} setSelected={setSelected} setMarkers={setMarkers} markers={markers}/> : ""}
+        {selected ? <Info selected={selected} toggleSave={toggleSave} setToggleSave={setToggleSave} setSelected={setSelected} setMarkers={setMarkers} markers={markers}/> : ""}
       </GoogleMap>
     </React.Fragment>
   );

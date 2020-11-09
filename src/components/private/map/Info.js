@@ -6,7 +6,7 @@ import { formatRelative } from "date-fns";
 import SaveFields from "./SaveFields";
 export default function Info(props) {
   const [info, setInfo] = useState({ name: "", address: "" });
-  const [toggleSave, setToggleSave] = useState(false);
+  // const [toggleSave, setToggleSave] = useState(false);
   useEffect(() => {
     if (props.selected.placeId != undefined) {
       axios
@@ -18,6 +18,8 @@ export default function Info(props) {
           setInfo({
             name: res.data.result.name,
             address: res.data.result.formatted_address,
+            lat: res.data.result.geometry.location.lat,
+            lng: res.data.result.geometry.location.lng
           });
         })
         .catch((err) => console.log(err));
@@ -47,23 +49,23 @@ export default function Info(props) {
           </div>
         )}
         <p>Time pinned: {formatRelative(props.selected.time, new Date())}</p>
-        {toggleSave ? (
+        {props.toggleSave ? (
           <Button>Save to pins</Button>
         ) : (
           <Button
             onClick={() => {
               console.log(props.selected);
-              setToggleSave(true);
+              props.setToggleSave(true);
             }}
           >
             Save
           </Button>
         )}
 
-        {toggleSave ? (
+        {props.toggleSave ? (
           <Button
             onClick={() => {
-              setToggleSave(false);
+              props.setToggleSave(false);
             }}
           >
             Cancel
@@ -81,7 +83,7 @@ export default function Info(props) {
             Unpin
           </Button>
         )}
-        {toggleSave ? <SaveFields /> : ""}
+        {props.toggleSave ? <SaveFields placeId={props.selected.placeId} lat={props.selected.lat} lng={props.selected.lng} info={info} /> : ""}
       </div>
     </InfoWindow>
   );

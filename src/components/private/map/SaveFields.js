@@ -10,6 +10,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SaveFields(props) {
 const classes = useStyles()
 const [saveFields, setSaveFields] = useState({
+    name: props.placeId ? props.info.name : "",
+    address: props.placeId? props.info.address : "",
+    lat: props.placeId ? props.info.lat : props.lat,
+    lng: props.placeId? props.info.lng : props.lng,
   date: "",
   title: "",
   description: "",
