@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import { InfoWindow } from "@react-google-maps/api";
-import { formatRelative } from "date-fns";
 import SaveFields from "./SaveFields";
 export default function Info(props) {
   const [info, setInfo] = useState({ name: "", address: "" });
@@ -19,7 +19,7 @@ export default function Info(props) {
             name: res.data.result.name,
             address: res.data.result.formatted_address,
             lat: res.data.result.geometry.location.lat,
-            lng: res.data.result.geometry.location.lng
+            lng: res.data.result.geometry.location.lng,
           });
         })
         .catch((err) => console.log(err));
@@ -48,43 +48,64 @@ export default function Info(props) {
             <h4>Lng:{props.selected.lng}</h4>
           </div>
         )}
-        <p>Time pinned: {formatRelative(props.selected.time, new Date())}</p>
-        {props.toggleSave ? (
-          <Button>Save to pins</Button>
-        ) : (
-          <Button
-            onClick={() => {
-              console.log(props.selected);
-              props.setToggleSave(true);
-            }}
-          >
-            Save
-          </Button>
-        )}
+        <Grid container >
+          <Grid item xs={6}>
+            {" "}
+            {props.toggleSave ? (
+              <Button>Save to pins</Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  console.log(props.selected);
+                  props.setToggleSave(true);
+                }}
+              >
+                Save
+              </Button>
+            )}
+          </Grid>
 
-        {props.toggleSave ? (
-          <Button
-            onClick={() => {
-              props.setToggleSave(false);
-            }}
-          >
-            Cancel
-          </Button>
-        ) : (
-          <Button
-            onClick={() => {
-              const remove = props.markers.indexOf(props.selected);
-              const clone = [...props.markers];
-              clone.splice(remove, 1);
-              props.setMarkers(clone);
-              props.setSelected(null);
-            }}
-          >
-            Unpin
-          </Button>
-        )}
-        {props.toggleSave ? <SaveFields placeId={props.selected.placeId} lat={props.selected.lat} lng={props.selected.lng} info={info} /> : ""}
+          <Grid item xs={6}>
+            {props.toggleSave ? (
+              <Button
+                onClick={() => {
+                  props.setToggleSave(false);
+                }}
+              >
+                Cancel
+              </Button>
+            ) : (
+              <Button
+                onClick={() => {
+                  const remove = props.markers.indexOf(props.selected);
+                  const clone = [...props.markers];
+                  clone.splice(remove, 1);
+                  props.setMarkers(clone);
+                  props.setSelected(null);
+                }}
+              >
+                Unpin
+              </Button>
+            )}
+          </Grid>
+
+      
+
+        </Grid>
+        {" "}
+            {props.toggleSave ? (
+              <SaveFields
+                placeId={props.selected.placeId}
+                lat={props.selected.lat}
+                lng={props.selected.lng}
+                info={info}
+              />
+            ) : (
+              ""
+            )}{" "}
+    
       </div>
+      
     </InfoWindow>
   );
 }

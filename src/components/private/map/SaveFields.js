@@ -25,7 +25,7 @@ const handleChanges = (e) => {
 }
   return (
     <div>
-      <Grid container>
+      <Grid container style={{marginTop: 20, marginBottom:20}}>
         <TextField color="secondary" fullWidth size="small" name="date" value={saveFields.date} type="date" label="Date"  variant="filled" InputLabelProps={{shrink: true}} onChange={handleChanges} />
         <TextField color="secondary" fullWidth size="small" name="title" value={saveFields.title}  variant="filled" label="Title"  onChange={handleChanges}/>
         <TextField color="secondary" fullWidth size="small" name="description" value={saveFields.description}  variant="filled" label="Description"  onChange={handleChanges}/>
