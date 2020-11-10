@@ -45,39 +45,52 @@ export const logoutUser = () => (dispatch) => {
   // dispatch({ type: LOGOUT_SUCCESS });
   // dispatch({ type: LOGOUT_FAIL });
 };
+export const INFO_SET = "INFO_SET";
+// export const INFO_SET_SUCCESS = "INFO_SET_SUCCESS";
+// export const INFO_SET_FAIL = "INFO_SET_FAIL";
+
+export const infoSet = (e) => (dispatch) => {
+  dispatch({ type: INFO_SET, payload: e });
+};
+export const TOGGLE_SAVE = "TOGGLE_SAVE";
+export const toggleSave = (e) => (dispatch) => {
+  dispatch({ type: TOGGLE_SAVE, payload: e });
+};
 
 export const SAVE_PIN = "SAVE_PIN";
-export const SAVE_PIN_SUCCESS= "SAVE_PIN_SUCCESS";
+export const SAVE_PIN_SUCCESS = "SAVE_PIN_SUCCESS";
 export const SAVE_PIN_FAIL = "SAVE_PIN_FAIL";
 
-export const savePin = () => (dispatch) => {
-  dispatch({ type:SAVE_PIN});
-
-}
+export const savePin = (e) => (dispatch) => {
+  dispatch({ type: SAVE_PIN });
+  axiosAuth()
+    .post("http://localhost:4000/pins/add", e)
+    .then((res) => {
+      console.log(res.data);
+      dispatch({ type: SAVE_PIN_SUCCESS, payload: res.data });
+    })
+    .catch((err) => dispatch({ type: SAVE_PIN_FAIL, payload: err }));
+};
 export const GET_PINS = "GET_PINS";
-export const GET_PINS_SUCCESS= "GET_PINS_SUCCESS";
+export const GET_PINS_SUCCESS = "GET_PINS_SUCCESS";
 export const GET_PINS_FAIL = "GET_PINS_FAIL";
 
-export const getPins= () => (dispatch) => {
-  dispatch({ type:GET_PINS});
-
-}
+export const getPins = () => (dispatch) => {
+  dispatch({ type: GET_PINS });
+};
 
 export const UPDATE_PIN = "UPDATE_PIN";
-export const UPDATE_PIN_SUCCESS= "UPDATE_PIN_SUCCESS";
+export const UPDATE_PIN_SUCCESS = "UPDATE_PIN_SUCCESS";
 export const UPDATE_PIN_FAIL = "UPDATE_PIN_FAIL";
 
 export const updatePin = () => (dispatch) => {
-  dispatch({ type:UPDATE_PIN});
-
-}
+  dispatch({ type: UPDATE_PIN });
+};
 
 export const DELETE_PIN = "DELETE_PIN";
-export const DELETE_PIN_SUCCESS= "DELETE_PIN_SUCCESS";
+export const DELETE_PIN_SUCCESS = "DELETE_PIN_SUCCESS";
 export const DELETE_PIN_FAIL = "DELETE_PIN_FAIL";
 
 export const deletePin = () => (dispatch) => {
-  dispatch({ type:DELETE_PIN});
-  
-}
-
+  dispatch({ type: DELETE_PIN });
+};

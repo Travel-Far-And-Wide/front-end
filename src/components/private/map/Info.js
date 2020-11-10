@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import { InfoWindow } from "@react-google-maps/api";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import SaveFields from "./SaveFields";
-export default function Info(props) {
-  const [info, setInfo] = useState({ name: "", address: "" });
-  // const [toggleSave, setToggleSave] = useState(false);
+import { connect } from "react-redux";
+import { infoSet, toggleSave } from "../../../actions/actions";
+function Info(props) {
+  const [save, setSave] = useState(false);
   useEffect(() => {
     if (props.selected.placeId != undefined) {
       axios
@@ -15,7 +16,8 @@ export default function Info(props) {
         )
         .then((res) => {
           console.log(res.data.result);
-          setInfo({
+
+          props.infoSet({
             name: res.data.result.name,
             address: res.data.result.formatted_address,
             lat: res.data.result.geometry.location.lat,
@@ -37,8 +39,8 @@ export default function Info(props) {
       <div style={{ width: 250 }}>
         {props.selected.placeId ? (
           <div>
-            <h2>{info.name}</h2>
-            <h3>{info.address}</h3>
+            <h2>{props.info.name}</h2>
+            <h3>{props.info.address}</h3>
           </div>
         ) : (
           <div>
@@ -48,16 +50,17 @@ export default function Info(props) {
             <h4>Lng:{props.selected.lng}</h4>
           </div>
         )}
-        <Grid container >
+        <Grid container>
           <Grid item xs={6}>
             {" "}
-            {props.toggleSave ? (
-              <Button>Save to pins</Button>
+            {props.saveToggleBool ? (
+              <Button onClick={() => setSave(!save)}>Save to pins</Button>
             ) : (
               <Button
                 onClick={() => {
                   console.log(props.selected);
-                  props.setToggleSave(true);
+                  props.toggleSave(true);
+                  console.log(props.saveToggleBool);
                 }}
               >
                 Save
@@ -66,10 +69,10 @@ export default function Info(props) {
           </Grid>
 
           <Grid item xs={6}>
-            {props.toggleSave ? (
+            {props.saveToggleBool ? (
               <Button
                 onClick={() => {
-                  props.setToggleSave(false);
+                  props.toggleSave(false);
                 }}
               >
                 Cancel
@@ -88,24 +91,18 @@ export default function Info(props) {
               </Button>
             )}
           </Grid>
-
-      
-
         </Grid>
-        {" "}
-            {props.toggleSave ? (
-              <SaveFields
-                placeId={props.selected.placeId}
-                lat={props.selected.lat}
-                lng={props.selected.lng}
-                info={info}
-              />
-            ) : (
-              ""
-            )}{" "}
-    
+        <SaveFields
+          save={save}
+          placeId={props.selected.placeId}
+          lat={props.selected.lat}
+          lng={props.selected.lng}
+        />
       </div>
-      
     </InfoWindow>
   );
 }
+const mapStateToProps = (state) => {
+  return { info: state.info, saveToggleBool: state.saveToggleBool };
+};
+export default connect(mapStateToProps, { infoSet, toggleSave })(Info);

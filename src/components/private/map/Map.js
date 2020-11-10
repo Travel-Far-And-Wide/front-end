@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-} from "@react-google-maps/api";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import mapStyles from "./mapStyles";
 import Search from "./Search";
 import Info from "./Info";
+import { toggleSave } from "../../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({}));
 const libraries = ["places"];
@@ -31,7 +28,7 @@ function Map(props) {
     libraries,
   });
   const [markers, setMarkers] = useState([]);
-  const [toggleSave, setToggleSave] = useState(false);
+  // const [toggleSave, setToggleSave] = useState(false);
   const [selected, setSelected] = useState(null);
   const classes = useStyles();
 
@@ -39,7 +36,8 @@ function Map(props) {
     console.log(e);
     setMarkers((current) => [
       ...current,
-      { placeId: e.placeId,
+      {
+        placeId: e.placeId,
         lat: e.latLng.lat(),
         lng: e.latLng.lng(),
         time: new Date(),
@@ -81,13 +79,22 @@ function Map(props) {
               anchor: new window.google.maps.Point(35, 35),
             }}
             onClick={() => {
-              setToggleSave(false)
+              props.toggleSave(false);
               setSelected(marker);
-              panTo({lat: marker.lat, lng:marker.lng})
+              panTo({ lat: marker.lat, lng: marker.lng });
             }}
           />
         ))}
-        {selected ? <Info selected={selected} toggleSave={toggleSave} setToggleSave={setToggleSave} setSelected={setSelected} setMarkers={setMarkers} markers={markers}/> : ""}
+        {selected ? (
+          <Info
+            markers={markers}
+            setMarkers={setMarkers}
+            selected={selected}
+            setSelected={setSelected}
+          ></Info>
+        ) : (
+          ""
+        )}
       </GoogleMap>
     </React.Fragment>
   );
@@ -96,4 +103,4 @@ function Map(props) {
 const mapStateToProps = (state) => {
   return {};
 };
-export default connect(mapStateToProps, {})(Map);
+export default connect(mapStateToProps, { toggleSave })(Map);
