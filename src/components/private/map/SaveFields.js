@@ -5,13 +5,15 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import MenuItem from "@material-ui/core/MenuItem";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   saveFieldInput: {},
 }));
-export default function SaveFields(props) {
+ function SaveFields(props) {
   const classes = useStyles();
   const [saveFields, setSaveFields] = useState({
+    user_id: props.loggedInUser.user.id,
     name: props.placeId ? props.info.name : "",
     address: props.placeId ? props.info.address : "",
     lat: props.placeId ? props.info.lat : props.lat,
@@ -25,27 +27,28 @@ export default function SaveFields(props) {
   });
   const categories = [
     {
-      value: 'vacation',
-      label: 'Vacation 🏖️',
+      value: "vacation",
+      label: "Vacation 🏖️",
     },
     {
-      value: 'camping',
-      label: 'Camping ⛺',
+      value: "camping",
+      label: "Camping ⛺",
     },
     {
-      value: 'roadtrip',
-      label: 'Road Trip 🚗',
+      value: "roadtrip",
+      label: "Road Trip 🚗",
     },
     {
-        value: 'daytrip',
-        label: 'Day Trip ☀️',
-      },
+      value: "daytrip",
+      label: "Day Trip ☀️",
+    },
     {
-        value: 'backpack',
-        label: 'Backpacking 🥾',
-      },    {
-      value: 'work',
-      label: 'Work 💼',
+      value: "backpack",
+      label: "Backpacking 🥾",
+    },
+    {
+      value: "work",
+      label: "Work 💼",
     },
   ];
   const handleChanges = (e) => {
@@ -102,7 +105,7 @@ export default function SaveFields(props) {
           label="Image URL"
           onChange={handleChanges}
         />
-           <TextField
+        <TextField
           color="secondary"
           select
           fullWidth
@@ -113,7 +116,7 @@ export default function SaveFields(props) {
           label="Category"
           onChange={handleChanges}
         >
-                  {categories.map((option) => (
+          {categories.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
@@ -134,3 +137,8 @@ export default function SaveFields(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { loggedInUser: state.loggedInUser };
+};
+export default connect(mapStateToProps, {})(SaveFields);

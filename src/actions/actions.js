@@ -46,6 +46,38 @@ export const logoutUser = () => (dispatch) => {
   // dispatch({ type: LOGOUT_FAIL });
 };
 
-export const SAVE_PLACE = "SAVE_PLACE";
-export const SAVE_PLACE_SUCCESS= "SAVE_PLACE_SUCCESS";
-export const SAVE_PLACE_FAIL = "SAVE_PLACE_FAIL";
+export const SAVE_PIN = "SAVE_PIN";
+export const SAVE_PIN_SUCCESS= "SAVE_PIN_SUCCESS";
+export const SAVE_PIN_FAIL = "SAVE_PIN_FAIL";
+
+export const savePin = () => (dispatch) => {
+  dispatch({ type:SAVE_PIN});
+
+}
+export const GET_PINS = "GET_PINS";
+export const GET_PINS_SUCCESS= "GET_PINS_SUCCESS";
+export const GET_PINS_FAIL = "GET_PINS_FAIL";
+
+export const getPins= () => (dispatch) => {
+  dispatch({ type:GET_PINS});
+
+}
+
+export const UPDATE_PIN = "UPDATE_PIN";
+export const UPDATE_PIN_SUCCESS= "UPDATE_PIN_SUCCESS";
+export const UPDATE_PIN_FAIL = "UPDATE_PIN_FAIL";
+
+export const updatePin = () => (dispatch) => {
+  dispatch({ type:UPDATE_PIN});
+
+}
+
+export const DELETE_PIN = "DELETE_PIN";
+export const DELETE_PIN_SUCCESS= "DELETE_PIN_SUCCESS";
+export const DELETE_PIN_FAIL = "DELETE_PIN_FAIL";
+
+export const deletePin = () => (dispatch) => {
+  dispatch({ type:DELETE_PIN});
+  
+}
+
