@@ -8,17 +8,15 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import { savePin, toggleSave } from "../../../actions/actions";
 
-const useStyles = makeStyles((theme) => ({
-  saveFieldInput: {},
-}));
+const useStyles = makeStyles((theme) => ({}));
 function SaveFields(props) {
   const classes = useStyles();
   const [saveFields, setSaveFields] = useState({
     user_id: props.loggedInUser.user.id,
-    name: props.placeId ? props.info.name : "",
-    address: props.placeId ? props.info.address : "",
-    lat: props.placeId ? props.info.lat : props.lat,
-    lng: props.placeId ? props.info.lng : props.lng,
+    name: props.selected.placeId ? props.info.name : "",
+    address: props.selected.placeId ? props.info.address : "",
+    lat: props.selected.placeId ? props.info.lat : props.selected.lat,
+    lng: props.selected.placeId ? props.info.lng : props.selected.lng,
     date: "",
     title: "",
     description: "",
@@ -61,9 +59,10 @@ function SaveFields(props) {
 
     console.log(saveFields);
   };
-  useEffect(() => {
-    props.savePin(saveFields);
-  }, [props.save]);
+  // useEffect(() => {
+  //   props.savePin(saveFields);
+  //   props.toggleSave(false);
+  // }, [props.save]);
   return (
     <div>
       {props.saveToggleBool ? (
@@ -151,6 +150,7 @@ const mapStateToProps = (state) => {
     loggedInUser: state.loggedInUser,
     info: state.info,
     saveToggleBool: state.saveToggleBool,
+    selected: state.selected,
   };
 };
 export default connect(mapStateToProps, { savePin, toggleSave })(SaveFields);

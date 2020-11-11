@@ -46,14 +46,37 @@ export const logoutUser = () => (dispatch) => {
   // dispatch({ type: LOGOUT_FAIL });
 };
 export const INFO_SET = "INFO_SET";
-// export const INFO_SET_SUCCESS = "INFO_SET_SUCCESS";
-// export const INFO_SET_FAIL = "INFO_SET_FAIL";
-
 export const infoSet = (e) => (dispatch) => {
+  console.log(e);
   dispatch({ type: INFO_SET, payload: e });
 };
+
+export const TOGGLE_MARKERS = "TOGGLE_MARKERS";
+export const toggleMarkers = (e) => (dispatch) => {
+  console.log(e);
+  dispatch({ type: TOGGLE_MARKERS, payload: e });
+};
+
+export const UNPIN_MARKER = "UNPIN_MARKER";
+export const unpinMarker = (e) => (dispatch) => {
+  dispatch({ type: UNPIN_MARKER, payload: e });
+};
+
+export const TOGGLE_SELECTED = "TOGGLE_SELECTED";
+export const toggleSelected = (e) => (dispatch) => {
+  console.log(e);
+  dispatch({ type: TOGGLE_SELECTED, payload: e });
+};
+
+export const TOGGLE_INFO_WINDOW = "TOGGLE_INFO_WINDOW";
+export const toggleInfoWindow = (e) => (dispatch) => {
+  console.log(e);
+  dispatch({ type: TOGGLE_INFO_WINDOW, payload: e });
+};
+
 export const TOGGLE_SAVE = "TOGGLE_SAVE";
 export const toggleSave = (e) => (dispatch) => {
+  console.log(e);
   dispatch({ type: TOGGLE_SAVE, payload: e });
 };
 

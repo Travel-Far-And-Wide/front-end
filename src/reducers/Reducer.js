@@ -7,6 +7,10 @@ import {
   LOGIN_FAIL,
   LOGOUT_USER,
   INFO_SET,
+  TOGGLE_SELECTED,
+  TOGGLE_INFO_WINDOW,
+  TOGGLE_MARKERS,
+  UNPIN_MARKER,
   TOGGLE_SAVE,
   SAVE_PIN,
   SAVE_PIN_SUCCESS,
@@ -17,6 +21,10 @@ const initialState = {
   isLoggedIn: false,
   loggedInUser: {},
   errors: {},
+  selected: null,
+  infoWindow: false,
+  markers: [],
+  savedPins: [],
   newlyAddedPin: {},
   info: {
     name: "",
@@ -75,6 +83,27 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         info: action.payload,
+      };
+
+    case TOGGLE_MARKERS:
+      return {
+        ...state,
+        markers: [...state.markers, action.payload],
+      };
+    case UNPIN_MARKER:
+      return {
+        ...state,
+        markers: action.payload,
+      };
+    case TOGGLE_SELECTED:
+      return {
+        ...state,
+        selected: action.payload,
+      };
+    case TOGGLE_INFO_WINDOW:
+      return {
+        ...state,
+        infoWindow: action.payload,
       };
     case TOGGLE_SAVE:
       return {

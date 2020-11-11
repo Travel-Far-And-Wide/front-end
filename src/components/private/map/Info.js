@@ -5,7 +5,13 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import SaveFields from "./SaveFields";
 import { connect } from "react-redux";
-import { infoSet, toggleSave } from "../../../actions/actions";
+import {
+  infoSet,
+  toggleSelected,
+  unpinMarker,
+  toggleSave,
+  toggleInfoWindow
+} from "../../../actions/actions";
 function Info(props) {
   const [save, setSave] = useState(false);
   useEffect(() => {
@@ -33,7 +39,7 @@ function Info(props) {
     <InfoWindow
       position={{ lat: props.selected.lat, lng: props.selected.lng }}
       onCloseClick={() => {
-        props.setSelected(null);
+        props.toggleInfoWindow(false)
       }}
     >
       <div style={{ width: 250 }}>
@@ -75,10 +81,11 @@ function Info(props) {
               <Button
                 onClick={() => {
                   const remove = props.markers.indexOf(props.selected);
-                  const clone = [...props.markers];
+                  const clone = props.markers;
                   clone.splice(remove, 1);
-                  props.setMarkers(clone);
-                  props.setSelected(null);
+                  props.unpinMarker(clone);
+                  props.toggleSelected(null);
+                  props.toggleInfoWindow(false);
                 }}
               >
                 Unpin
@@ -119,6 +126,17 @@ function Info(props) {
   );
 }
 const mapStateToProps = (state) => {
-  return { info: state.info, saveToggleBool: state.saveToggleBool };
+  return {
+    info: state.info,
+    saveToggleBool: state.saveToggleBool,
+    markers: state.markers,
+    selected: state.selected,
+  };
 };
-export default connect(mapStateToProps, { infoSet, toggleSave })(Info);
+export default connect(mapStateToProps, {
+  infoSet,
+  unpinMarker,
+  toggleSelected,
+  toggleSave,
+  toggleInfoWindow
+})(Info);
