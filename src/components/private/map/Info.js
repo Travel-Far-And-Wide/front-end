@@ -54,7 +54,7 @@ function Info(props) {
           <Grid item xs={6}>
             {" "}
             {props.saveToggleBool ? (
-              <Button onClick={() => setSave(!save)}>Save to pins</Button>
+              ""
             ) : (
               <Button
                 onClick={() => {
@@ -70,13 +70,7 @@ function Info(props) {
 
           <Grid item xs={6}>
             {props.saveToggleBool ? (
-              <Button
-                onClick={() => {
-                  props.toggleSave(false);
-                }}
-              >
-                Cancel
-              </Button>
+              ""
             ) : (
               <Button
                 onClick={() => {
@@ -98,6 +92,28 @@ function Info(props) {
           lat={props.selected.lat}
           lng={props.selected.lng}
         />
+        {props.saveToggleBool ? (
+          <div>
+            <Grid container>
+              <Grid item xs={6}>
+                {" "}
+                <Button onClick={() => setSave(!save)}>Save to pins</Button>
+              </Grid>
+              <Grid item xs={6}>
+                {" "}
+                <Button
+                  onClick={() => {
+                    props.toggleSave(false);
+                  }}
+                >
+                  Cancel
+                </Button>
+              </Grid>
+            </Grid>
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     </InfoWindow>
   );
