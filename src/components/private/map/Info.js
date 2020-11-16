@@ -13,7 +13,6 @@ import {
   toggleInfoWindow
 } from "../../../actions/actions";
 function Info(props) {
-  const [save, setSave] = useState(false);
   useEffect(() => {
     if (props.selected.placeId != undefined) {
       axios
@@ -64,9 +63,7 @@ function Info(props) {
             ) : (
               <Button
                 onClick={() => {
-                  console.log(props.selected);
                   props.toggleSave(true);
-                  console.log(props.saveToggleBool);
                 }}
               >
                 Save
@@ -94,33 +91,11 @@ function Info(props) {
           </Grid>
         </Grid>
         <SaveFields
-          save={save}
           placeId={props.selected.placeId}
           lat={props.selected.lat}
           lng={props.selected.lng}
         />
-        {props.saveToggleBool ? (
-          <div>
-            <Grid container>
-              <Grid item xs={6}>
-                {" "}
-                <Button onClick={() => setSave(!save)}>Save to pins</Button>
-              </Grid>
-              <Grid item xs={6}>
-                {" "}
-                <Button
-                  onClick={() => {
-                    props.toggleSave(false);
-                  }}
-                >
-                  Cancel
-                </Button>
-              </Grid>
-            </Grid>
-          </div>
-        ) : (
-          ""
-        )}
+
       </div>
     </InfoWindow>
   );

@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import { savePin, toggleSave } from "../../../actions/actions";
@@ -59,10 +60,6 @@ function SaveFields(props) {
 
     console.log(saveFields);
   };
-  // useEffect(() => {
-  //   props.savePin(saveFields);
-  //   props.toggleSave(false);
-  // }, [props.save]);
   return (
     <div>
       {props.saveToggleBool ? (
@@ -138,6 +135,34 @@ function SaveFields(props) {
             label="Visited"
           />
         </Grid>
+      ) : (
+        ""
+      )}
+      {props.saveToggleBool ? (
+        <div>
+          <Grid container>
+            <Grid item xs={6}>
+              {" "}
+              <Button
+                onClick={() => {
+                  props.savePin(saveFields);
+                }}
+              >
+                Save to pins
+              </Button>
+            </Grid>
+            <Grid item xs={6}>
+              {" "}
+              <Button
+                onClick={() => {
+                  props.toggleSave(false);
+                }}
+              >
+                Cancel
+              </Button>
+            </Grid>
+          </Grid>
+        </div>
       ) : (
         ""
       )}
