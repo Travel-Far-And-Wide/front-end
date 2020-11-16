@@ -7,7 +7,13 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
-import { savePin, toggleSave } from "../../../actions/actions";
+import {
+  savePin,
+  toggleSave,
+  toggleSelected,
+  toggleInfoWindow,
+  unpinMarker,
+} from "../../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({}));
 function SaveFields(props) {
@@ -146,6 +152,12 @@ function SaveFields(props) {
               <Button
                 onClick={() => {
                   props.savePin(saveFields);
+                  const remove = props.markers.indexOf(props.selected);
+                  const clone = props.markers;
+                  clone.splice(remove, 1);
+                  props.unpinMarker(clone);
+                  props.toggleSelected(null);
+                  props.toggleInfoWindow(false);
                 }}
               >
                 Save to pins
@@ -176,6 +188,13 @@ const mapStateToProps = (state) => {
     info: state.info,
     saveToggleBool: state.saveToggleBool,
     selected: state.selected,
+    markers: state.markers,
   };
 };
-export default connect(mapStateToProps, { savePin, toggleSave })(SaveFields);
+export default connect(mapStateToProps, {
+  savePin,
+  toggleSave,
+  toggleSelected,
+  toggleInfoWindow,
+  unpinMarker,
+})(SaveFields);
