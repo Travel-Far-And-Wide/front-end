@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Button from "@material-ui/core/Button";
 import { InfoWindow } from "@react-google-maps/api";
-import { formatRelative } from "date-fns";
-export default function Info(props) {
-  const [info, setInfo] = useState({ name: "", address: "" });
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import SaveFields from "./SaveFields";
+import { connect } from "react-redux";
+import {
+  infoSet,
+  toggleSelected,
+  unpinMarker,
+  toggleSave,
+  toggleInfoWindow
+} from "../../../actions/actions";
+function Info(props) {
   useEffect(() => {
     if (props.selected.placeId != undefined) {
       axios
@@ -13,9 +21,12 @@ export default function Info(props) {
         )
         .then((res) => {
           console.log(res.data.result);
-          setInfo({
+
+          props.infoSet({
             name: res.data.result.name,
             address: res.data.result.formatted_address,
+            lat: res.data.result.geometry.location.lat,
+            lng: res.data.result.geometry.location.lng,
           });
         })
         .catch((err) => console.log(err));
@@ -27,14 +38,14 @@ export default function Info(props) {
     <InfoWindow
       position={{ lat: props.selected.lat, lng: props.selected.lng }}
       onCloseClick={() => {
-        props.setSelected(null);
+        props.toggleInfoWindow(false)
       }}
     >
-      <div>
+      <div style={{ width: 250 }}>
         {props.selected.placeId ? (
           <div>
-            <h2>{info.name}</h2>
-            <h3>{info.address}</h3>
+            <h2>{props.info.name}</h2>
+            <h3>{props.info.address}</h3>
           </div>
         ) : (
           <div>
@@ -44,20 +55,63 @@ export default function Info(props) {
             <h4>Lng:{props.selected.lng}</h4>
           </div>
         )}
-        <p>Time pinned: {formatRelative(props.selected.time, new Date())}</p>
-        <Button onClick={() => console.log(props.selected)}>Save</Button>
-        <Button
-          onClick={() => {
-            const remove = props.markers.indexOf(props.selected);
-            const clone = [...props.markers];
-            clone.splice(remove, 1);
-            props.setMarkers(clone);
-            props.setSelected(null);
-          }}
-        >
-          Unpin
-        </Button>
+        <Grid container>
+          <Grid item xs={6}>
+            {" "}
+            {props.saveToggleBool ? (
+              ""
+            ) : (
+              <Button
+                onClick={() => {
+                  props.toggleSave(true);
+                }}
+              >
+                Save
+              </Button>
+            )}
+          </Grid>
+
+          <Grid item xs={6}>
+            {props.saveToggleBool ? (
+              ""
+            ) : (
+              <Button
+                onClick={() => {
+                  const remove = props.markers.indexOf(props.selected);
+                  const clone = props.markers;
+                  clone.splice(remove, 1);
+                  props.unpinMarker(clone);
+                  props.toggleSelected(null);
+                  props.toggleInfoWindow(false);
+                }}
+              >
+                Unpin
+              </Button>
+            )}
+          </Grid>
+        </Grid>
+        <SaveFields
+          placeId={props.selected.placeId}
+          lat={props.selected.lat}
+          lng={props.selected.lng}
+        />
+
       </div>
     </InfoWindow>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    info: state.info,
+    saveToggleBool: state.saveToggleBool,
+    markers: state.markers,
+    selected: state.selected,
+  };
+};
+export default connect(mapStateToProps, {
+  infoSet,
+  unpinMarker,
+  toggleSelected,
+  toggleSave,
+  toggleInfoWindow
+})(Info);

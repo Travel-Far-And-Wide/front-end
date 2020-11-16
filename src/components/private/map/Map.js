@@ -1,14 +1,16 @@
-import React, { useState } from "react";
-import {
-  GoogleMap,
-  useLoadScript,
-  Marker,
-} from "@react-google-maps/api";
+import React from "react";
+import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import mapStyles from "./mapStyles";
 import Search from "./Search";
 import Info from "./Info";
+import {
+  toggleSelected,
+  toggleMarkers,
+  toggleSave,
+  toggleInfoWindow,
+} from "../../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({}));
 const libraries = ["places"];
@@ -30,26 +32,24 @@ function Map(props) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  const [markers, setMarkers] = useState([]);
-  const [selected, setSelected] = useState(null);
   const classes = useStyles();
 
-  const onMapClick = React.useCallback((e) => {
+  const onMapClick = (e) => {
     console.log(e);
-    setMarkers((current) => [
-      ...current,
-      { placeId: e.placeId,
-        lat: e.latLng.lat(),
-        lng: e.latLng.lng(),
-        time: new Date(),
-      },
-    ]);
-  }, []);
+    console.log(props.markers);
+    props.toggleMarkers({
+      placeId: e.placeId,
+      lat: e.latLng.lat(),
+      lng: e.latLng.lng(),
+      time: new Date(),
+    });
+    props.toggleInfoWindow(false);
+  };
 
   const mapRef = React.useRef();
   const panTo = React.useCallback(({ lat, lng }) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(20);
+    mapRef.current.setZoom(12);
   }, []);
   const onMapLoad = React.useCallback((map) => {
     mapRef.current = map;
@@ -69,9 +69,9 @@ function Map(props) {
         onLoad={onMapLoad}
       >
         {" "}
-        {markers.map((marker) => (
+        {props.markers.map((marker) => (
           <Marker
-            key={marker.time.toISOString()}
+            key={marker.time}
             position={{ lat: marker.lat, lng: marker.lng }}
             icon={{
               url: "/pin.svg",
@@ -80,17 +80,30 @@ function Map(props) {
               anchor: new window.google.maps.Point(35, 35),
             }}
             onClick={() => {
-              setSelected(marker);
+              props.toggleSave(false);
+              props.toggleSelected(marker);
+              props.toggleInfoWindow(true);
+              console.log(props.selected)
+              panTo({ lat: marker.lat, lng: marker.lng });
             }}
           />
         ))}
-        {selected ? <Info selected={selected} setSelected={setSelected} setMarkers={setMarkers} markers={markers}/> : ""}
+        {props.infoWindow ? <Info /> : ""}
       </GoogleMap>
     </React.Fragment>
   );
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    markers: state.markers,
+    selected: state.selected,
+    infoWindow: state.infoWindow,
+  };
 };
-export default connect(mapStateToProps, {})(Map);
+export default connect(mapStateToProps, {
+  toggleSelected,
+  toggleMarkers,
+  toggleSave,
+  toggleInfoWindow,
+})(Map);
