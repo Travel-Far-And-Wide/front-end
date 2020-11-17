@@ -94,12 +94,19 @@ export const savePin = (e) => (dispatch) => {
     })
     .catch((err) => dispatch({ type: SAVE_PIN_FAIL, payload: err }));
 };
-export const GET_PINS = "GET_PINS";
-export const GET_PINS_SUCCESS = "GET_PINS_SUCCESS";
-export const GET_PINS_FAIL = "GET_PINS_FAIL";
+export const GET_USER_PINS = "GET_USER_PINS";
+export const GET_USER_PINS_SUCCESS = "GET_USER_PINS_SUCCESS";
+export const GET_USER_PINS_FAIL = "GET_USER_PINS_FAIL";
 
-export const getPins = () => (dispatch) => {
-  dispatch({ type: GET_PINS });
+export const getUserPins = (userID) => (dispatch) => {
+  dispatch({ type: GET_USER_PINS });
+  axiosAuth()
+    .get(`http://localhost:4000/pins/mypins/${userID}`)
+    .then((res) => {
+      console.log(res.data);
+      dispatch({ type: GET_USER_PINS_SUCCESS, payload: res.data });
+    })
+    .catch((err) => dispatch({ type: GET_USER_PINS_FAIL, payload: err }));
 };
 
 export const UPDATE_PIN = "UPDATE_PIN";
