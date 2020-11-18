@@ -13,6 +13,7 @@ import {
   toggleSelected,
   toggleInfoWindow,
   unpinMarker,
+  getUserPins
 } from "../../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({}));
@@ -158,6 +159,7 @@ function SaveFields(props) {
                   props.unpinMarker(clone);
                   props.toggleSelected(null);
                   props.toggleInfoWindow(false);
+                  props.getUserPins(props.loggedInUser.user.id)
                 }}
               >
                 Save to pins
@@ -197,4 +199,5 @@ export default connect(mapStateToProps, {
   toggleSelected,
   toggleInfoWindow,
   unpinMarker,
+  getUserPins
 })(SaveFields);
