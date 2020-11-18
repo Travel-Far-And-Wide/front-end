@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
 import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
@@ -10,6 +10,7 @@ import {
   toggleMarkers,
   toggleSave,
   toggleInfoWindow,
+  getUserPins,
 } from "../../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({}));
@@ -33,7 +34,11 @@ function Map(props) {
     libraries,
   });
   const classes = useStyles();
-
+  useEffect(() => {
+    console.log(props.loggedInUser);
+    props.getUserPins(props.loggedInUser.user.id)
+    console.log(props.userPins)
+  }, []);
   const onMapClick = (e) => {
     console.log(e);
     console.log(props.markers);
@@ -74,16 +79,34 @@ function Map(props) {
             key={marker.time}
             position={{ lat: marker.lat, lng: marker.lng }}
             icon={{
-              url: "/pin.svg",
+              url: "/marker4.svg",
               scaledSize: new window.google.maps.Size(40, 40),
               origin: new window.google.maps.Point(0, 0),
-              anchor: new window.google.maps.Point(35, 35),
+              anchor: new window.google.maps.Point(20, 30),
             }}
             onClick={() => {
               props.toggleSave(false);
               props.toggleSelected(marker);
               props.toggleInfoWindow(true);
-              console.log(props.selected)
+              console.log(props.selected);
+              panTo({ lat: marker.lat, lng: marker.lng });
+            }}
+          />
+        ))}
+        {props.userPins.map((marker) => (
+          <Marker
+            key={marker.time}
+            position={{ lat: marker.lat, lng: marker.lng }}
+            icon={{
+              url: "/saved_pin.svg",
+              scaledSize: new window.google.maps.Size(45, 45),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(22.5, 30),
+            }}
+            onClick={() => {
+              props.toggleSave(false);
+              props.toggleSelected(marker);
+              console.log(props.selected);
               panTo({ lat: marker.lat, lng: marker.lng });
             }}
           />
@@ -99,6 +122,8 @@ const mapStateToProps = (state) => {
     markers: state.markers,
     selected: state.selected,
     infoWindow: state.infoWindow,
+    userPins: state.userPins,
+    loggedInUser: state.loggedInUser,
   };
 };
 export default connect(mapStateToProps, {
@@ -106,4 +131,5 @@ export default connect(mapStateToProps, {
   toggleMarkers,
   toggleSave,
   toggleInfoWindow,
+  getUserPins,
 })(Map);

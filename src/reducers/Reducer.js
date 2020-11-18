@@ -15,6 +15,9 @@ import {
   SAVE_PIN,
   SAVE_PIN_SUCCESS,
   SAVE_PIN_FAIL,
+  GET_USER_PINS,
+  GET_USER_PINS_SUCCESS,
+  GET_USER_PINS_FAIL,
 } from "../actions/actions";
 const initialState = {
   data: [],
@@ -24,7 +27,7 @@ const initialState = {
   selected: null,
   infoWindow: false,
   markers: [],
-  savedPins: [],
+  userPins: [],
   newlyAddedPin: {},
   info: {
     name: "",
@@ -120,6 +123,20 @@ export const Reducer = (state = initialState, action) => {
         newlyAddedPin: action.payload,
       };
     case SAVE_PIN_FAIL:
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    case GET_USER_PINS:
+      return {
+        ...state,
+      };
+    case GET_USER_PINS_SUCCESS:
+      return {
+        ...state,
+        userPins: action.payload,
+      };
+    case GET_USER_PINS_FAIL:
       return {
         ...state,
         errors: action.payload,
