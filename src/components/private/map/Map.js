@@ -106,7 +106,6 @@ function Map(props) {
             onClick={() => {
               props.toggleSave(false);
               props.toggleSelected(marker);
-              props.toggleInfoWindow(true);
               console.log(props.selected);
               panTo({ lat: marker.lat, lng: marker.lng });
             }}
