@@ -9,6 +9,7 @@ import {
   INFO_SET,
   TOGGLE_SELECTED,
   TOGGLE_INFO_WINDOW,
+  TOGGLE_SAVED_PIN_INFO_WINDOW,
   TOGGLE_MARKERS,
   UNPIN_MARKER,
   TOGGLE_SAVE,
@@ -26,6 +27,7 @@ const initialState = {
   errors: {},
   selected: null,
   infoWindow: false,
+  savedPinInfoWindow: false,
   markers: [],
   userPins: [],
   newlyAddedPin: {},
@@ -108,6 +110,11 @@ export const Reducer = (state = initialState, action) => {
         ...state,
         infoWindow: action.payload,
       };
+      case TOGGLE_SAVED_PIN_INFO_WINDOW:
+        return {
+          ...state,
+          savedPinInfoWindow: action.payload,
+        };
     case TOGGLE_SAVE:
       return {
         ...state,

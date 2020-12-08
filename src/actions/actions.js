@@ -73,6 +73,11 @@ export const toggleInfoWindow = (e) => (dispatch) => {
   console.log(e);
   dispatch({ type: TOGGLE_INFO_WINDOW, payload: e });
 };
+export const TOGGLE_SAVED_PIN_INFO_WINDOW = "TOGGLE_SAVED_PIN_INFO_WINDOW";
+export const toggleSavedPinInfoWindow = (e) => (dispatch) => {
+  console.log(e);
+  dispatch({ type: TOGGLE_SAVED_PIN_INFO_WINDOW, payload: e });
+};
 
 export const TOGGLE_SAVE = "TOGGLE_SAVE";
 export const toggleSave = (e) => (dispatch) => {

@@ -5,11 +5,13 @@ import { connect } from "react-redux";
 import mapStyles from "./mapStyles";
 import Search from "./Search";
 import Info from "./Info";
+import SavedPinInfo from "./SavedPinInfo";
 import {
   toggleSelected,
   toggleMarkers,
   toggleSave,
   toggleInfoWindow,
+  toggleSavedPinInfoWindow,
   getUserPins,
 } from "../../../actions/actions";
 
@@ -106,12 +108,14 @@ function Map(props) {
             onClick={() => {
               props.toggleSave(false);
               props.toggleSelected(marker);
+              props.toggleSavedPinInfoWindow(true);
               console.log(props.selected);
               panTo({ lat: marker.lat, lng: marker.lng });
             }}
           />
         ))}
         {props.infoWindow ? <Info /> : ""}
+        {props.savedPinInfoWindow ? <SavedPinInfo/> : ""}
       </GoogleMap>
     </React.Fragment>
   );
@@ -122,6 +126,7 @@ const mapStateToProps = (state) => {
     markers: state.markers,
     selected: state.selected,
     infoWindow: state.infoWindow,
+    savedPinInfoWindow: state.savedPinInfoWindow,
     userPins: state.userPins,
     loggedInUser: state.loggedInUser,
   };
@@ -131,5 +136,6 @@ export default connect(mapStateToProps, {
   toggleMarkers,
   toggleSave,
   toggleInfoWindow,
+  toggleSavedPinInfoWindow,
   getUserPins,
 })(Map);

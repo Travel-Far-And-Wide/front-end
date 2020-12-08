@@ -10,7 +10,7 @@ import {
   toggleSelected,
   unpinMarker,
   toggleSave,
-  toggleInfoWindow
+  toggleSavedPinInfoWindow
 } from "../../../actions/actions";
 function SavedPinInfo(props) {
   useEffect(() => {
@@ -38,7 +38,7 @@ function SavedPinInfo(props) {
     <InfoWindow
       position={{ lat: props.selected.lat, lng: props.selected.lng }}
       onCloseClick={() => {
-        props.toggleInfoWindow(false)
+        props.toggleSavedPinInfoWindow(false)
       }}
     >
       <div style={{ width: 250 }}>
@@ -82,7 +82,7 @@ function SavedPinInfo(props) {
                   clone.splice(remove, 1);
                   props.unpinMarker(clone);
                   props.toggleSelected(null);
-                  props.toggleInfoWindow(false);
+                  props.toggleSavedPinInfoWindow(false);
                 }}
               >
                 Unpin
@@ -113,5 +113,5 @@ export default connect(mapStateToProps, {
   unpinMarker,
   toggleSelected,
   toggleSave,
-  toggleInfoWindow
+  toggleSavedPinInfoWindow
 })(SavedPinInfo);
