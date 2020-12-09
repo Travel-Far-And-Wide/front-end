@@ -114,12 +114,23 @@ export const getUserPins = (userID) => (dispatch) => {
     .catch((err) => dispatch({ type: GET_USER_PINS_FAIL, payload: err }));
 };
 
-export const UPDATE_PIN = "UPDATE_PIN";
-export const UPDATE_PIN_SUCCESS = "UPDATE_PIN_SUCCESS";
-export const UPDATE_PIN_FAIL = "UPDATE_PIN_FAIL";
+export const TOGGLE_EDIT = "TOGGLE_EDIT";
+export const toggleEdit = (e) => (dispatch) => {
+  console.log(e);
+  dispatch({ type: TOGGLE_EDIT, payload: e });
+};
 
-export const updatePin = () => (dispatch) => {
-  dispatch({ type: UPDATE_PIN });
+export const EDIT_PIN = "EDIT_PIN";
+export const EDIT_PIN_SUCCESS = "EDIT_PIN_SUCCESS";
+export const EDIT_PIN_FAIL = "EDIT_PIN_FAIL";
+
+export const editPin = () => (dispatch) => {
+  dispatch({ type: EDIT_PIN });
+};
+export const TOGGLE_DELETE = "TOGGLE_DELETE";
+export const toggleDelete = (e) => (dispatch) => {
+  console.log(e);
+  dispatch({ type: TOGGLE_DELETE, payload: e });
 };
 
 export const DELETE_PIN = "DELETE_PIN";

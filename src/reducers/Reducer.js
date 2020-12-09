@@ -16,6 +16,14 @@ import {
   SAVE_PIN,
   SAVE_PIN_SUCCESS,
   SAVE_PIN_FAIL,
+  TOGGLE_DELETE,
+  DELETE_PIN,
+  DELETE_PIN_SUCCESS,
+  DELETE_PIN_FAIL,
+  TOGGLE_EDIT,
+  EDIT_PIN,
+  EDIT_PIN_SUCCESS,
+  EDIT_PIN_FAIL,
   GET_USER_PINS,
   GET_USER_PINS_SUCCESS,
   GET_USER_PINS_FAIL,
@@ -44,6 +52,8 @@ const initialState = {
     visited: false,
   },
   saveToggleBool: false,
+  editToggleBool: false,
+  deleteToggleBool: false,
 };
 export const Reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -144,6 +154,44 @@ export const Reducer = (state = initialState, action) => {
         userPins: action.payload,
       };
     case GET_USER_PINS_FAIL:
+      return {
+        ...state,
+        errors: action.payload,
+      };
+      case TOGGLE_EDIT:
+      return {
+        ...state,
+        editToggleBool: action.payload,
+      };
+    case EDIT_PIN:
+      return {
+        ...state,
+      };
+    case EDIT_PIN_SUCCESS:
+      return {
+        ...state,
+        newlyAddedPin: action.payload,
+      };
+    case EDIT_PIN_FAIL:
+      return {
+        ...state,
+        errors: action.payload,
+      };
+      case TOGGLE_DELETE:
+      return {
+        ...state,
+        deleteToggleBool: action.payload,
+      };
+    case DELETE_PIN:
+      return {
+        ...state,
+      };
+    case DELETE_PIN_SUCCESS:
+      return {
+        ...state,
+        newlyAddedPin: action.payload,
+      };
+    case DELETE_PIN_FAIL:
       return {
         ...state,
         errors: action.payload,

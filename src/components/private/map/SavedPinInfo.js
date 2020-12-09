@@ -3,14 +3,15 @@ import axios from "axios";
 import { InfoWindow } from "@react-google-maps/api";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import SaveFields from "./SaveFields";
+import EditFields from "./EditFields";
 import { connect } from "react-redux";
 import {
   infoSet,
   toggleSelected,
   unpinMarker,
-  toggleSave,
-  toggleSavedPinInfoWindow
+  toggleEdit,
+  toggleDelete,
+  toggleSavedPinInfoWindow,
 } from "../../../actions/actions";
 function SavedPinInfo(props) {
   useEffect(() => {
@@ -38,64 +39,70 @@ function SavedPinInfo(props) {
     <InfoWindow
       position={{ lat: props.selected.lat, lng: props.selected.lng }}
       onCloseClick={() => {
-        props.toggleSavedPinInfoWindow(false)
+        props.toggleSavedPinInfoWindow(false);
       }}
     >
       <div style={{ width: 250 }}>
-        {props.selected.placeId ? (
-          <div>
-            <h2>{props.info.name}</h2>
-            <h3>{props.info.address}</h3>
-          </div>
+        <EditFields />
+        {props.editToggleBool ? (
+          ""
         ) : (
           <div>
-            {" "}
-            <h2>Your destination</h2>
+            <h2>{props.selected.title}</h2>
+            <h3>Address: {props.selected.address}</h3>
+            <h3>Date added:{props.selected.date}</h3>
             <h4>Lat:{props.selected.lat}</h4>
             <h4>Lng:{props.selected.lng}</h4>
+            <h4>Visited? {props.selected.visited ? "Yes" : "No"}</h4>
           </div>
         )}
         <Grid container>
           <Grid item xs={6}>
             {" "}
-            {props.saveToggleBool ? (
-              ""
+            {props.editToggleBool ? (
+              <Button
+                onClick={() => {
+                  props.toggleEdit(false);
+                }}
+              >
+                Save Edit
+              </Button>
             ) : (
               <Button
                 onClick={() => {
-                  props.toggleSave(true);
+                  props.toggleEdit(true);
                 }}
               >
-                Save
+                Edit
               </Button>
             )}
           </Grid>
 
           <Grid item xs={6}>
-            {props.saveToggleBool ? (
-              ""
+            {props.editToggleBool ? (
+              <Button
+                onClick={() => {
+                  props.toggleEdit(false);
+                }}
+              >
+                Cancel
+              </Button>
             ) : (
               <Button
                 onClick={() => {
-                  const remove = props.markers.indexOf(props.selected);
-                  const clone = props.markers;
-                  clone.splice(remove, 1);
-                  props.unpinMarker(clone);
-                  props.toggleSelected(null);
-                  props.toggleSavedPinInfoWindow(false);
+                  // const remove = props.markers.indexOf(props.selected);
+                  // const clone = props.markers;
+                  // clone.splice(remove, 1);
+                  // props.unpinMarker(clone);
+                  // props.toggleSelected(null);
+                  // props.toggleEditdPinInfoWindow(false);
                 }}
               >
-                Unpin
+                Delete
               </Button>
             )}
           </Grid>
         </Grid>
-        <SaveFields
-          placeId={props.selected.placeId}
-          lat={props.selected.lat}
-          lng={props.selected.lng}
-        />
-
       </div>
     </InfoWindow>
   );
@@ -103,7 +110,8 @@ function SavedPinInfo(props) {
 const mapStateToProps = (state) => {
   return {
     info: state.info,
-    saveToggleBool: state.saveToggleBool,
+    editToggleBool: state.editToggleBool,
+    deleteToggleBool: state.deleteToggleBool,
     markers: state.markers,
     selected: state.selected,
   };
@@ -112,6 +120,7 @@ export default connect(mapStateToProps, {
   infoSet,
   unpinMarker,
   toggleSelected,
-  toggleSave,
-  toggleSavedPinInfoWindow
+  toggleEdit,
+  toggleDelete,
+  toggleSavedPinInfoWindow,
 })(SavedPinInfo);
