@@ -64,8 +64,6 @@ function EditFields(props) {
     } else {
       setEditFields({ ...editFields, [e.target.name]: e.target.value });
     }
-
-    console.log(EditFields);
   };
   return (
     <div>

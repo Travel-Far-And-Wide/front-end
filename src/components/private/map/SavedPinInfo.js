@@ -8,8 +8,9 @@ import { connect } from "react-redux";
 import {
   infoSet,
   toggleSelected,
-  unpinMarker,
+  getUserPins,
   toggleEdit,
+  deletePin,
   toggleDelete,
   toggleSavedPinInfoWindow,
 } from "../../../actions/actions";
@@ -82,12 +83,10 @@ function SavedPinInfo(props) {
             ) : (
               <Button
                 onClick={() => {
-                  // const remove = props.markers.indexOf(props.selected);
-                  // const clone = props.markers;
-                  // clone.splice(remove, 1);
-                  // props.unpinMarker(clone);
-                  // props.toggleSelected(null);
-                  // props.toggleEditdPinInfoWindow(false);
+                  props.deletePin(props.selected, props.userPins);
+                  props.toggleSelected(null);
+                  props.toggleSavedPinInfoWindow(false);
+                  props.getUserPins(props.loggedInUser.user.id);
                 }}
               >
                 Delete
@@ -107,13 +106,16 @@ const mapStateToProps = (state) => {
     deleteToggleBool: state.deleteToggleBool,
     markers: state.markers,
     selected: state.selected,
+    loggedInUser: state.loggedInUser,
+    userPins: state.userPins
   };
 };
 export default connect(mapStateToProps, {
   infoSet,
-  unpinMarker,
   toggleSelected,
   toggleEdit,
+  getUserPins,
+  deletePin,
   toggleDelete,
   toggleSavedPinInfoWindow,
 })(SavedPinInfo);

@@ -127,12 +127,12 @@ export const EDIT_PIN_FAIL = "EDIT_PIN_FAIL";
 export const editPin = (changes, pinID) => (dispatch) => {
   dispatch({ type: EDIT_PIN });
   axiosAuth()
-  .put(`http://localhost:4000/pins/edit/${pinID}`, changes)
-  .then((res) => {
-    console.log(res.data);
-    dispatch({ type: EDIT_PIN_SUCCESS, payload: res.data });
-  })
-  .catch((err) => dispatch({ type: EDIT_PIN_FAIL, payload: err }));
+    .put(`http://localhost:4000/pins/edit/${pinID}`, changes)
+    .then((res) => {
+      console.log(res.data);
+      dispatch({ type: EDIT_PIN_SUCCESS, payload: res.data });
+    })
+    .catch((err) => dispatch({ type: EDIT_PIN_FAIL, payload: err }));
 };
 export const TOGGLE_DELETE = "TOGGLE_DELETE";
 export const toggleDelete = (e) => (dispatch) => {
@@ -144,6 +144,13 @@ export const DELETE_PIN = "DELETE_PIN";
 export const DELETE_PIN_SUCCESS = "DELETE_PIN_SUCCESS";
 export const DELETE_PIN_FAIL = "DELETE_PIN_FAIL";
 
-export const deletePin = () => (dispatch) => {
+export const deletePin = (pin, userPins) => (dispatch) => {
   dispatch({ type: DELETE_PIN });
+  axiosAuth()
+    .delete(`http://localhost:4000/pins/delete/${pin.pin_id}`)
+    .then((res) => {
+      const filtered = userPins.filter((e) => e !== pin);
+      dispatch({ type: DELETE_PIN_SUCCESS, payload: filtered });
+    })
+    .catch((err) => dispatch({ type: DELETE_PIN_FAIL, payload: err }));
 };

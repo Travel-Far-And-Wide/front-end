@@ -39,7 +39,6 @@ const initialState = {
   markers: [],
   userPins: [],
   newlyAddedPin: {},
-  editedPin: {},
   info: {
     name: "",
     address: "",
@@ -171,7 +170,6 @@ export const Reducer = (state = initialState, action) => {
     case EDIT_PIN_SUCCESS:
       return {
         ...state,
-        editedPin: action.payload,
       };
     case EDIT_PIN_FAIL:
       return {
@@ -190,7 +188,7 @@ export const Reducer = (state = initialState, action) => {
     case DELETE_PIN_SUCCESS:
       return {
         ...state,
-        newlyAddedPin: action.payload,
+        userPins: action.payload
       };
     case DELETE_PIN_FAIL:
       return {
