@@ -8,10 +8,10 @@ import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import { connect } from "react-redux";
 import {
-  savePin,
-  toggleSave,
+  editPin,
+  toggleEdit,
   toggleSelected,
-  toggleInfoWindow,
+  toggleSavedPinInfoWindow,
   unpinMarker,
   getUserPins
 } from "../../../actions/actions";
@@ -145,31 +145,28 @@ function EditFields(props) {
       ) : (
         ""
       )}
-      {props.saveToggleBool ? (
+      {props.editToggleBool ? (
         <div>
           <Grid container>
             <Grid item xs={6}>
               {" "}
               <Button
                 onClick={() => {
-                  props.savePin(editFields);
-                  const remove = props.markers.indexOf(props.selected);
-                  const clone = props.markers;
-                  clone.splice(remove, 1);
-                  props.unpinMarker(clone);
+                  props.editPin(editFields, props.selected.pin_id);
+                  props.toggleEdit(false);
                   props.toggleSelected(null);
-                  props.toggleInfoWindow(false);
+                  props.toggleSavedPinInfoWindow(false);
                   props.getUserPins(props.loggedInUser.user.id)
                 }}
               >
-                Save to pins
+                Save Edits
               </Button>
             </Grid>
             <Grid item xs={6}>
               {" "}
               <Button
                 onClick={() => {
-                  props.toggleSave(false);
+                  props.toggleEdit(false);
                 }}
               >
                 Cancel
@@ -193,10 +190,10 @@ const mapStateToProps = (state) => {
   };
 };
 export default connect(mapStateToProps, {
-  savePin,
-  toggleSave,
+  editPin,
+  toggleEdit,
   toggleSelected,
-  toggleInfoWindow,
+  toggleSavedPinInfoWindow,
   unpinMarker,
-  getUserPins
+  getUserPins,
 })(EditFields);

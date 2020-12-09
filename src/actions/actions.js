@@ -124,8 +124,15 @@ export const EDIT_PIN = "EDIT_PIN";
 export const EDIT_PIN_SUCCESS = "EDIT_PIN_SUCCESS";
 export const EDIT_PIN_FAIL = "EDIT_PIN_FAIL";
 
-export const editPin = () => (dispatch) => {
+export const editPin = (changes, pinID) => (dispatch) => {
   dispatch({ type: EDIT_PIN });
+  axiosAuth()
+  .put(`http://localhost:4000/pins/edit/${pinID}`, changes)
+  .then((res) => {
+    console.log(res.data);
+    dispatch({ type: EDIT_PIN_SUCCESS, payload: res.data });
+  })
+  .catch((err) => dispatch({ type: EDIT_PIN_FAIL, payload: err }));
 };
 export const TOGGLE_DELETE = "TOGGLE_DELETE";
 export const toggleDelete = (e) => (dispatch) => {

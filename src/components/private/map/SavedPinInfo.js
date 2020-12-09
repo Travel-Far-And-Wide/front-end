@@ -43,30 +43,28 @@ function SavedPinInfo(props) {
       }}
     >
       <div style={{ width: 250 }}>
-        <EditFields />
         {props.editToggleBool ? (
           ""
         ) : (
           <div>
             <h2>{props.selected.title}</h2>
-            <h3>Address: {props.selected.address}</h3>
-            <h3>Date added:{props.selected.date}</h3>
-            <h4>Lat:{props.selected.lat}</h4>
-            <h4>Lng:{props.selected.lng}</h4>
-            <h4>Visited? {props.selected.visited ? "Yes" : "No"}</h4>
+            <h3>Address:</h3> <p>{props.selected.address}</p>
+            <h3>Date added:</h3> <p>{props.selected.date}</p>
+            <h3>Lat:</h3>
+            <p>{props.selected.lat}</p>
+            <h3>Lng:</h3>
+            <p>{props.selected.lng}</p>
+            <h3>Category:</h3>
+            <p>{props.selected.category}</p>
+            <h3>Visited? </h3> <p>{props.selected.visited ? "Yes" : "No"}</p>
+            <img src={props.selected.image_url} />
           </div>
         )}
         <Grid container>
           <Grid item xs={6}>
             {" "}
             {props.editToggleBool ? (
-              <Button
-                onClick={() => {
-                  props.toggleEdit(false);
-                }}
-              >
-                Save Edit
-              </Button>
+              ""
             ) : (
               <Button
                 onClick={() => {
@@ -80,13 +78,7 @@ function SavedPinInfo(props) {
 
           <Grid item xs={6}>
             {props.editToggleBool ? (
-              <Button
-                onClick={() => {
-                  props.toggleEdit(false);
-                }}
-              >
-                Cancel
-              </Button>
+              ""
             ) : (
               <Button
                 onClick={() => {
@@ -103,6 +95,7 @@ function SavedPinInfo(props) {
             )}
           </Grid>
         </Grid>
+        <EditFields />
       </div>
     </InfoWindow>
   );
