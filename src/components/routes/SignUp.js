@@ -36,6 +36,7 @@ function SignUp(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.registerNewUser(newUser);
+    props.history.push("/login")
     // axios
     //   .post("http://localhost:4000/auth/register", newUser)
     //   .then((res) => (res.status == 201 ? props.history.push("/login") : ""))
