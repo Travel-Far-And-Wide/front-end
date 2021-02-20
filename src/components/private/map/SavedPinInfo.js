@@ -19,7 +19,7 @@ function SavedPinInfo(props) {
     if (props.selected.placeId != undefined) {
       axios
         .post(
-          `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
+          `https://limitless-escarpment-74357.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
         )
         .then((res) => {
           console.log(res.data.result);
@@ -36,6 +36,19 @@ function SavedPinInfo(props) {
       console.log(props.selected);
     }
   }, [props.selected]);
+  const categories = {
+    "Vacation": "Vacation 🏖️",
+
+    "Camping": "Camping ⛺",
+
+    "Road Trip": "Road Trip 🚗",
+
+    "Day Trip": "Day Trip ☀️",
+
+    "Backpacking": "Backpacking 🥾",
+
+    "Work": "Work 💼",
+  };
   return (
     <InfoWindow
       position={{ lat: props.selected.lat, lng: props.selected.lng }}
@@ -48,17 +61,15 @@ function SavedPinInfo(props) {
           ""
         ) : (
           <div>
-            <h2>{props.selected.title}</h2>
-            <h3>Address:</h3> <p>{props.selected.address}</p>
-            <h3>Date added:</h3> <p>{props.selected.date}</p>
-            <h3>Lat:</h3>
-            <p>{props.selected.lat}</p>
-            <h3>Lng:</h3>
-            <p>{props.selected.lng}</p>
-            <h3>Category:</h3>
-            <p>{props.selected.category}</p>
-            <h3>Visited? </h3> <p>{props.selected.visited ? "Yes" : "No"}</p>
             <img src={props.selected.image_url} />
+            <h2>{props.selected.title}</h2>
+            <h2>{props.selected.name ? `${props.selected.name}` : ""}</h2>
+            <h3>Address 📍</h3> <p>{props.selected.address}</p>
+            <h3>Date added 📅</h3> <p>{props.selected.date}</p>
+            <h3>Description 📝</h3> <p>{props.selected.description}</p>
+            <h3>Category</h3>
+            <p>{categories[props.selected.category]}</p>
+            <h3>Visited</h3> <p>{props.selected.visited ? "✔️" : "❌"}</p>
           </div>
         )}
         <Grid container>
@@ -107,7 +118,7 @@ const mapStateToProps = (state) => {
     markers: state.markers,
     selected: state.selected,
     loggedInUser: state.loggedInUser,
-    userPins: state.userPins
+    userPins: state.userPins,
   };
 };
 export default connect(mapStateToProps, {

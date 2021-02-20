@@ -37,13 +37,6 @@ function SignUp(props) {
     e.preventDefault();
     props.registerNewUser(newUser);
     props.history.push("/login")
-    // axios
-    //   .post("http://localhost:4000/auth/register", newUser)
-    //   .then((res) => (res.status == 201 ? props.history.push("/login") : ""))
-    //   .catch((err) => {
-    //     console.log(err);
-    //     setError({ ...error, errorUser: true, errorEmail: true });
-    //   });
   };
   return (
     <React.Fragment>
