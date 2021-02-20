@@ -37,17 +37,17 @@ function SavedPinInfo(props) {
     }
   }, [props.selected]);
   const categories = {
-    "Vacation": "Vacation 🏖️",
+    "vacation": "Vacation 🏖️",
 
-    "Camping": "Camping ⛺",
+    "camping": "Camping ⛺",
 
-    "Road Trip": "Road Trip 🚗",
+    "roadtrip": "Road Trip 🚗",
 
-    "Day Trip": "Day Trip ☀️",
+    "daytrip": "Day Trip ☀️",
 
-    "Backpacking": "Backpacking 🥾",
+    "backpack": "Backpacking 🥾",
 
-    "Work": "Work 💼",
+    "work": "Work 💼",
   };
   return (
     <InfoWindow
@@ -64,11 +64,10 @@ function SavedPinInfo(props) {
             <img src={props.selected.image_url} />
             <h2>{props.selected.title}</h2>
             <h2>{props.selected.name ? `${props.selected.name}` : ""}</h2>
+            <h3>{categories[props.selected.category]}</h3>
             <h3>Address 📍</h3> <p>{props.selected.address}</p>
             <h3>Date added 📅</h3> <p>{props.selected.date}</p>
             <h3>Description 📝</h3> <p>{props.selected.description}</p>
-            <h3>Category</h3>
-            <p>{categories[props.selected.category]}</p>
             <h3>Visited</h3> <p>{props.selected.visited ? "✔️" : "❌"}</p>
           </div>
         )}
