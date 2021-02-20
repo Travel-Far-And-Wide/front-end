@@ -3,16 +3,18 @@ import axios from "axios";
 import { InfoWindow } from "@react-google-maps/api";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import SaveFields from "./SaveFields";
+import EditFields from "./EditFields";
 import { connect } from "react-redux";
 import {
   infoSet,
   toggleSelected,
-  unpinMarker,
-  toggleSave,
-  toggleInfoWindow
+  getUserPins,
+  toggleEdit,
+  deletePin,
+  toggleDelete,
+  toggleSavedPinInfoWindow,
 } from "../../../actions/actions";
-function Info(props) {
+function SavedPinInfo(props) {
   useEffect(() => {
     if (props.selected.placeId != undefined) {
       axios
@@ -34,68 +36,75 @@ function Info(props) {
       console.log(props.selected);
     }
   }, [props.selected]);
+  const categories = {
+    "vacation": "Vacation 🏖️",
+
+    "camping": "Camping ⛺",
+
+    "roadtrip": "Road Trip 🚗",
+
+    "daytrip": "Day Trip ☀️",
+
+    "backpack": "Backpacking 🥾",
+
+    "work": "Work 💼",
+  };
   return (
     <InfoWindow
       position={{ lat: props.selected.lat, lng: props.selected.lng }}
       onCloseClick={() => {
-        props.toggleInfoWindow(false)
+        props.toggleSavedPinInfoWindow(false);
       }}
     >
       <div style={{ width: 250 }}>
-        {props.selected.placeId ? (
-          <div>
-            <h2>{props.info.name}</h2>
-            <h3>{props.info.address}</h3>
-          </div>
+        {props.editToggleBool ? (
+          ""
         ) : (
           <div>
-            {" "}
-            <h2>Your destination</h2>
-            <h4>Lat:{props.selected.lat}</h4>
-            <h4>Lng:{props.selected.lng}</h4>
+            <img src={props.selected.image_url} />
+            <h2>{props.selected.title}</h2>
+            <h2>{props.selected.name ? `${props.selected.name}` : ""}</h2>
+            <h3>{categories[props.selected.category]}</h3>
+            <h3>Address 📍</h3> <p>{props.selected.address}</p>
+            <h3>Date added 📅</h3> <p>{props.selected.date}</p>
+            <h3>Description 📝</h3> <p>{props.selected.description}</p>
+            <h3>Visited</h3> <p>{props.selected.visited ? "✔️" : "❌"}</p>
           </div>
         )}
         <Grid container>
           <Grid item xs={6}>
             {" "}
-            {props.saveToggleBool ? (
+            {props.editToggleBool ? (
               ""
             ) : (
               <Button
                 onClick={() => {
-                  props.toggleSave(true);
+                  props.toggleEdit(true);
                 }}
               >
-                Save
+                Edit
               </Button>
             )}
           </Grid>
 
           <Grid item xs={6}>
-            {props.saveToggleBool ? (
+            {props.editToggleBool ? (
               ""
             ) : (
               <Button
                 onClick={() => {
-                  const remove = props.markers.indexOf(props.selected);
-                  const clone = props.markers;
-                  clone.splice(remove, 1);
-                  props.unpinMarker(clone);
+                  props.deletePin(props.selected, props.userPins);
                   props.toggleSelected(null);
-                  props.toggleInfoWindow(false);
+                  props.toggleSavedPinInfoWindow(false);
+                  props.getUserPins(props.loggedInUser.user.id);
                 }}
               >
-                Unpin
+                Delete
               </Button>
             )}
           </Grid>
         </Grid>
-        <SaveFields
-          placeId={props.selected.placeId}
-          lat={props.selected.lat}
-          lng={props.selected.lng}
-        />
-
+        <EditFields />
       </div>
     </InfoWindow>
   );
@@ -103,15 +112,20 @@ function Info(props) {
 const mapStateToProps = (state) => {
   return {
     info: state.info,
-    saveToggleBool: state.saveToggleBool,
+    editToggleBool: state.editToggleBool,
+    deleteToggleBool: state.deleteToggleBool,
     markers: state.markers,
     selected: state.selected,
+    loggedInUser: state.loggedInUser,
+    userPins: state.userPins,
   };
 };
 export default connect(mapStateToProps, {
   infoSet,
-  unpinMarker,
   toggleSelected,
-  toggleSave,
-  toggleInfoWindow
-})(Info);
+  toggleEdit,
+  getUserPins,
+  deletePin,
+  toggleDelete,
+  toggleSavedPinInfoWindow,
+})(SavedPinInfo);

@@ -73,6 +73,11 @@ export const toggleInfoWindow = (e) => (dispatch) => {
   console.log(e);
   dispatch({ type: TOGGLE_INFO_WINDOW, payload: e });
 };
+export const TOGGLE_SAVED_PIN_INFO_WINDOW = "TOGGLE_SAVED_PIN_INFO_WINDOW";
+export const toggleSavedPinInfoWindow = (e) => (dispatch) => {
+  console.log(e);
+  dispatch({ type: TOGGLE_SAVED_PIN_INFO_WINDOW, payload: e });
+};
 
 export const TOGGLE_SAVE = "TOGGLE_SAVE";
 export const toggleSave = (e) => (dispatch) => {
@@ -109,18 +114,43 @@ export const getUserPins = (userID) => (dispatch) => {
     .catch((err) => dispatch({ type: GET_USER_PINS_FAIL, payload: err }));
 };
 
-export const UPDATE_PIN = "UPDATE_PIN";
-export const UPDATE_PIN_SUCCESS = "UPDATE_PIN_SUCCESS";
-export const UPDATE_PIN_FAIL = "UPDATE_PIN_FAIL";
+export const TOGGLE_EDIT = "TOGGLE_EDIT";
+export const toggleEdit = (e) => (dispatch) => {
+  console.log(e);
+  dispatch({ type: TOGGLE_EDIT, payload: e });
+};
 
-export const updatePin = () => (dispatch) => {
-  dispatch({ type: UPDATE_PIN });
+export const EDIT_PIN = "EDIT_PIN";
+export const EDIT_PIN_SUCCESS = "EDIT_PIN_SUCCESS";
+export const EDIT_PIN_FAIL = "EDIT_PIN_FAIL";
+
+export const editPin = (changes, pinID) => (dispatch) => {
+  dispatch({ type: EDIT_PIN });
+  axiosAuth()
+    .put(`http://localhost:4000/pins/edit/${pinID}`, changes)
+    .then((res) => {
+      console.log(res.data);
+      dispatch({ type: EDIT_PIN_SUCCESS, payload: res.data });
+    })
+    .catch((err) => dispatch({ type: EDIT_PIN_FAIL, payload: err }));
+};
+export const TOGGLE_DELETE = "TOGGLE_DELETE";
+export const toggleDelete = (e) => (dispatch) => {
+  console.log(e);
+  dispatch({ type: TOGGLE_DELETE, payload: e });
 };
 
 export const DELETE_PIN = "DELETE_PIN";
 export const DELETE_PIN_SUCCESS = "DELETE_PIN_SUCCESS";
 export const DELETE_PIN_FAIL = "DELETE_PIN_FAIL";
 
-export const deletePin = () => (dispatch) => {
+export const deletePin = (pin, userPins) => (dispatch) => {
   dispatch({ type: DELETE_PIN });
+  axiosAuth()
+    .delete(`http://localhost:4000/pins/delete/${pin.pin_id}`)
+    .then((res) => {
+      const filtered = userPins.filter((e) => e !== pin);
+      dispatch({ type: DELETE_PIN_SUCCESS, payload: filtered });
+    })
+    .catch((err) => dispatch({ type: DELETE_PIN_FAIL, payload: err }));
 };
