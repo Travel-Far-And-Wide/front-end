@@ -6,13 +6,17 @@ import mapStyles from "./mapStyles";
 import Search from "./Search";
 import Info from "./Info";
 import SavedPinInfo from "./SavedPinInfo";
+import SavedHomepinInfo from "./SavedHomepinInfo";
 import {
   toggleSelected,
   toggleMarkers,
   toggleSave,
+  toggleSaveHomepin,
   toggleInfoWindow,
   toggleSavedPinInfoWindow,
+  toggleSavedHomepinInfoWindow,
   getUserPins,
+  getUserHomepin,
 } from "../../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({}));
@@ -38,8 +42,10 @@ function Map(props) {
   const classes = useStyles();
   useEffect(() => {
     console.log(props.loggedInUser);
-    props.getUserPins(props.loggedInUser.user.id)
-    console.log(props.userPins)
+    props.getUserPins(props.loggedInUser.user.id);
+    console.log(props.userPins);
+    props.getUserHomepin(props.loggedInUser.user.id);
+    console.log(props.homepin);
   }, []);
   const onMapClick = (e) => {
     console.log(e);
@@ -88,6 +94,7 @@ function Map(props) {
             }}
             onClick={() => {
               props.toggleSave(false);
+              props.toggleSaveHomepin(false);
               props.toggleSelected(marker);
               props.toggleInfoWindow(true);
               console.log(props.selected);
@@ -107,15 +114,39 @@ function Map(props) {
             }}
             onClick={() => {
               props.toggleSave(false);
+              props.toggleSaveHomepin(false);
               props.toggleSelected(marker);
+              props.toggleSavedHomepinInfoWindow(false);
               props.toggleSavedPinInfoWindow(true);
               console.log(props.selected);
               panTo({ lat: marker.lat, lng: marker.lng });
             }}
           />
         ))}
+        {props.homepin.map((marker) => (
+          <Marker
+            key={marker.time}
+            position={{ lat: marker.lat, lng: marker.lng }}
+            icon={{
+              url: "/home.svg",
+              scaledSize: new window.google.maps.Size(45, 45),
+              origin: new window.google.maps.Point(0, 0),
+              anchor: new window.google.maps.Point(22.5, 30),
+            }}
+            onClick={() => {
+              props.toggleSave(false);
+              props.toggleSaveHomepin(false);
+              props.toggleSelected(marker);
+              props.toggleSavedPinInfoWindow(false);
+              props.toggleSavedHomepinInfoWindow(true);
+              console.log(props.selected);
+              panTo({ lat: marker.lat, lng: marker.lng });
+            }}
+          />
+        ))}
         {props.infoWindow ? <Info /> : ""}
-        {props.savedPinInfoWindow ? <SavedPinInfo/> : ""}
+        {props.savedPinInfoWindow ? <SavedPinInfo /> : ""}
+        {props.savedHomepinInfoWindow ? <SavedHomepinInfo /> : ""}
       </GoogleMap>
     </React.Fragment>
   );
@@ -127,7 +158,9 @@ const mapStateToProps = (state) => {
     selected: state.selected,
     infoWindow: state.infoWindow,
     savedPinInfoWindow: state.savedPinInfoWindow,
+    savedHomepinInfoWindow: state.savedHomepinInfoWindow,
     userPins: state.userPins,
+    homepin: state.homepin,
     loggedInUser: state.loggedInUser,
   };
 };
@@ -135,7 +168,10 @@ export default connect(mapStateToProps, {
   toggleSelected,
   toggleMarkers,
   toggleSave,
+  toggleSaveHomepin,
   toggleInfoWindow,
   toggleSavedPinInfoWindow,
+  toggleSavedHomepinInfoWindow,
   getUserPins,
+  getUserHomepin,
 })(Map);
