@@ -43,7 +43,7 @@ function Info(props) {
         props.toggleInfoWindow(false);
       }}
     >
-      <div style={{ width: 250 }}>
+      <div style={{ width: 525 }}>
         {props.selected.placeId ? (
           <div>
             <h2>{props.info.name}</h2>
@@ -69,7 +69,7 @@ function Info(props) {
                   props.toggleSaveHomepin(false);
                 }}
               >
-                Save
+                Save Pin
               </Button>
             )}
           </Grid>
@@ -104,7 +104,7 @@ function Info(props) {
                   props.toggleInfoWindow(false);
                 }}
               >
-                Unpin
+                Remove Pin
               </Button>
             )}
           </Grid>
