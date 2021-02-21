@@ -240,40 +240,48 @@ function Summary(props) {
           type={chartType}
           width="800"
         />
-        <TextField
-          color="secondary"
-          select
-          fullWidth
-          size="small"
-          name="chartType"
-          value={chartType}
-          variant="filled"
-          label="Chart Type"
-          onChange={handleChanges}
-        >
-          {chartCategories.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          color="secondary"
-          select
-          fullWidth
-          size="small"
-          name="seriesDataType"
-          value={seriesDataType}
-          variant="filled"
-          label="Data Type"
-          onChange={handleChanges}
-        >
-          {seriesDataTypeCat.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        <Grid container justify="center">
+          <TextField
+            color="secondary"
+            select
+            fullWidth
+            style={{ textAlign: "center", width: "450px", margin:'20px' }}
+            size="small"
+            name="chartType"
+            value={chartType}
+            variant="filled"
+            label="Chart Type"
+            onChange={handleChanges}
+          >
+            {chartCategories.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+
+          <TextField
+            color="secondary"
+            select
+            fullWidth
+            style={{ textAlign: "center", width: "450px", margin:'20px'}}
+            size="small"
+            name="seriesDataType"
+            value={seriesDataType}
+            variant="filled"
+            label="Data Type"
+            onChange={handleChanges}
+          >
+            {seriesDataTypeCat.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid>
+
+
+
       </Grid>
     </React.Fragment>
   );
