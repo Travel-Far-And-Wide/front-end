@@ -43,6 +43,7 @@ import {
   GET_USER_HOMEPIN,
   GET_USER_HOMEPIN_SUCCESS,
   GET_USER_HOMEPIN_FAIL,
+  CHECK_SESSION,
 } from "../actions/actions";
 const initialState = {
   data: [],
@@ -293,6 +294,11 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         errors: action.payload,
+      };
+    case CHECK_SESSION:
+      return {
+        ...state,
+        isLoggedIn: action.payload,
       };
     default:
       return state;

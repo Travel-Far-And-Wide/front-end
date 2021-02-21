@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { makeStyles } from "@material-ui/core/styles";
-import PrivateAppBar from "../reusable/PrivateAppBar";
 import CalculateDistance from "../reusable/CalculateDistance";
 import { connect } from "react-redux";
 import { getUserPins, getUserHomepin } from "../../actions/actions";
@@ -18,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Summary(props) {
   const classes = useStyles();
-  const [avgDist, setAvgDist] = useState(0);
   const [seriesDataType, setSeriesDataType] = useState("total#");
   const [chartType, setChartType] = useState("bar");
   const [seriesData, setSeriesData] = useState([]);
@@ -159,12 +157,15 @@ function Summary(props) {
     }
   };
   useEffect(() => {
+    props.getUserPins(localStorage.getItem("userID"));
+    props.getUserHomepin(localStorage.getItem("userID"));
+  }, []);
+  useEffect(() => {
     const visited = props.userPins.filter((pin) => pin.visited == true);
-    const totalDist = visited.reduce(function (accumulator, pin) {
-      const distHome = CalculateDistance(props.homepin[0], pin);
-      return accumulator + Math.floor(distHome);
-    }, 0);
-    setAvgDist(Math.floor(totalDist / visited.length));
+    // const totalDist = visited.reduce(function (accumulator, pin) {
+    //   const distHome = CalculateDistance(props.homepin[0], pin);
+    //   return accumulator + Math.floor(distHome);
+    // }, 0);
     const countArray = [];
     if (seriesDataType == "total#") {
       backendCategories.forEach((category) => {
@@ -206,12 +207,10 @@ function Summary(props) {
       });
       setSeriesData(countArray);
     }
-  }, [seriesDataType]);
+  }, [props.userPins, props.homepin, seriesDataType]);
 
   return (
     <React.Fragment>
-      <PrivateAppBar />
-
       <Grid
         style={{ backgroundColor: "white" }}
         width="100%"
@@ -245,7 +244,7 @@ function Summary(props) {
             color="secondary"
             select
             fullWidth
-            style={{ textAlign: "center", width: "450px", margin:'20px' }}
+            style={{ textAlign: "center", width: "450px", margin: "20px" }}
             size="small"
             name="chartType"
             value={chartType}
@@ -264,7 +263,7 @@ function Summary(props) {
             color="secondary"
             select
             fullWidth
-            style={{ textAlign: "center", width: "450px", margin:'20px'}}
+            style={{ textAlign: "center", width: "450px", margin: "20px" }}
             size="small"
             name="seriesDataType"
             value={seriesDataType}
@@ -279,9 +278,6 @@ function Summary(props) {
             ))}
           </TextField>
         </Grid>
-
-
-
       </Grid>
     </React.Fragment>
   );

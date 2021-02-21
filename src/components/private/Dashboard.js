@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import PrivateAppBar from "../reusable/PrivateAppBar";
 import { connect } from "react-redux";
 import Map from "./map/Map";
 
@@ -17,7 +16,6 @@ function Dashboard(props) {
   const classes = useStyles();
   return (
     <React.Fragment>
-      <PrivateAppBar />
       <Map />
     </React.Fragment>
   );

@@ -39,13 +39,11 @@ function Map(props) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
+  const userID = localStorage.getItem('userID');
   const classes = useStyles();
   useEffect(() => {
-    console.log(props.loggedInUser);
-    props.getUserPins(props.loggedInUser.user.id);
-    console.log(props.userPins);
-    props.getUserHomepin(props.loggedInUser.user.id);
-    console.log(props.homepin);
+    props.getUserPins(userID);
+    props.getUserHomepin(userID);
   }, []);
   const onMapClick = (e) => {
     console.log(e);

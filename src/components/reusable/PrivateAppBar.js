@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Icon from "@material-ui/core/Icon";
@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { Link } from "react-router-dom";
-import { logoutUser } from "../../actions/actions";
+import { logoutUser, checkSession } from "../../actions/actions";
 import { connect } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   navlink: {},
@@ -14,11 +14,16 @@ const useStyles = makeStyles((theme) => ({
 
 function PrivateAppBar(props) {
   const classes = useStyles();
+  useEffect(() => {
+    window.localStorage.getItem("userID")
+      ? props.checkSession(true)
+      : props.checkSession(false);
+  }, []);
   const logout = () => {
     props.logoutUser();
     window.localStorage.removeItem("token");
+    localStorage.removeItem("userID");
   };
-  const buttonFunction = [logout];
   const dashboardData = [
     {
       icon: "push_pin",
@@ -86,10 +91,12 @@ function PrivateAppBar(props) {
   );
 }
 const mapStateToProps = (state) => {
-    return {
-      isLoggedIn: state.isLoggedIn,
-      errors: state.errors,
-      loggedInUser: state.loggedInUser,
-    };
+  return {
+    isLoggedIn: state.isLoggedIn,
+    errors: state.errors,
+    loggedInUser: state.loggedInUser,
   };
-export default connect(mapStateToProps, { logoutUser })(PrivateAppBar);
+};
+export default connect(mapStateToProps, { logoutUser, checkSession })(
+  PrivateAppBar
+);
