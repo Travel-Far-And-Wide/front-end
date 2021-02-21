@@ -78,10 +78,10 @@ function SavedHomepinInfo(props) {
             ) : (
               <Button
                 onClick={() => {
-                  props.deleteHomepin(props.loggedInUser.user.id, props.homepin);
+                  props.deleteHomepin(localStorage.getItem('user_id'), props.homepin);
                   props.toggleSelected(null);
                   props.toggleSavedHomepinInfoWindow(false);
-                  props.getUserHomepin(props.loggedInUser.user.id);
+                  props.getUserHomepin(localStorage.getItem('user_id'));
                 }}
               >
                 Delete

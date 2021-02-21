@@ -13,18 +13,18 @@ import {
   toggleSelected,
   toggleSavedPinInfoWindow,
   unpinMarker,
-  getUserPins
+  getUserPins,
 } from "../../../actions/actions";
 
 const useStyles = makeStyles((theme) => ({}));
 function EditFields(props) {
   const classes = useStyles();
   const [editFields, setEditFields] = useState({
-    user_id: props.loggedInUser.user.id,
+    user_id: localStorage.getItem("user_id"),
     name: props.selected.name,
     address: props.selected.address,
-    lat:  props.selected.lat,
-    lng:  props.selected.lng,
+    lat: props.selected.lat,
+    lng: props.selected.lng,
     date: props.selected.date,
     title: props.selected.title,
     description: props.selected.description,
@@ -154,7 +154,7 @@ function EditFields(props) {
                   props.toggleEdit(false);
                   props.toggleSelected(null);
                   props.toggleSavedPinInfoWindow(false);
-                  props.getUserPins(props.loggedInUser.user.id)
+                  props.getUserPins(localStorage.getItem("user_id"));
                 }}
               >
                 Save Edits

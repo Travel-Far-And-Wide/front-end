@@ -96,7 +96,7 @@ function SavedPinInfo(props) {
                   props.deletePin(props.selected, props.userPins);
                   props.toggleSelected(null);
                   props.toggleSavedPinInfoWindow(false);
-                  props.getUserPins(props.loggedInUser.user.id);
+                  props.getUserPins(localStorage.getItem('user_id'));
                 }}
               >
                 Delete

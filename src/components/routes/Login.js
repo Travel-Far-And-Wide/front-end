@@ -31,7 +31,7 @@ function Login(props) {
     setLoginSubmit(false);
 
     if (props.loggedInUser.user != undefined) {
-      localStorage.setItem("userID", props.loggedInUser.user.id);
+      localStorage.setItem("user_id", props.loggedInUser.user.id);
       props.history.push("/user");
     }
   }, [props.loggedInUser.user]);

@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme) => ({
 function PrivateAppBar(props) {
   const classes = useStyles();
   useEffect(() => {
-    window.localStorage.getItem("userID")
+    window.localStorage.getItem("user_id")
       ? props.checkSession(true)
       : props.checkSession(false);
   }, []);
   const logout = () => {
     props.logoutUser();
     window.localStorage.removeItem("token");
-    localStorage.removeItem("userID");
+    localStorage.removeItem("user_id");
   };
   const dashboardData = [
     {
