@@ -20,7 +20,7 @@ function Summary(props) {
   const classes = useStyles();
   const [avgDist, setAvgDist] = useState(0);
   const [seriesDataType, setSeriesDataType] = useState("total#");
-  const [chartType, setChartType] = useState("radar");
+  const [chartType, setChartType] = useState("bar");
   const [seriesData, setSeriesData] = useState([]);
   const backendCategories = [
     "vacation",
