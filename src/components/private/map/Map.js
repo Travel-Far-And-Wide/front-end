@@ -96,6 +96,8 @@ function Map(props) {
               props.toggleSave(false);
               props.toggleSaveHomepin(false);
               props.toggleSelected(marker);
+              props.toggleSavedHomepinInfoWindow(false);
+              props.toggleSavedPinInfoWindow(false);
               props.toggleInfoWindow(true);
               console.log(props.selected);
               panTo({ lat: marker.lat, lng: marker.lng });
@@ -117,6 +119,7 @@ function Map(props) {
               props.toggleSaveHomepin(false);
               props.toggleSelected(marker);
               props.toggleSavedHomepinInfoWindow(false);
+              props.toggleInfoWindow(false);
               props.toggleSavedPinInfoWindow(true);
               console.log(props.selected);
               panTo({ lat: marker.lat, lng: marker.lng });
@@ -137,6 +140,7 @@ function Map(props) {
               props.toggleSave(false);
               props.toggleSaveHomepin(false);
               props.toggleSelected(marker);
+              props.toggleInfoWindow(false);
               props.toggleSavedPinInfoWindow(false);
               props.toggleSavedHomepinInfoWindow(true);
               console.log(props.selected);
