@@ -1,11 +1,11 @@
 export default function CalculateDistance(pointA, pointB) {
 
     // http://www.movable-type.co.uk/scripts/latlong.html
-    const lat1 = pointA.coordinate.latitude;
-    const lon1 = pointA.coordinate.longitude;
+    const lat1 = pointA.lat;
+    const lon1 = pointA.lng;
   
-    const lat2 = pointB.coordinate.latitude;
-    const lon2 = pointB.coordinate.longitude;
+    const lat2 = pointB.lat;
+    const lon2 = pointB.lng;;
   
     const R = 6371e3; // earth radius in meters
     const φ1 = lat1 * (Math.PI / 180);
@@ -19,5 +19,5 @@ export default function CalculateDistance(pointA, pointB) {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   
     const distance = R * c;
-    return distance/1.60934; // in meters
+    return distance/1609.34; // in miles
   }
