@@ -64,8 +64,6 @@ function SaveFields(props) {
     } else {
       setSaveFields({ ...saveFields, [e.target.name]: e.target.value });
     }
-
-    console.log(saveFields);
   };
   return (
     <div>

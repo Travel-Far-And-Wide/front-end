@@ -27,7 +27,6 @@ export const loginUser = (e) => (dispatch) => {
   axiosAuth()
     .post("/auth/login", e)
     .then((res) => {
-      console.log(res.data);
       window.localStorage.setItem("token", res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     })
@@ -157,13 +156,11 @@ export const deletePin = (pin, userPins) => (dispatch) => {
 
 export const TOGGLE_SAVED_HOMEPIN_INFO_WINDOW = "TOGGLE_SAVED_HOMEPIN_INFO_WINDOW";
 export const toggleSavedHomepinInfoWindow = (e) => (dispatch) => {
-  console.log(e);
   dispatch({ type: TOGGLE_SAVED_HOMEPIN_INFO_WINDOW, payload: e });
 };
 
 export const TOGGLE_SAVE_HOMEPIN = "TOGGLE_SAVE_HOMEPIN";
 export const toggleSaveHomepin = (e) => (dispatch) => {
-  console.log(e);
   dispatch({ type: TOGGLE_SAVE_HOMEPIN, payload: e });
 };
 
@@ -238,3 +235,9 @@ export const deleteHomepin = (userID, homePin) => (dispatch) => {
     })
     .catch((err) => dispatch({ type: DELETE_PIN_FAIL, payload: err }));
 };
+
+export const CHECK_SESSION = "CHECK_SESSION";
+
+export const checkSession = (e) => (dispatch) => {
+  dispatch({type: CHECK_SESSION, payload: e})
+}

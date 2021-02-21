@@ -1,28 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.scss";
 import Nav from "./components/Navbar";
+import PrivateAppBar from "././components/reusable/PrivateAppBar";
 import Home from "./components/routes/Home";
 import Demo from "./components/routes/Demo";
 import Login from "./components/routes/Login";
 import SignUp from "./components/routes/SignUp";
 import Dashboard from "./components/private/Dashboard";
+import Summary from "./components/private/Summary";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import { connect } from "react-redux";
 
 function App(props) {
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    window.localStorage.getItem("userID")
+      ? setLoggedIn(true)
+      : setLoggedIn(false);
+  }, [props.isLoggedIn]);
   return (
     <div className="App">
-      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      />
       <header className="App-header">
         <Router>
-          {props.isLoggedIn ? "" : <Nav />}
+          {loggedIn ? <PrivateAppBar /> : <Nav />}
           <Route exact path="/" component={Home} />
           <Route exact path="/demo" component={Demo} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={SignUp} />
           <Switch>
             <PrivateRoute exact path="/user" component={Dashboard} />
+            <PrivateRoute exact path="/user/summary" component={Summary} />
           </Switch>{" "}
         </Router>
       </header>
