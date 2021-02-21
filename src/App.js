@@ -6,6 +6,7 @@ import Demo from "./components/routes/Demo";
 import Login from "./components/routes/Login";
 import SignUp from "./components/routes/SignUp";
 import Dashboard from "./components/private/Dashboard";
+import Summary from "./components/private/Summary";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import { connect } from "react-redux";
@@ -23,6 +24,7 @@ function App(props) {
           <Route exact path="/signup" component={SignUp} />
           <Switch>
             <PrivateRoute exact path="/user" component={Dashboard} />
+            <PrivateRoute exact path="/user/summary" component={Summary}/>
           </Switch>{" "}
         </Router>
       </header>

@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PrivateAppBar from "../reusable/PrivateAppBar";
+import CalculateDistance from "../reusable/CalculateDistance";
 import { connect } from "react-redux";
-import Map from "./map/Map";
 
 const useStyles = makeStyles((theme) => ({
   navlink: {
@@ -13,17 +13,20 @@ const useStyles = makeStyles((theme) => ({
   dashboardNav: { backgroundColor: "#21b6ae" },
 }));
 
-function Dashboard(props) {
+function Summary(props) {
   const classes = useStyles();
   return (
     <React.Fragment>
       <PrivateAppBar />
-      <Map />
     </React.Fragment>
   );
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    isLoggedIn: state.isLoggedIn,
+    errors: state.errors,
+    loggedInUser: state.loggedInUser,
+  };
 };
-export default connect(mapStateToProps, {})(Dashboard);
+export default connect(mapStateToProps, {})(Summary);
