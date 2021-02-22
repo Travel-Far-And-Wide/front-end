@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,9 +15,7 @@ import {
   getUserPins,
 } from "../../../actions/actions";
 
-const useStyles = makeStyles((theme) => ({}));
 function EditFields(props) {
-  const classes = useStyles();
   const [editFields, setEditFields] = useState({
     user_id: localStorage.getItem("user_id"),
     name: props.selected.name,
@@ -59,7 +56,7 @@ function EditFields(props) {
     },
   ];
   const handleChanges = (e) => {
-    if (e.target.name == "visited") {
+    if (e.target.name === "visited") {
       setEditFields({ ...editFields, [e.target.name]: e.target.checked });
     } else {
       setEditFields({ ...editFields, [e.target.name]: e.target.value });

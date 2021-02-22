@@ -1,10 +1,7 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import { Typography, Grid } from "@material-ui/core";
-const useStyles = makeStyles((theme) => ({}));
 function MyPins(props) {
-  const classes = useStyles();
   return (
     <React.Fragment>
       <Grid width="100%" style={{marginTop: 100}}container justify="center">

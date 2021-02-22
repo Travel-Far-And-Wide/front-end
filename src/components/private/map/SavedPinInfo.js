@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { InfoWindow } from "@react-google-maps/api";
 import Grid from "@material-ui/core/Grid";
@@ -16,7 +16,7 @@ import {
 } from "../../../actions/actions";
 function SavedPinInfo(props) {
   useEffect(() => {
-    if (props.selected.placeId != undefined) {
+    if (props.selected.placeId !== undefined) {
       axios
         .post(
           `https://limitless-escarpment-74357.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
@@ -37,17 +37,17 @@ function SavedPinInfo(props) {
     }
   }, [props.selected]);
   const categories = {
-    "vacation": "Vacation 🏖️",
+    vacation: "Vacation 🏖️",
 
-    "camping": "Camping ⛺",
+    camping: "Camping ⛺",
 
-    "roadtrip": "Road Trip 🚗",
+    roadtrip: "Road Trip 🚗",
 
-    "daytrip": "Day Trip ☀️",
+    daytrip: "Day Trip ☀️",
 
-    "backpack": "Backpacking 🥾",
+    backpack: "Backpacking 🥾",
 
-    "work": "Work 💼",
+    work: "Work 💼",
   };
   return (
     <InfoWindow
@@ -61,13 +61,31 @@ function SavedPinInfo(props) {
           ""
         ) : (
           <div>
-            <img src={props.selected.image_url} />
+            <img alt="" src={props.selected.image_url} />
             <h2>{props.selected.title}</h2>
             <h2>{props.selected.name ? `${props.selected.name}` : ""}</h2>
             <h3>{categories[props.selected.category]}</h3>
-            <h3>Address 📍</h3> <p>{props.selected.address}</p>
-            <h3>Date added 📅</h3> <p>{props.selected.date}</p>
-            <h3>Description 📝</h3> <p>{props.selected.description}</p>
+            <h3>
+              Address{" "}
+              <span role="img" aria-label="pin">
+                📍
+              </span>
+            </h3>{" "}
+            <p>{props.selected.address}</p>
+            <h3>
+              Date added{" "}
+              <span role="img" aria-label="calendar">
+                📅
+              </span>
+            </h3>{" "}
+            <p>{props.selected.date}</p>
+            <h3>
+              Description{" "}
+              <span role="img" aria-label="paper">
+                📝
+              </span>
+            </h3>{" "}
+            <p>{props.selected.description}</p>
             <h3>Visited</h3> <p>{props.selected.visited ? "✔️" : "❌"}</p>
           </div>
         )}
@@ -96,7 +114,7 @@ function SavedPinInfo(props) {
                   props.deletePin(props.selected, props.userPins);
                   props.toggleSelected(null);
                   props.toggleSavedPinInfoWindow(false);
-                  props.getUserPins(localStorage.getItem('user_id'));
+                  props.getUserPins(localStorage.getItem("user_id"));
                 }}
               >
                 Delete

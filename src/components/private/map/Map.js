@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
-import { makeStyles } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import mapStyles from "./mapStyles";
 import Search from "./Search";
@@ -19,7 +18,6 @@ import {
   getUserHomepin,
 } from "../../../actions/actions";
 
-const useStyles = makeStyles((theme) => ({}));
 const libraries = ["places"];
 const mapContainerStyle = {
   height: "100vh",
@@ -40,14 +38,11 @@ function Map(props) {
     libraries,
   });
   const userID = localStorage.getItem('user_id');
-  const classes = useStyles();
-  useEffect(() => {
+  useEffect((props) => {
     props.getUserPins(userID);
     props.getUserHomepin(userID);
   }, []);
   const onMapClick = (e) => {
-    console.log(e);
-    console.log(props.markers);
     props.toggleMarkers({
       placeId: e.placeId,
       lat: e.latLng.lat(),

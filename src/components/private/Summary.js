@@ -1,22 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
-import { makeStyles } from "@material-ui/core/styles";
 import CalculateDistance from "../reusable/CalculateDistance";
 import { connect } from "react-redux";
 import { getUserPins, getUserHomepin } from "../../actions/actions";
-import { Typography, TextField, MenuItem, Grid } from "@material-ui/core";
-
-const useStyles = makeStyles((theme) => ({
-  navlink: {
-    borderRadius: 5,
-    backgroundColor: "#21b6ae",
-    padding: "5px 10px",
-  },
-  dashboardNav: { backgroundColor: "#21b6ae" },
-}));
+import { Typography, TextField, MenuItem, Grid } from "@material-ui/core";;
 
 function Summary(props) {
-  const classes = useStyles();
   const [seriesDataType, setSeriesDataType] = useState("total#");
   const [chartType, setChartType] = useState("bar");
   const [totalDistance, setTotalDistance] = useState(0);
@@ -161,9 +150,9 @@ function Summary(props) {
   };
 
   const handleChanges = (e) => {
-    if (e.target.name == "chartType") {
+    if (e.target.name === "chartType") {
       setChartType(e.target.value);
-    } else if (e.target.name == "seriesDataType") {
+    } else if (e.target.name === "seriesDataType") {
       setSeriesDataType(e.target.value);
     }
   };
@@ -172,7 +161,7 @@ function Summary(props) {
     props.getUserHomepin(localStorage.getItem("user_id"));
   }, []);
   useEffect(() => {
-    const visited = props.userPins.filter((pin) => pin.visited == true);
+    const visited = props.userPins.filter((pin) => pin.visited === true);
     let totalDist = 0;
     props.userPins && props.homepin[0]
       ? (totalDist = visited.reduce(function (accumulator, pin) {
@@ -197,11 +186,11 @@ function Summary(props) {
     setMaxDist(Math.floor(currMax));
     setFurthest(maxPin);
     const countArray = [];
-    if (seriesDataType == "total#") {
+    if (seriesDataType === "total#") {
       backendCategories.forEach((category) => {
         let count = 0;
         for (let i = 0; i < visited.length; i++) {
-          if (visited[i]["category"] == category) {
+          if (visited[i]["category"] === category) {
             count += 1;
           }
         }
@@ -210,11 +199,11 @@ function Summary(props) {
         setMostfreq(i);
       });
       setSeriesData(countArray);
-    } else if (seriesDataType == "distanceTrip") {
+    } else if (seriesDataType === "distanceTrip") {
       backendCategories.forEach((category) => {
         let count = 0;
         for (let i = 0; i < visited.length; i++) {
-          if (visited[i]["category"] == category) {
+          if (visited[i]["category"] === category) {
             const distHome = CalculateDistance(props.homepin[0], visited[i]);
             count += Math.floor(distHome);
           }
@@ -222,12 +211,12 @@ function Summary(props) {
         countArray.push(count);
       });
       setSeriesData(countArray);
-    } else if (seriesDataType == "averageTrip") {
+    } else if (seriesDataType === "averageTrip") {
       backendCategories.forEach((category) => {
         let count = 0;
         let numOfTrips = 0;
         for (let i = 0; i < visited.length; i++) {
-          if (visited[i]["category"] == category) {
+          if (visited[i]["category"] === category) {
             const distHome = CalculateDistance(props.homepin[0], visited[i]);
             count += Math.floor(distHome);
             numOfTrips += 1;
@@ -259,12 +248,12 @@ function Summary(props) {
         <Chart
           key={chartType}
           options={
-            chartType == "donut"
+            chartType === "donut"
               ? donutOptions["options"]
               : chartOptions["options"]
           }
           series={
-            chartType == "donut"
+            chartType === "donut"
               ? donutOptions["series"]
               : chartOptions["series"]
           }

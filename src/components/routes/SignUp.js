@@ -42,7 +42,7 @@ function SignUp(props) {
     <React.Fragment>
       <Grid className="fade" container justify="center" style={{ marginTop: 200 }}>
         <div>
-          <img style={{ height: 600, width: 350, borderRadius: 5, marginRight: 30}} src={Map} />
+          <img alt="" style={{ height: 600, width: 350, borderRadius: 5, marginRight: 30}} src={Map} />
         </div>
 <div>
         <Card align="center" style={{ height: 400, width: 300, marginTop: 100}}>
