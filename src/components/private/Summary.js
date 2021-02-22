@@ -3,11 +3,19 @@ import Chart from "react-apexcharts";
 import CalculateDistance from "../reusable/CalculateDistance";
 import { connect } from "react-redux";
 import { getUserPins, getUserHomepin } from "../../actions/actions";
-import { Typography, TextField, MenuItem, Grid } from "@material-ui/core";
+import {
+  Typography,
+  TextField,
+  MenuItem,
+  Grid,
+  Card,
+  Button,
+} from "@material-ui/core";
 
 function Summary(props) {
   const [seriesDataType, setSeriesDataType] = useState("total#");
   const [chartType, setChartType] = useState("bar");
+  const [colorState, setColorState] = useState("white");
   const [totalDistance, setTotalDistance] = useState(0);
   const [mostfreq, setMostfreq] = useState(0);
   const [maxDist, setMaxDist] = useState(0);
@@ -233,107 +241,123 @@ function Summary(props) {
   return (
     <React.Fragment>
       <Grid
-        style={{ backgroundColor: "white" }}
-        width="100%"
+        style={{ backgroundColor: "white", marginTop: 100 }}
         className="fade"
         container
+        spacing={2}
         justify="center"
       >
-        <Typography variant="h2">
-          {" "}
-          {props.homepin[0]
-            ? ""
-            : "Please add a home pin before using analytics tool!"}{" "}
-        </Typography>
-        <Chart
-          key={chartType}
-          options={
-            chartType === "donut"
-              ? donutOptions["options"]
-              : chartOptions["options"]
-          }
-          series={
-            chartType === "donut"
-              ? donutOptions["series"]
-              : chartOptions["series"]
-          }
-          type={chartType}
-          width="800"
-        />
-        <Grid container justify="center">
-          <TextField
-            color="secondary"
-            select
-            fullWidth
-            style={{ textAlign: "center", width: "450px", margin: "20px" }}
-            size="small"
-            name="chartType"
-            value={chartType}
-            variant="filled"
-            label="Chart Type"
-            onChange={handleChanges}
-          >
-            {chartCategories.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
+        <Card>
+          <Typography variant="h2">
+            {" "}
+            {props.homepin[0]
+              ? ""
+              : "Please add a home pin before using analytics tool!"}{" "}
+          </Typography>
+          <Chart
+            key={chartType}
+            options={
+              chartType === "donut"
+                ? donutOptions["options"]
+                : chartOptions["options"]
+            }
+            series={
+              chartType === "donut"
+                ? donutOptions["series"]
+                : chartOptions["series"]
+            }
+            type={chartType}
+            width="800"
+          />
+          <Grid container>
+            <TextField
+              color="secondary"
+              select
+              fullWidth
+              style={{ textAlign: "center", width: "450px", margin: "20px" }}
+              size="small"
+              name="chartType"
+              value={chartType}
+              variant="filled"
+              label="Chart Type"
+              onChange={handleChanges}
+            >
+              {chartCategories.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
 
-          <TextField
-            color="secondary"
-            select
-            fullWidth
-            style={{ textAlign: "center", width: "450px", margin: "20px" }}
-            size="small"
-            name="seriesDataType"
-            value={seriesDataType}
-            variant="filled"
-            label="Data Type"
-            onChange={handleChanges}
-          >
-            {seriesDataTypeCat.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Grid>
-        <Grid container justify="center">
-          <Typography variant="h5">
-            The furthest you've traveled was...
-          </Typography>
-        </Grid>
-        <Grid container justify="center">
-          <Typography style={{ color: "red" }} variant="h4">
-            {maxDist} miles
-          </Typography>
-        </Grid>
-        <Grid container justify="center">
-          <Typography variant="h5">when you went to... </Typography>{" "}
-        </Grid>
-        <Grid container justify="center">
-          <Typography style={{ color: "red" }} variant="h4">
-            {furthest["title"]}
-          </Typography>
-        </Grid>
-        <Grid container justify="center">
-          <Typography variant="h5">You've traveled a total of...</Typography>
-        </Grid>
-        <Grid container justify="center">
-          <Typography style={{ color: "red" }} variant="h4">
-            {totalDistance} miles
-          </Typography>
-        </Grid>
-
-        <Grid container justify="center">
-          <Typography variant="h5">You most often travel for...</Typography>
-        </Grid>
-        <Grid container justify="center">
-          <Typography style={{ color: "red" }} variant="h4">
-            {categoryLabels[mostfreq]}
-          </Typography>
-        </Grid>
+            <TextField
+              color="secondary"
+              select
+              fullWidth
+              style={{ textAlign: "center", width: "450px", margin: "20px" }}
+              size="small"
+              name="seriesDataType"
+              value={seriesDataType}
+              variant="filled"
+              label="Data Type"
+              onChange={handleChanges}
+            >
+              {seriesDataTypeCat.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
+        </Card>
+        <Card style={{ margin: 50 }}>
+          <Grid  style={{margin: 25}}>
+            <Grid container justify="center">
+              <Typography variant="h5">
+                The furthest you've traveled was...
+              </Typography>
+            </Grid>
+            <Grid container justify="center">
+              <Typography  style={{ color: colorState }} variant="h4">
+                {maxDist} miles
+              </Typography>
+            </Grid>
+            <Grid container justify="center">
+              <Typography variant="h5">when you went to... </Typography>{" "}
+            </Grid>
+            <Grid container justify="center">
+              <Typography style={{ color: colorState }} variant="h4">
+                {furthest["title"]}
+              </Typography>
+            </Grid>
+            <Grid container justify="center">
+              <Typography variant="h5">
+                You've traveled a total of...
+              </Typography>
+            </Grid>
+            <Grid container justify="center">
+              <Typography style={{ color: colorState }} variant="h4">
+                {totalDistance} miles
+              </Typography>
+            </Grid>
+            <Grid container justify="center">
+              <Typography variant="h5">You most often travel for...</Typography>
+            </Grid>
+            <Grid container justify="center">
+              <Typography style={{ color: colorState }} variant="h4">
+                {backendCategories[mostfreq]}
+              </Typography>
+            </Grid>
+            <Grid container style={{ marginTop: 50 }} justify="center">
+              <Button
+                onClick={() =>
+                  colorState === "white" ? setColorState("red") : ""
+                }
+              >
+                Show Insights
+              </Button>
+            </Grid>
+          </Grid>
+        </Card>
       </Grid>
     </React.Fragment>
   );
