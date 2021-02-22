@@ -17,10 +17,10 @@
 
 ## User Experience
 
-- [  ] A `user` can create, read, update, and delete `pins` from a map.
+- [ x ] A `user` can create, read, update, and delete `pins` from a map.
 
 - [  ] A `user` can create, read, update, and delete 'photos' from the 'pins from a map.
 
 - [  ] Build an image uploader into the site to allow users the ability to upload their own assets. (This will require some work with a package called Drop Zone and a service called Cloudinary).
 
-- [  ] A 'user' can receive personalized insights based on where they've traveled and where they want to travel. (e.g. "You've traveled an average of 560 miles for work!" - will be primarily built with Apex Charts).
+- [ x ] A 'user' can receive personalized insights based on where they've traveled and where they want to travel. (e.g. "You've traveled an average of 560 miles for work!" - will be primarily built with Apex Charts).
