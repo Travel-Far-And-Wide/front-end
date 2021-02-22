@@ -1,4 +1,5 @@
 # front-end
+## [Deployed Front End](https://travel-far-and-wide.netlify.app//)
 ## [Back end can be found here](https://github.com/Travel-Far-And-Wide/back-end/)
 ## [Trello board can be found here](https://trello.com/b/H4NUIEcx/travel-far-and-wide)
 ## List of modules and libraries being used: 
