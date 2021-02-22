@@ -9,7 +9,7 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const registerNewUser = (e) => (dispatch) => {
   dispatch({ type: REGISTER_USER });
   axios
-    .post("http://localhost:4000/auth/register", e)
+    .post("https://travel-far-and-wide-backend.herokuapp.com/auth/register", e)
     .then((res) => {
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
     })
@@ -91,7 +91,7 @@ export const SAVE_PIN_FAIL = "SAVE_PIN_FAIL";
 export const savePin = (e) => (dispatch) => {
   dispatch({ type: SAVE_PIN });
   axiosAuth()
-    .post("http://localhost:4000/pins/add", e)
+    .post("https://travel-far-and-wide-backend.herokuapp.com/pins/add", e)
     .then((res) => {
       console.log(res.data);
       dispatch({ type: SAVE_PIN_SUCCESS, payload: res.data });
@@ -105,7 +105,7 @@ export const GET_USER_PINS_FAIL = "GET_USER_PINS_FAIL";
 export const getUserPins = (userID) => (dispatch) => {
   dispatch({ type: GET_USER_PINS });
   axiosAuth()
-    .get(`http://localhost:4000/pins/mypins/${userID}`)
+    .get(`https://travel-far-and-wide-backend.herokuapp.com/pins/mypins/${userID}`)
     .then((res) => {
       console.log(res.data);
       dispatch({ type: GET_USER_PINS_SUCCESS, payload: res.data });
@@ -126,7 +126,7 @@ export const EDIT_PIN_FAIL = "EDIT_PIN_FAIL";
 export const editPin = (changes, pinID) => (dispatch) => {
   dispatch({ type: EDIT_PIN });
   axiosAuth()
-    .put(`http://localhost:4000/pins/edit/${pinID}`, changes)
+    .put(`https://travel-far-and-wide-backend.herokuapp.com/pins/edit/${pinID}`, changes)
     .then((res) => {
       console.log(res.data);
       dispatch({ type: EDIT_PIN_SUCCESS, payload: res.data });
@@ -146,7 +146,7 @@ export const DELETE_PIN_FAIL = "DELETE_PIN_FAIL";
 export const deletePin = (pin, userPins) => (dispatch) => {
   dispatch({ type: DELETE_PIN });
   axiosAuth()
-    .delete(`http://localhost:4000/pins/delete/${pin.pin_id}`)
+    .delete(`https://travel-far-and-wide-backend.herokuapp.com/pins/delete/${pin.pin_id}`)
     .then((res) => {
       const filtered = userPins.filter((e) => e !== pin);
       dispatch({ type: DELETE_PIN_SUCCESS, payload: filtered });
@@ -172,7 +172,7 @@ export const SAVE_HOMEPIN_FAIL = "SAVE_HOMEPIN_FAIL";
 export const saveHomepin = (e) => (dispatch) => {
   dispatch({ type: SAVE_HOMEPIN });
   axiosAuth()
-    .post("http://localhost:4000/homepin/add", e)
+    .post("https://travel-far-and-wide-backend.herokuapp.com/homepin/add", e)
     .then((res) => {
       console.log(res.data);
       dispatch({ type: SAVE_HOMEPIN_SUCCESS, payload: res.data });
@@ -187,7 +187,7 @@ export const GET_USER_HOMEPIN_FAIL = "GET_USER_HOMEPIN_FAIL";
 export const getUserHomepin = (userID) => (dispatch) => {
   dispatch({ type: GET_USER_HOMEPIN });
   axiosAuth()
-    .get(`http://localhost:4000/homepin/${userID}`)
+    .get(`https://travel-far-and-wide-backend.herokuapp.com/homepin/${userID}`)
     .then((res) => {
       console.log(res.data);
       dispatch({ type: GET_USER_HOMEPIN_SUCCESS, payload: res.data });
@@ -208,7 +208,7 @@ export const EDIT_HOMEPIN_FAIL = "EDIT_HOMEPIN_FAIL";
 export const editHomepin = (changes, userID) => (dispatch) => {
   dispatch({ type: EDIT_HOMEPIN });
   axiosAuth()
-    .put(`http://localhost:4000/homepin/edit/${userID}`, changes)
+    .put(`https://travel-far-and-wide-backend.herokuapp.com/homepin/edit/${userID}`, changes)
     .then((res) => {
       console.log(res.data);
       dispatch({ type: EDIT_HOMEPIN_SUCCESS, payload: res.data });
@@ -228,7 +228,7 @@ export const DELETE_HOMEPIN_FAIL = "DELETE_HOMEPIN_FAIL";
 export const deleteHomepin = (userID, homePin) => (dispatch) => {
   dispatch({ type: DELETE_PIN });
   axiosAuth()
-    .delete(`http://localhost:4000/homepin/delete/${userID}`)
+    .delete(`https://travel-far-and-wide-backend.herokuapp.com/homepin/delete/${userID}`)
     .then((res) => {
       const filtered = homePin.filter((e) => e.user_id !== userID);
       dispatch({ type: DELETE_PIN_SUCCESS, payload: filtered });
