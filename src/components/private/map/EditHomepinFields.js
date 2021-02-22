@@ -88,7 +88,6 @@ function EditHomepinFields(props) {
                   props.toggleHomepinEdit(false);
                   props.toggleSelected(null);
                   props.toggleSavedHomepinInfoWindow(false);
-                  props.getUserHomepin(localStorage.getItem("user_id"));
                 }}
               >
                 Save Edits

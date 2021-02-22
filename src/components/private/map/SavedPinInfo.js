@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import {
   infoSet,
   toggleSelected,
-  getUserPins,
   toggleEdit,
   deletePin,
   toggleDelete,
@@ -114,7 +113,6 @@ function SavedPinInfo(props) {
                   props.deletePin(props.selected, props.userPins);
                   props.toggleSelected(null);
                   props.toggleSavedPinInfoWindow(false);
-                  props.getUserPins(localStorage.getItem("user_id"));
                 }}
               >
                 Delete
@@ -142,7 +140,6 @@ export default connect(mapStateToProps, {
   infoSet,
   toggleSelected,
   toggleEdit,
-  getUserPins,
   deletePin,
   toggleDelete,
   toggleSavedPinInfoWindow,

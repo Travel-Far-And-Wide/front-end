@@ -37,11 +37,11 @@ function Map(props) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  const userID = localStorage.getItem('user_id');
-  useEffect((props) => {
+  const userID = localStorage.getItem("user_id");
+  useEffect(() => {
     props.getUserPins(userID);
     props.getUserHomepin(userID);
-  }, []);
+  }, [props.fetch]);
   const onMapClick = (e) => {
     props.toggleMarkers({
       placeId: e.placeId,
@@ -64,7 +64,6 @@ function Map(props) {
   if (!isLoaded) return "Loading Maps";
   return (
     <React.Fragment>
-      {/* <h1><span role="img" aria-label="globe">🌎</span></h1> */}
       <Search panTo={panTo} />
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
@@ -159,6 +158,7 @@ const mapStateToProps = (state) => {
     userPins: state.userPins,
     homepin: state.homepin,
     loggedInUser: state.loggedInUser,
+    fetch: state.fetch,
   };
 };
 export default connect(mapStateToProps, {

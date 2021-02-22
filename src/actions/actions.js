@@ -93,8 +93,7 @@ export const savePin = (e) => (dispatch) => {
   axiosAuth()
     .post("https://travel-far-and-wide-backend.herokuapp.com/pins/add", e)
     .then((res) => {
-      console.log(res.data);
-      dispatch({ type: SAVE_PIN_SUCCESS, payload: res.data });
+      dispatch({ type: SAVE_PIN_SUCCESS, payload: e });
     })
     .catch((err) => dispatch({ type: SAVE_PIN_FAIL, payload: err }));
 };
@@ -105,7 +104,9 @@ export const GET_USER_PINS_FAIL = "GET_USER_PINS_FAIL";
 export const getUserPins = (userID) => (dispatch) => {
   dispatch({ type: GET_USER_PINS });
   axiosAuth()
-    .get(`https://travel-far-and-wide-backend.herokuapp.com/pins/mypins/${userID}`)
+    .get(
+      `https://travel-far-and-wide-backend.herokuapp.com/pins/mypins/${userID}`
+    )
     .then((res) => {
       console.log(res.data);
       dispatch({ type: GET_USER_PINS_SUCCESS, payload: res.data });
@@ -126,7 +127,10 @@ export const EDIT_PIN_FAIL = "EDIT_PIN_FAIL";
 export const editPin = (changes, pinID) => (dispatch) => {
   dispatch({ type: EDIT_PIN });
   axiosAuth()
-    .put(`https://travel-far-and-wide-backend.herokuapp.com/pins/edit/${pinID}`, changes)
+    .put(
+      `https://travel-far-and-wide-backend.herokuapp.com/pins/edit/${pinID}`,
+      changes
+    )
     .then((res) => {
       console.log(res.data);
       dispatch({ type: EDIT_PIN_SUCCESS, payload: res.data });
@@ -146,7 +150,9 @@ export const DELETE_PIN_FAIL = "DELETE_PIN_FAIL";
 export const deletePin = (pin, userPins) => (dispatch) => {
   dispatch({ type: DELETE_PIN });
   axiosAuth()
-    .delete(`https://travel-far-and-wide-backend.herokuapp.com/pins/delete/${pin.pin_id}`)
+    .delete(
+      `https://travel-far-and-wide-backend.herokuapp.com/pins/delete/${pin.pin_id}`
+    )
     .then((res) => {
       const filtered = userPins.filter((e) => e !== pin);
       dispatch({ type: DELETE_PIN_SUCCESS, payload: filtered });
@@ -154,7 +160,8 @@ export const deletePin = (pin, userPins) => (dispatch) => {
     .catch((err) => dispatch({ type: DELETE_PIN_FAIL, payload: err }));
 };
 
-export const TOGGLE_SAVED_HOMEPIN_INFO_WINDOW = "TOGGLE_SAVED_HOMEPIN_INFO_WINDOW";
+export const TOGGLE_SAVED_HOMEPIN_INFO_WINDOW =
+  "TOGGLE_SAVED_HOMEPIN_INFO_WINDOW";
 export const toggleSavedHomepinInfoWindow = (e) => (dispatch) => {
   dispatch({ type: TOGGLE_SAVED_HOMEPIN_INFO_WINDOW, payload: e });
 };
@@ -163,7 +170,6 @@ export const TOGGLE_SAVE_HOMEPIN = "TOGGLE_SAVE_HOMEPIN";
 export const toggleSaveHomepin = (e) => (dispatch) => {
   dispatch({ type: TOGGLE_SAVE_HOMEPIN, payload: e });
 };
-
 
 export const SAVE_HOMEPIN = "SAVE_HOMEPIN";
 export const SAVE_HOMEPIN_SUCCESS = "SAVE_HOMEPIN_SUCCESS";
@@ -208,7 +214,10 @@ export const EDIT_HOMEPIN_FAIL = "EDIT_HOMEPIN_FAIL";
 export const editHomepin = (changes, userID) => (dispatch) => {
   dispatch({ type: EDIT_HOMEPIN });
   axiosAuth()
-    .put(`https://travel-far-and-wide-backend.herokuapp.com/homepin/edit/${userID}`, changes)
+    .put(
+      `https://travel-far-and-wide-backend.herokuapp.com/homepin/edit/${userID}`,
+      changes
+    )
     .then((res) => {
       console.log(res.data);
       dispatch({ type: EDIT_HOMEPIN_SUCCESS, payload: res.data });
@@ -228,7 +237,9 @@ export const DELETE_HOMEPIN_FAIL = "DELETE_HOMEPIN_FAIL";
 export const deleteHomepin = (userID, homePin) => (dispatch) => {
   dispatch({ type: DELETE_PIN });
   axiosAuth()
-    .delete(`https://travel-far-and-wide-backend.herokuapp.com/homepin/delete/${userID}`)
+    .delete(
+      `https://travel-far-and-wide-backend.herokuapp.com/homepin/delete/${userID}`
+    )
     .then((res) => {
       const filtered = homePin.filter((e) => e.user_id !== userID);
       dispatch({ type: DELETE_PIN_SUCCESS, payload: filtered });
@@ -239,5 +250,5 @@ export const deleteHomepin = (userID, homePin) => (dispatch) => {
 export const CHECK_SESSION = "CHECK_SESSION";
 
 export const checkSession = (e) => (dispatch) => {
-  dispatch({type: CHECK_SESSION, payload: e})
-}
+  dispatch({ type: CHECK_SESSION, payload: e });
+};

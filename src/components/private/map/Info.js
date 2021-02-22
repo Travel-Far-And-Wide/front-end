@@ -15,7 +15,7 @@ import {
   toggleInfoWindow,
 } from "../../../actions/actions";
 function Info(props) {
-  useEffect((props) => {
+  useEffect(() => {
     if (props.selected.placeId !== undefined) {
       axios
         .post(

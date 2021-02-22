@@ -21,13 +21,14 @@ function Login(props) {
   }
   useEffect(() => {
     if (loginSubmit === true) {
-      props.loginUser(user)
+      props.loginUser(user);
     }
   }, [loginSubmit]);
-  useEffect((props) => {
+  useEffect(() => {
     setLoginSubmit(false);
-
-    if (props.loggedInUser.user !== undefined) {
+    if (props.loggedInUser.user === undefined) {
+      return;
+    } else {
       localStorage.setItem("user_id", props.loggedInUser.user.id);
       props.history.push("/user");
     }
