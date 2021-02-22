@@ -27,6 +27,23 @@ import {
   GET_USER_PINS,
   GET_USER_PINS_SUCCESS,
   GET_USER_PINS_FAIL,
+  TOGGLE_SAVED_HOMEPIN_INFO_WINDOW,
+  TOGGLE_SAVE_HOMEPIN,
+  SAVE_HOMEPIN,
+  SAVE_HOMEPIN_SUCCESS,
+  SAVE_HOMEPIN_FAIL,
+  TOGGLE_HOMEPIN_DELETE,
+  DELETE_HOMEPIN,
+  DELETE_HOMEPIN_SUCCESS,
+  DELETE_HOMEPIN_FAIL,
+  TOGGLE_HOMEPIN_EDIT,
+  EDIT_HOMEPIN,
+  EDIT_HOMEPIN_SUCCESS,
+  EDIT_HOMEPIN_FAIL,
+  GET_USER_HOMEPIN,
+  GET_USER_HOMEPIN_SUCCESS,
+  GET_USER_HOMEPIN_FAIL,
+  CHECK_SESSION,
 } from "../actions/actions";
 const initialState = {
   data: [],
@@ -36,9 +53,12 @@ const initialState = {
   selected: null,
   infoWindow: false,
   savedPinInfoWindow: false,
+  savedHomepinInfoWindow: false,
   markers: [],
   userPins: [],
+  homepin: [],
   newlyAddedPin: {},
+  newlyAddedHomepin: {},
   info: {
     name: "",
     address: "",
@@ -54,6 +74,10 @@ const initialState = {
   saveToggleBool: false,
   editToggleBool: false,
   deleteToggleBool: false,
+
+  saveHomepinToggleBool: false,
+  editHomepinToggleBool: false,
+  deleteHomepinToggleBool: false,
 };
 export const Reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -120,11 +144,11 @@ export const Reducer = (state = initialState, action) => {
         ...state,
         infoWindow: action.payload,
       };
-      case TOGGLE_SAVED_PIN_INFO_WINDOW:
-        return {
-          ...state,
-          savedPinInfoWindow: action.payload,
-        };
+    case TOGGLE_SAVED_PIN_INFO_WINDOW:
+      return {
+        ...state,
+        savedPinInfoWindow: action.payload,
+      };
     case TOGGLE_SAVE:
       return {
         ...state,
@@ -158,7 +182,7 @@ export const Reducer = (state = initialState, action) => {
         ...state,
         errors: action.payload,
       };
-      case TOGGLE_EDIT:
+    case TOGGLE_EDIT:
       return {
         ...state,
         editToggleBool: action.payload,
@@ -176,7 +200,7 @@ export const Reducer = (state = initialState, action) => {
         ...state,
         errors: action.payload,
       };
-      case TOGGLE_DELETE:
+    case TOGGLE_DELETE:
       return {
         ...state,
         deleteToggleBool: action.payload,
@@ -188,12 +212,93 @@ export const Reducer = (state = initialState, action) => {
     case DELETE_PIN_SUCCESS:
       return {
         ...state,
-        userPins: action.payload
+        userPins: action.payload,
       };
     case DELETE_PIN_FAIL:
       return {
         ...state,
         errors: action.payload,
+      };
+
+    case TOGGLE_SAVED_HOMEPIN_INFO_WINDOW:
+      return {
+        ...state,
+        savedHomepinInfoWindow: action.payload,
+      };
+    case TOGGLE_SAVE_HOMEPIN:
+      return {
+        ...state,
+        saveHomepinToggleBool: action.payload,
+      };
+    case SAVE_HOMEPIN:
+      return {
+        ...state,
+      };
+    case SAVE_HOMEPIN_SUCCESS:
+      return {
+        ...state,
+        newlyAddedHomepin: action.payload,
+      };
+    case SAVE_HOMEPIN_FAIL:
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    case GET_USER_HOMEPIN:
+      return {
+        ...state,
+      };
+    case GET_USER_HOMEPIN_SUCCESS:
+      return {
+        ...state,
+        homepin: action.payload,
+      };
+    case GET_USER_HOMEPIN_FAIL:
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    case TOGGLE_HOMEPIN_EDIT:
+      return {
+        ...state,
+        editHomepinToggleBool: action.payload,
+      };
+    case EDIT_HOMEPIN:
+      return {
+        ...state,
+      };
+    case EDIT_HOMEPIN_SUCCESS:
+      return {
+        ...state,
+      };
+    case EDIT_HOMEPIN_FAIL:
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    case TOGGLE_HOMEPIN_DELETE:
+      return {
+        ...state,
+        deleteToggleBool: action.payload,
+      };
+    case DELETE_HOMEPIN:
+      return {
+        ...state,
+      };
+    case DELETE_HOMEPIN_SUCCESS:
+      return {
+        ...state,
+        homepin: action.payload,
+      };
+    case DELETE_HOMEPIN_FAIL:
+      return {
+        ...state,
+        errors: action.payload,
+      };
+    case CHECK_SESSION:
+      return {
+        ...state,
+        isLoggedIn: action.payload,
       };
     default:
       return state;

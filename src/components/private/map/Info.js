@@ -4,13 +4,15 @@ import { InfoWindow } from "@react-google-maps/api";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import SaveFields from "./SaveFields";
+import SaveFieldsHomepin from "./SaveFieldsHomepin";
 import { connect } from "react-redux";
 import {
   infoSet,
   toggleSelected,
   unpinMarker,
   toggleSave,
-  toggleInfoWindow
+  toggleSaveHomepin,
+  toggleInfoWindow,
 } from "../../../actions/actions";
 function Info(props) {
   useEffect(() => {
@@ -38,10 +40,10 @@ function Info(props) {
     <InfoWindow
       position={{ lat: props.selected.lat, lng: props.selected.lng }}
       onCloseClick={() => {
-        props.toggleInfoWindow(false)
+        props.toggleInfoWindow(false);
       }}
     >
-      <div style={{ width: 250 }}>
+      <div style={{ width: 525 }}>
         {props.selected.placeId ? (
           <div>
             <h2>{props.info.name}</h2>
@@ -55,24 +57,41 @@ function Info(props) {
             <h4>Lng:{props.selected.lng}</h4>
           </div>
         )}
-        <Grid container>
-          <Grid item xs={6}>
+        <Grid container direction="row" justify="space-between">
+          <Grid item xs={3} spacing={3}>
             {" "}
-            {props.saveToggleBool ? (
+            {props.saveToggleBool || props.saveHomepinToggleBool ? (
               ""
             ) : (
               <Button
                 onClick={() => {
                   props.toggleSave(true);
+                  props.toggleSaveHomepin(false);
                 }}
               >
-                Save
+                Save Pin
               </Button>
             )}
           </Grid>
 
-          <Grid item xs={6}>
-            {props.saveToggleBool ? (
+          <Grid item xs={3} spacing={3}>
+            {" "}
+            {props.saveToggleBool || props.saveHomepinToggleBool ? (
+              ""
+            ) : (
+              <Button
+                onClick={() => {
+                  props.toggleSaveHomepin(true);
+                  props.toggleSave(false);
+                }}
+              >
+                Set Home
+              </Button>
+            )}
+          </Grid>
+
+          <Grid item xs={3} spacing={3}>
+            {props.saveToggleBool || props.saveHomepinToggleBool ? (
               ""
             ) : (
               <Button
@@ -85,7 +104,7 @@ function Info(props) {
                   props.toggleInfoWindow(false);
                 }}
               >
-                Unpin
+                Remove Pin
               </Button>
             )}
           </Grid>
@@ -95,7 +114,11 @@ function Info(props) {
           lat={props.selected.lat}
           lng={props.selected.lng}
         />
-
+        <SaveFieldsHomepin
+          placeId={props.selected.placeId}
+          lat={props.selected.lat}
+          lng={props.selected.lng}
+        />
       </div>
     </InfoWindow>
   );
@@ -104,6 +127,7 @@ const mapStateToProps = (state) => {
   return {
     info: state.info,
     saveToggleBool: state.saveToggleBool,
+    saveHomepinToggleBool: state.saveHomepinToggleBool,
     markers: state.markers,
     selected: state.selected,
   };
@@ -113,5 +137,6 @@ export default connect(mapStateToProps, {
   unpinMarker,
   toggleSelected,
   toggleSave,
-  toggleInfoWindow
+  toggleSaveHomepin,
+  toggleInfoWindow,
 })(Info);

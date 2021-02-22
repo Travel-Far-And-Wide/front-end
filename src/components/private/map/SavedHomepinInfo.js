@@ -3,18 +3,18 @@ import axios from "axios";
 import { InfoWindow } from "@react-google-maps/api";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import EditFields from "./EditFields";
+import EditHomepinFields from "./EditHomepinFields";
 import { connect } from "react-redux";
 import {
   infoSet,
   toggleSelected,
-  getUserPins,
-  toggleEdit,
-  deletePin,
-  toggleDelete,
-  toggleSavedPinInfoWindow,
+  getUserHomepin,
+  toggleHomepinEdit,
+  deleteHomepin,
+  toggleHomepinDelete,
+  toggleSavedHomepinInfoWindow,
 } from "../../../actions/actions";
-function SavedPinInfo(props) {
+function SavedHomepinInfo(props) {
   useEffect(() => {
     if (props.selected.placeId != undefined) {
       axios
@@ -36,50 +36,35 @@ function SavedPinInfo(props) {
       console.log(props.selected);
     }
   }, [props.selected]);
-  const categories = {
-    "vacation": "Vacation 🏖️",
 
-    "camping": "Camping ⛺",
-
-    "roadtrip": "Road Trip 🚗",
-
-    "daytrip": "Day Trip ☀️",
-
-    "backpack": "Backpacking 🥾",
-
-    "work": "Work 💼",
-  };
   return (
     <InfoWindow
       position={{ lat: props.selected.lat, lng: props.selected.lng }}
       onCloseClick={() => {
-        props.toggleSavedPinInfoWindow(false);
+        props.toggleSavedHomepinInfoWindow(false);
       }}
     >
       <div style={{ width: 250 }}>
-        {props.editToggleBool ? (
+        {props.editHomepinToggleBool ? (
           ""
         ) : (
           <div>
             <img src={props.selected.image_url} />
             <h2>{props.selected.title}</h2>
-            <h2>{props.selected.name ? `${props.selected.name}` : ""}</h2>
-            <h3>{categories[props.selected.category]}</h3>
             <h3>Address 📍</h3> <p>{props.selected.address}</p>
-            <h3>Date added 📅</h3> <p>{props.selected.date}</p>
             <h3>Description 📝</h3> <p>{props.selected.description}</p>
-            <h3>Visited</h3> <p>{props.selected.visited ? "✔️" : "❌"}</p>
           </div>
         )}
         <Grid container>
           <Grid item xs={6}>
             {" "}
-            {props.editToggleBool ? (
+            {props.editHomepinToggleBool ? (
               ""
             ) : (
               <Button
                 onClick={() => {
-                  props.toggleEdit(true);
+                  props.toggleHomepinEdit(true);
+                  console.log(props.editHomepinToggleBool)
                 }}
               >
                 Edit
@@ -88,15 +73,15 @@ function SavedPinInfo(props) {
           </Grid>
 
           <Grid item xs={6}>
-            {props.editToggleBool ? (
+            {props.editHomepinToggleBool ? (
               ""
             ) : (
               <Button
                 onClick={() => {
-                  props.deletePin(props.selected, props.userPins);
+                  props.deleteHomepin(localStorage.getItem('user_id'), props.homepin);
                   props.toggleSelected(null);
-                  props.toggleSavedPinInfoWindow(false);
-                  props.getUserPins(localStorage.getItem('user_id'));
+                  props.toggleSavedHomepinInfoWindow(false);
+                  props.getUserHomepin(localStorage.getItem('user_id'));
                 }}
               >
                 Delete
@@ -104,7 +89,7 @@ function SavedPinInfo(props) {
             )}
           </Grid>
         </Grid>
-        <EditFields />
+        <EditHomepinFields />
       </div>
     </InfoWindow>
   );
@@ -112,20 +97,20 @@ function SavedPinInfo(props) {
 const mapStateToProps = (state) => {
   return {
     info: state.info,
-    editToggleBool: state.editToggleBool,
-    deleteToggleBool: state.deleteToggleBool,
+    editHomepinToggleBool: state.editHomepinToggleBool,
+    deleteHomepinToggleBool: state.deleteHomepinToggleBool,
     markers: state.markers,
     selected: state.selected,
     loggedInUser: state.loggedInUser,
-    userPins: state.userPins,
+    homepin: state.homepin,
   };
 };
 export default connect(mapStateToProps, {
   infoSet,
   toggleSelected,
-  toggleEdit,
-  getUserPins,
-  deletePin,
-  toggleDelete,
-  toggleSavedPinInfoWindow,
-})(SavedPinInfo);
+  toggleHomepinEdit,
+  getUserHomepin,
+  deleteHomepin,
+  toggleHomepinDelete,
+  toggleSavedHomepinInfoWindow,
+})(SavedHomepinInfo);

@@ -17,7 +17,6 @@ function Login(props) {
   const [user, setUser] = useState({ username: "", password: "" });
   const handleChanges = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
-    console.log(user);
   };
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,7 +29,9 @@ function Login(props) {
   }, [loginSubmit]);
   useEffect(() => {
     setLoginSubmit(false);
+
     if (props.loggedInUser.user != undefined) {
+      localStorage.setItem("user_id", props.loggedInUser.user.id);
       props.history.push("/user");
     }
   }, [props.loggedInUser.user]);

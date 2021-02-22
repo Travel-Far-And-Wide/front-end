@@ -12,9 +12,13 @@ import {
   ComboboxOption,
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-export default function Search(props) {
+import { connect } from "react-redux";
+import {
+  toggleSelected,
+  toggleMarkers,
+} from "../../../actions/actions";
+function Search(props) {
   const {
     ready,
     value,
@@ -42,6 +46,11 @@ export default function Search(props) {
                 const results = await getGeocode({ address });
                 const { lat, lng } = await getLatLng(results[0]);
                 props.panTo({ lat, lng });
+                props.toggleMarkers({
+                  lat: lat,
+                  lng: lng,
+                  time: new Date(),
+                });
               } catch (err) {
                 console.log(err);
               }
@@ -70,3 +79,12 @@ export default function Search(props) {
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+
+  };
+};
+export default connect(mapStateToProps, {
+  toggleSelected,
+  toggleMarkers,
+})(Search);
