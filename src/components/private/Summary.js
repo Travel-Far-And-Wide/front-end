@@ -3,7 +3,7 @@ import Chart from "react-apexcharts";
 import CalculateDistance from "../reusable/CalculateDistance";
 import { connect } from "react-redux";
 import { getUserPins, getUserHomepin } from "../../actions/actions";
-import { Typography, TextField, MenuItem, Grid } from "@material-ui/core";;
+import { Typography, TextField, MenuItem, Grid } from "@material-ui/core";
 
 function Summary(props) {
   const [seriesDataType, setSeriesDataType] = useState("total#");
@@ -310,8 +310,10 @@ function Summary(props) {
           </Typography>
         </Grid>
         <Grid container justify="center">
-          <Typography variant="h5">when you went...</Typography>{" "}
-          <Typography style={{ color: "red" }} variant="h5">
+          <Typography variant="h5">when you went to... </Typography>{" "}
+        </Grid>
+        <Grid container justify="center">
+          <Typography style={{ color: "red" }} variant="h4">
             {furthest["title"]}
           </Typography>
         </Grid>

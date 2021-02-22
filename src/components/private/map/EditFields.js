@@ -12,7 +12,7 @@ import {
   toggleSelected,
   toggleSavedPinInfoWindow,
   unpinMarker,
-  getUserPins,
+
 } from "../../../actions/actions";
 
 function EditFields(props) {
@@ -151,7 +151,6 @@ function EditFields(props) {
                   props.toggleEdit(false);
                   props.toggleSelected(null);
                   props.toggleSavedPinInfoWindow(false);
-                  props.getUserPins(localStorage.getItem("user_id"));
                 }}
               >
                 Save Edits
@@ -190,5 +189,4 @@ export default connect(mapStateToProps, {
   toggleSelected,
   toggleSavedPinInfoWindow,
   unpinMarker,
-  getUserPins,
 })(EditFields);

@@ -8,37 +8,33 @@ import { connect } from "react-redux";
 import {
   infoSet,
   toggleSelected,
-  getUserHomepin,
   toggleHomepinEdit,
   deleteHomepin,
   toggleHomepinDelete,
   toggleSavedHomepinInfoWindow,
 } from "../../../actions/actions";
 function SavedHomepinInfo(props) {
-  useEffect(
-    (props) => {
-      if (props.selected.placeId !== undefined) {
-        axios
-          .post(
-            `https://limitless-escarpment-74357.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
-          )
-          .then((res) => {
-            console.log(res.data.result);
+  useEffect(() => {
+    if (props.selected.placeId !== undefined) {
+      axios
+        .post(
+          `https://limitless-escarpment-74357.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
+        )
+        .then((res) => {
+          console.log(res.data.result);
 
-            props.infoSet({
-              name: res.data.result.name,
-              address: res.data.result.formatted_address,
-              lat: res.data.result.geometry.location.lat,
-              lng: res.data.result.geometry.location.lng,
-            });
-          })
-          .catch((err) => console.log(err));
-      } else {
-        console.log(props.selected);
-      }
-    },
-    [props.selected]
-  );
+          props.infoSet({
+            name: res.data.result.name,
+            address: res.data.result.formatted_address,
+            lat: res.data.result.geometry.location.lat,
+            lng: res.data.result.geometry.location.lng,
+          });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      console.log(props.selected);
+    }
+  }, [props.selected]);
 
   return (
     <InfoWindow
@@ -55,11 +51,17 @@ function SavedHomepinInfo(props) {
             <img alt="" src={props.selected.image_url} />
             <h2>{props.selected.title}</h2>
             <h3>
-              Address <span role="img" aria-label="pin">📍</span>
+              Address{" "}
+              <span role="img" aria-label="pin">
+                📍
+              </span>
             </h3>{" "}
             <p>{props.selected.address}</p>
             <h3>
-              Description <span role="img" aria-label="paper">📝</span>
+              Description{" "}
+              <span role="img" aria-label="paper">
+                📝
+              </span>
             </h3>{" "}
             <p>{props.selected.description}</p>
           </div>
@@ -91,9 +93,9 @@ function SavedHomepinInfo(props) {
                     localStorage.getItem("user_id"),
                     props.homepin
                   );
+                  console.log("here")
                   props.toggleSelected(null);
                   props.toggleSavedHomepinInfoWindow(false);
-                  props.getUserHomepin(localStorage.getItem("user_id"));
                 }}
               >
                 Delete
@@ -121,7 +123,6 @@ export default connect(mapStateToProps, {
   infoSet,
   toggleSelected,
   toggleHomepinEdit,
-  getUserHomepin,
   deleteHomepin,
   toggleHomepinDelete,
   toggleSavedHomepinInfoWindow,

@@ -54,10 +54,11 @@ const initialState = {
   infoWindow: false,
   savedPinInfoWindow: false,
   savedHomepinInfoWindow: false,
+  fetch: false,
   markers: [],
   userPins: [],
   homepin: [],
-  newlyAddedPin: {},
+  newlyAddedPin: null,
   newlyAddedHomepin: {},
   info: {
     name: "",
@@ -157,16 +158,19 @@ export const Reducer = (state = initialState, action) => {
     case SAVE_PIN:
       return {
         ...state,
+        fetch: false,
       };
     case SAVE_PIN_SUCCESS:
       return {
         ...state,
         newlyAddedPin: action.payload,
+        fetch: true,
       };
     case SAVE_PIN_FAIL:
       return {
         ...state,
         errors: action.payload,
+        fetch: false,
       };
     case GET_USER_PINS:
       return {
@@ -176,6 +180,7 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         userPins: action.payload,
+        fetch: false,
       };
     case GET_USER_PINS_FAIL:
       return {
@@ -213,6 +218,7 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         userPins: action.payload,
+        fetch: true,
       };
     case DELETE_PIN_FAIL:
       return {
@@ -238,11 +244,13 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         newlyAddedHomepin: action.payload,
+        fetch: true,
       };
     case SAVE_HOMEPIN_FAIL:
       return {
         ...state,
         errors: action.payload,
+        fetch: false,
       };
     case GET_USER_HOMEPIN:
       return {
@@ -252,6 +260,7 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         homepin: action.payload,
+        fetch: false,
       };
     case GET_USER_HOMEPIN_FAIL:
       return {
@@ -270,6 +279,7 @@ export const Reducer = (state = initialState, action) => {
     case EDIT_HOMEPIN_SUCCESS:
       return {
         ...state,
+        fetch: true,
       };
     case EDIT_HOMEPIN_FAIL:
       return {
@@ -289,6 +299,7 @@ export const Reducer = (state = initialState, action) => {
       return {
         ...state,
         homepin: action.payload,
+        fetch: true,
       };
     case DELETE_HOMEPIN_FAIL:
       return {
