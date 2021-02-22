@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({}));
 function EditHomepinFields(props) {
   const classes = useStyles();
   const [editFields, setEditFields] = useState({
-    user_id: props.loggedInUser.user.id,
+    user_id: localStorage.getItem("user_id"),
     address: props.selected.address,
     lat: props.selected.lat,
     lng: props.selected.lng,
@@ -84,11 +84,14 @@ function EditHomepinFields(props) {
               {" "}
               <Button
                 onClick={() => {
-                  props.editHomepin(editFields, props.loggedInUser.user.id);
+                  props.editHomepin(
+                    editFields,
+                    localStorage.getItem("user_id")
+                  );
                   props.toggleHomepinEdit(false);
                   props.toggleSelected(null);
                   props.toggleSavedHomepinInfoWindow(false);
-                  props.getUserHomepin(props.loggedInUser.user.id);
+                  props.getUserHomepin(localStorage.getItem("user_id"));
                 }}
               >
                 Save Edits

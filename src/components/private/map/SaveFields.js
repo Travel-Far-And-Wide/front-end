@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({}));
 function SaveFields(props) {
   const classes = useStyles();
   const [saveFields, setSaveFields] = useState({
-    user_id: props.loggedInUser.user.id,
+    user_id: localStorage.getItem('user_id'),
     name: props.selected.placeId ? props.info.name : "",
     address: props.selected.placeId ? props.info.address : "",
     lat: props.selected.placeId ? props.info.lat : props.selected.lat,
@@ -157,7 +157,7 @@ function SaveFields(props) {
                   props.unpinMarker(clone);
                   props.toggleSelected(null);
                   props.toggleInfoWindow(false);
-                  props.getUserPins(props.loggedInUser.user.id)
+                  props.getUserPins(localStorage.getItem('user_id'))
                 }}
               >
                 Save to pins

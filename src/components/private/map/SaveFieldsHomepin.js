@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({}));
 function SaveFieldsHomepin(props) {
   const classes = useStyles();
   const [saveFields, setSaveFields] = useState({
-    user_id: props.loggedInUser.user.id,
+    user_id: localStorage.getItem('user_id'),
     address: props.selected.placeId ? props.info.address : "",
     lat: props.selected.placeId ? props.info.lat : props.selected.lat,
     lng: props.selected.placeId ? props.info.lng : props.selected.lng,
@@ -86,7 +86,7 @@ function SaveFieldsHomepin(props) {
               {" "}
               <Button
                 onClick={() => {
-                props.deleteHomepin(props.loggedInUser.user.id)
+                props.deleteHomepin(localStorage.getItem('user_id'))
                   const remove = props.markers.indexOf(props.selected);
                   const clone = props.markers;
                   clone.splice(remove, 1);
@@ -94,7 +94,7 @@ function SaveFieldsHomepin(props) {
                   props.toggleSelected(null);
                   props.toggleInfoWindow(false);
                   props.saveHomepin(saveFields);
-                  props.getUserHomepin(props.loggedInUser.user.id)
+                  props.getUserHomepin(localStorage.getItem('user_id'))
                 }}
               >
                 Save as Home

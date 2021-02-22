@@ -39,7 +39,7 @@ function Map(props) {
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries,
   });
-  const userID = localStorage.getItem('userID');
+  const userID = localStorage.getItem('user_id');
   const classes = useStyles();
   useEffect(() => {
     props.getUserPins(userID);

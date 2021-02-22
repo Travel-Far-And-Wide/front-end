@@ -19,6 +19,16 @@ function Summary(props) {
   const classes = useStyles();
   const [seriesDataType, setSeriesDataType] = useState("total#");
   const [chartType, setChartType] = useState("bar");
+  const [totalDistance, setTotalDistance] = useState(0);
+  const [mostfreq, setMostfreq] = useState(0);
+  const [maxDist, setMaxDist] = useState(0);
+  const [furthest, setFurthest] = useState({
+    pin_id: "",
+    user_id: "",
+    name: "",
+    title: "",
+    address: "",
+  });
   const [seriesData, setSeriesData] = useState([]);
   const backendCategories = [
     "vacation",
@@ -27,6 +37,14 @@ function Summary(props) {
     "daytrip",
     "backpack",
     "work",
+  ];
+  const categoryLabels = [
+    "Vacation 🏖️",
+    "Camping ⛺",
+    "Road Trip 🚗",
+    "Day Trip ☀️",
+    "Backpacking 🥾",
+    "Work 💼",
   ];
   const chartCategories = [
     {
@@ -72,14 +90,7 @@ function Summary(props) {
         text: chartTitle[seriesDataType],
       },
       xaxis: {
-        categories: [
-          "Vacation 🏖️",
-          "Camping ⛺",
-          "Road Trip 🚗",
-          "Day Trip ☀️",
-          "Backpacking 🥾",
-          "Work 💼",
-        ],
+        categories: categoryLabels,
       },
     },
     series: [
@@ -157,15 +168,34 @@ function Summary(props) {
     }
   };
   useEffect(() => {
-    props.getUserPins(localStorage.getItem("userID"));
-    props.getUserHomepin(localStorage.getItem("userID"));
+    props.getUserPins(localStorage.getItem("user_id"));
+    props.getUserHomepin(localStorage.getItem("user_id"));
   }, []);
   useEffect(() => {
     const visited = props.userPins.filter((pin) => pin.visited == true);
-    // const totalDist = visited.reduce(function (accumulator, pin) {
-    //   const distHome = CalculateDistance(props.homepin[0], pin);
-    //   return accumulator + Math.floor(distHome);
-    // }, 0);
+    let totalDist = 0;
+    props.userPins && props.homepin[0]
+      ? (totalDist = visited.reduce(function (accumulator, pin) {
+          const distHome = CalculateDistance(props.homepin[0], pin);
+          return accumulator + Math.floor(distHome);
+        }, 0))
+      : (totalDist = 0);
+    setTotalDistance(totalDist);
+
+    let currMax = 0;
+    let maxPin = {};
+    props.userPins && props.homepin[0]
+      ? visited.forEach((pin) => {
+          const distHome = CalculateDistance(props.homepin[0], pin);
+          if (distHome > currMax) {
+            maxPin = pin;
+          }
+          currMax = Math.max(currMax, distHome);
+        })
+      : (currMax = 0);
+
+    setMaxDist(Math.floor(currMax));
+    setFurthest(maxPin);
     const countArray = [];
     if (seriesDataType == "total#") {
       backendCategories.forEach((category) => {
@@ -176,6 +206,8 @@ function Summary(props) {
           }
         }
         countArray.push(count);
+        let i = countArray.indexOf(Math.max(...countArray));
+        setMostfreq(i);
       });
       setSeriesData(countArray);
     } else if (seriesDataType == "distanceTrip") {
@@ -277,6 +309,39 @@ function Summary(props) {
               </MenuItem>
             ))}
           </TextField>
+        </Grid>
+        <Grid container justify="center">
+          <Typography variant="h5">
+            The furthest you've traveled was...
+          </Typography>
+        </Grid>
+        <Grid container justify="center">
+          <Typography style={{ color: "red" }} variant="h4">
+            {maxDist} miles
+          </Typography>
+        </Grid>
+        <Grid container justify="center">
+          <Typography variant="h5">when you went...</Typography>{" "}
+          <Typography style={{ color: "red" }} variant="h5">
+            {furthest["title"]}
+          </Typography>
+        </Grid>
+        <Grid container justify="center">
+          <Typography variant="h5">You've traveled a total of...</Typography>
+        </Grid>
+        <Grid container justify="center">
+          <Typography style={{ color: "red" }} variant="h4">
+            {totalDistance} miles
+          </Typography>
+        </Grid>
+
+        <Grid container justify="center">
+          <Typography variant="h5">You most often travel for...</Typography>
+        </Grid>
+        <Grid container justify="center">
+          <Typography style={{ color: "red" }} variant="h4">
+            {categoryLabels[mostfreq]}
+          </Typography>
         </Grid>
       </Grid>
     </React.Fragment>
