@@ -105,12 +105,11 @@ export default function NavBar(props) {
         </Grid>
         <Grid justify="center" container style={{ margin: "50px 0 0 20px" }}>
           <Typography variant="h4">Integrating data and travel</Typography>{" "}
-
         </Grid>
         <Grid justify="center" container style={{ margin: "50px 0 0 20px" }}>
           <Typography style={{ margin: "0 0 0 20px" }} variant="h5">
-            You can now keep track of the little things through our "Year in
-            Summary" feature - giving you a new perspective on how you travel.
+            You can now keep track of the little things through our "Insights"
+            feature - giving you a new perspective on how you travel.
           </Typography>
         </Grid>
         <Grid
@@ -118,7 +117,7 @@ export default function NavBar(props) {
           justify="center"
           style={{ marginTop: 25, marginBottom: 50 }}
         >
-          <img style={{ height: 575, width: 900 }} src={Charts} />
+          <img alt="" style={{ height: 575, width: 900 }} src={Charts} />
         </Grid>
       </div>
     </React.Fragment>

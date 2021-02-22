@@ -1,5 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import TextField from "@material-ui/core/TextField";
@@ -10,9 +9,7 @@ import PasswordInput from "../PasswordInput";
 import { loginUser } from "../../actions/actions";
 import { connect } from "react-redux";
 
-const useStyles = makeStyles((theme) => ({}));
 function Login(props) {
-  const classes = useStyles();
   const [loginSubmit, setLoginSubmit] = useState(false);
   const [user, setUser] = useState({ username: "", password: "" });
   const handleChanges = (e) => {
@@ -23,14 +20,14 @@ function Login(props) {
     setLoginSubmit(true);
   }
   useEffect(() => {
-    if (loginSubmit == true) {
-      props.loginUser(user);
+    if (loginSubmit === true) {
+      props.loginUser(user)
     }
   }, [loginSubmit]);
-  useEffect(() => {
+  useEffect((props) => {
     setLoginSubmit(false);
 
-    if (props.loggedInUser.user != undefined) {
+    if (props.loggedInUser.user !== undefined) {
       localStorage.setItem("user_id", props.loggedInUser.user.id);
       props.history.push("/user");
     }

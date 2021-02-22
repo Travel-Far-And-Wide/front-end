@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 function PrivateAppBar(props) {
   const classes = useStyles();
-  useEffect(() => {
+  useEffect((props) => {
     window.localStorage.getItem("user_id")
       ? props.checkSession(true)
       : props.checkSession(false);

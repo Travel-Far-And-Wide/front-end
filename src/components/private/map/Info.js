@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { InfoWindow } from "@react-google-maps/api";
 import Grid from "@material-ui/core/Grid";
@@ -15,8 +15,8 @@ import {
   toggleInfoWindow,
 } from "../../../actions/actions";
 function Info(props) {
-  useEffect(() => {
-    if (props.selected.placeId != undefined) {
+  useEffect((props) => {
+    if (props.selected.placeId !== undefined) {
       axios
         .post(
           `https://limitless-escarpment-74357.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`

@@ -1,9 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "./reusable/AppBar"
 
-const useStyles = makeStyles((theme) => ({
-}));
 export default function NavBar(props) {
   const dashboardData = [
     {
@@ -31,7 +28,6 @@ export default function NavBar(props) {
       buttonFunction: ""
     },
   ];
-  const classes = useStyles();
   return (
     <React.Fragment>
       <AppBar  dashboardData={dashboardData}></AppBar>

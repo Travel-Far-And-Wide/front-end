@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { InfoWindow } from "@react-google-maps/api";
 import Grid from "@material-ui/core/Grid";
@@ -15,27 +15,30 @@ import {
   toggleSavedHomepinInfoWindow,
 } from "../../../actions/actions";
 function SavedHomepinInfo(props) {
-  useEffect(() => {
-    if (props.selected.placeId != undefined) {
-      axios
-        .post(
-          `https://limitless-escarpment-74357.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
-        )
-        .then((res) => {
-          console.log(res.data.result);
+  useEffect(
+    (props) => {
+      if (props.selected.placeId !== undefined) {
+        axios
+          .post(
+            `https://limitless-escarpment-74357.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
+          )
+          .then((res) => {
+            console.log(res.data.result);
 
-          props.infoSet({
-            name: res.data.result.name,
-            address: res.data.result.formatted_address,
-            lat: res.data.result.geometry.location.lat,
-            lng: res.data.result.geometry.location.lng,
-          });
-        })
-        .catch((err) => console.log(err));
-    } else {
-      console.log(props.selected);
-    }
-  }, [props.selected]);
+            props.infoSet({
+              name: res.data.result.name,
+              address: res.data.result.formatted_address,
+              lat: res.data.result.geometry.location.lat,
+              lng: res.data.result.geometry.location.lng,
+            });
+          })
+          .catch((err) => console.log(err));
+      } else {
+        console.log(props.selected);
+      }
+    },
+    [props.selected]
+  );
 
   return (
     <InfoWindow
@@ -49,10 +52,16 @@ function SavedHomepinInfo(props) {
           ""
         ) : (
           <div>
-            <img src={props.selected.image_url} />
+            <img alt="" src={props.selected.image_url} />
             <h2>{props.selected.title}</h2>
-            <h3>Address 📍</h3> <p>{props.selected.address}</p>
-            <h3>Description 📝</h3> <p>{props.selected.description}</p>
+            <h3>
+              Address <span role="img" aria-label="pin">📍</span>
+            </h3>{" "}
+            <p>{props.selected.address}</p>
+            <h3>
+              Description <span role="img" aria-label="paper">📝</span>
+            </h3>{" "}
+            <p>{props.selected.description}</p>
           </div>
         )}
         <Grid container>
@@ -64,7 +73,7 @@ function SavedHomepinInfo(props) {
               <Button
                 onClick={() => {
                   props.toggleHomepinEdit(true);
-                  console.log(props.editHomepinToggleBool)
+                  console.log(props.editHomepinToggleBool);
                 }}
               >
                 Edit
@@ -78,10 +87,13 @@ function SavedHomepinInfo(props) {
             ) : (
               <Button
                 onClick={() => {
-                  props.deleteHomepin(localStorage.getItem('user_id'), props.homepin);
+                  props.deleteHomepin(
+                    localStorage.getItem("user_id"),
+                    props.homepin
+                  );
                   props.toggleSelected(null);
                   props.toggleSavedHomepinInfoWindow(false);
-                  props.getUserHomepin(localStorage.getItem('user_id'));
+                  props.getUserHomepin(localStorage.getItem("user_id"));
                 }}
               >
                 Delete

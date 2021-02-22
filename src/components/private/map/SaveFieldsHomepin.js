@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -14,9 +13,7 @@ import {
   deleteHomepin
 } from "../../../actions/actions";
 
-const useStyles = makeStyles((theme) => ({}));
 function SaveFieldsHomepin(props) {
-  const classes = useStyles();
   const [saveFields, setSaveFields] = useState({
     user_id: localStorage.getItem('user_id'),
     address: props.selected.placeId ? props.info.address : "",
