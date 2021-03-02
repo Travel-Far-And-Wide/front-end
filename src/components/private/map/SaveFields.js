@@ -63,7 +63,7 @@ function SaveFields(props) {
   };
   return (
     <div>
-      {props.saveToggleBool ? (
+
         <Grid container style={{ marginTop: 20, marginBottom: 20 }}>
           <TextField
             color="secondary"
@@ -136,10 +136,8 @@ function SaveFields(props) {
             label="Visited"
           />
         </Grid>
-      ) : (
-        ""
-      )}
-      {props.saveToggleBool ? (
+
+
         <div>
           <Grid container>
             <Grid item xs={6}>
@@ -171,9 +169,7 @@ function SaveFields(props) {
             </Grid>
           </Grid>
         </div>
-      ) : (
-        ""
-      )}
+
     </div>
   );
 }

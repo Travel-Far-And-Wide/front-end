@@ -22,8 +22,6 @@ function Info(props) {
           `https://limitless-escarpment-74357.herokuapp.com/https://maps.googleapis.com/maps/api/place/details/json?key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}&placeid=${props.selected.placeId}`
         )
         .then((res) => {
-          console.log(res.data.result);
-
           props.infoSet({
             name: res.data.result.name,
             address: res.data.result.formatted_address,
@@ -109,16 +107,24 @@ function Info(props) {
             )}
           </Grid>
         </Grid>
-        <SaveFields
-          placeId={props.selected.placeId}
-          lat={props.selected.lat}
-          lng={props.selected.lng}
-        />
-        <SaveFieldsHomepin
-          placeId={props.selected.placeId}
-          lat={props.selected.lat}
-          lng={props.selected.lng}
-        />
+        {props.saveToggleBool ? (
+          <SaveFields
+            placeId={props.selected.placeId}
+            lat={props.selected.lat}
+            lng={props.selected.lng}
+          />
+        ) : (
+          ""
+        )}
+        {props.saveHomepinToggleBool ? (
+          <SaveFieldsHomepin
+            placeId={props.selected.placeId}
+            lat={props.selected.lat}
+            lng={props.selected.lng}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </InfoWindow>
   );

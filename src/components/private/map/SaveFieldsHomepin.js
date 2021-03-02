@@ -24,92 +24,83 @@ function SaveFieldsHomepin(props) {
   });
   const handleChanges = (e) => {
     setSaveFields({ ...saveFields, [e.target.name]: e.target.value });
-
-    console.log(saveFields);
   };
   return (
     <div>
-      {props.saveHomepinToggleBool ? (
-        <Grid container style={{ marginTop: 20, marginBottom: 20 }}>
-          <TextField
-            color="secondary"
-            fullWidth
-            size="small"
-            name="title"
-            value={saveFields.title}
-            variant="filled"
-            label="Title"
-            onChange={handleChanges}
-          />
-          <TextField
-            color="secondary"
-            fullWidth
-            size="small"
-            name="address"
-            value={saveFields.address}
-            variant="filled"
-            label="Address"
-            onChange={handleChanges}
-          />
-          <TextField
-            color="secondary"
-            fullWidth
-            size="small"
-            name="description"
-            value={saveFields.description}
-            variant="filled"
-            label="Description"
-            onChange={handleChanges}
-          />
-          <TextField
-            color="secondary"
-            fullWidth
-            size="small"
-            name="image_url"
-            value={saveFields.image_url}
-            variant="filled"
-            label="Image URL"
-            onChange={handleChanges}
-          />
-        </Grid>
-      ) : (
-        ""
-      )}
-      {props.saveHomepinToggleBool ? (
-        <div>
-          <Grid container>
-            <Grid item xs={6}>
-              {" "}
-              <Button
-                onClick={() => {
-                  props.deleteHomepin(localStorage.getItem("user_id"));
-                  const remove = props.markers.indexOf(props.selected);
-                  const clone = props.markers;
-                  clone.splice(remove, 1);
-                  props.unpinMarker(clone);
-                  props.toggleSelected(null);
-                  props.toggleInfoWindow(false);
-                  props.saveHomepin(saveFields);
-                }}
-              >
-                Save as Home
-              </Button>
-            </Grid>
-            <Grid item xs={6}>
-              {" "}
-              <Button
-                onClick={() => {
-                  props.toggleSaveHomepin(false);
-                }}
-              >
-                Cancel
-              </Button>
-            </Grid>
+      <Grid container style={{ marginTop: 20, marginBottom: 20 }}>
+        <TextField
+          color="secondary"
+          fullWidth
+          size="small"
+          name="title"
+          value={saveFields.title}
+          variant="filled"
+          label="Title"
+          onChange={handleChanges}
+        />
+        <TextField
+          color="secondary"
+          fullWidth
+          size="small"
+          name="address"
+          value={saveFields.address}
+          variant="filled"
+          label="Address"
+          onChange={handleChanges}
+        />
+        <TextField
+          color="secondary"
+          fullWidth
+          size="small"
+          name="description"
+          value={saveFields.description}
+          variant="filled"
+          label="Description"
+          onChange={handleChanges}
+        />
+        <TextField
+          color="secondary"
+          fullWidth
+          size="small"
+          name="image_url"
+          value={saveFields.image_url}
+          variant="filled"
+          label="Image URL"
+          onChange={handleChanges}
+        />
+      </Grid>
+
+      <div>
+        <Grid container>
+          <Grid item xs={6}>
+            {" "}
+            <Button
+              onClick={() => {
+                props.deleteHomepin(localStorage.getItem("user_id"));
+                const remove = props.markers.indexOf(props.selected);
+                const clone = props.markers;
+                clone.splice(remove, 1);
+                props.unpinMarker(clone);
+                props.toggleSelected(null);
+                props.toggleInfoWindow(false);
+                props.saveHomepin(saveFields);
+              }}
+            >
+              Save as Home
+            </Button>
           </Grid>
-        </div>
-      ) : (
-        ""
-      )}
+          <Grid item xs={6}>
+            {" "}
+            <Button
+              onClick={() => {
+                props.toggleSaveHomepin(false);
+              }}
+            >
+              Cancel
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
     </div>
   );
 }

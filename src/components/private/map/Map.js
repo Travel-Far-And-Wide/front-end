@@ -85,9 +85,9 @@ function Map(props) {
               anchor: new window.google.maps.Point(20, 30),
             }}
             onClick={() => {
+              props.toggleSelected(marker);
               props.toggleSave(false);
               props.toggleSaveHomepin(false);
-              props.toggleSelected(marker);
               props.toggleSavedHomepinInfoWindow(false);
               props.toggleSavedPinInfoWindow(false);
               props.toggleInfoWindow(true);
